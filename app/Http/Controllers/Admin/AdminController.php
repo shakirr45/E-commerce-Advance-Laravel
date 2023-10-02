@@ -36,4 +36,6 @@ class AdminController extends Controller
             //with message tstor--->
             return redirect()->route('admin.login')->with('success' , 'Success to logout');
         }
+
+
 }

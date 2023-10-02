@@ -25,7 +25,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Categories List</h3>
+                <h3 class="card-title">All Sub-Categories List Here</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -33,8 +33,9 @@
                   <thead>
                   <tr>
                     <th>SL</th>
+                    <th>Sub Category Name</th>
+                    <th>Sub Category Slug</th>
                     <th>Category Name</th>
-                    <th>Category Slug</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -42,12 +43,19 @@
                     @foreach($data as $key=>$row)
                   <tr>
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $row->category_name }}</td>
-                    <td>{{ $row->category_slug }}</td>
+                    <td>{{ $row->subcategory_name }}</td>
+                    <td>{{ $row->subcat_slug }}</td>
+                    <!-- <td>{{ $row->category_name }}</td> -->
+
+                    <!-- //for Eloquent ORM join for -->
+
+                    <td>{{ $row->category->category_name }}</td>
+
+
                     <td>
                         <a href="" class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#editModal" data-id="{{ $row->id }}"><i class="fas fa-edit"></i></a>
 
-                        <a href="{{ route('category.delete',$row->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                        <a href="{{ route('subcategory.delete',$row->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
 
                     </td>
 
@@ -66,7 +74,7 @@
  </div>
  
 
-    <!-- Modal -->
+    <!-- category insert Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -77,13 +85,26 @@
         </button>
       </div>
 
-      <form action="{{ route('category.store') }}" method="POST"> 
+      <form action="{{ route('subcategory.store') }}" method="POST"> 
         @csrf
     <div class="modal-body">
-  <div class="form-group">
+
+    <div class="form-group">
     <label for="category_name">Category Name</label>
-    <input type="text" class="form-control" id="category_name" name="category_name" required="">
-    <small id="emailHelp" class="form-text text-muted">This is Your Main Category</small>
+
+    <select class="form-control" name="category_id" required="">
+
+    @foreach($category as $row)
+        <option value="{{ $row->id }}">{{ $row->category_name }}</option>
+        @endforeach
+    </select>
+  </div>
+
+
+  <div class="form-group">
+    <label for="subcategory_name">SubCategory Name</label>
+    <input type="text" class="form-control" name="subcategory_name" required="">
+    <small id="emailHelp" class="form-text text-muted">This is Your Sub Category</small>
   </div>
 
       </div>
@@ -103,31 +124,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="{{ route('category.update') }}" method="POST"> 
-        @csrf
-    <div class="modal-body">
-  <div class="form-group">
-    <label for="category_name">Category Name</label>
-    <input type="text" class="form-control" id="e_category_name" name="category_name" required="">
-
-    <!-- //need that----> 
-    <input type="hidden" class="form-control" id="e_category_id" name="id">
-
-    <small id="emailHelp" class="form-text text-muted">This is Your Main Category</small>
-  </div>
+      <div id="modal_body">
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-      </form>
     </div>
   </div>
 </div>
@@ -140,14 +145,13 @@
 <script>
 
   $('body').on('click','.edit', function(){
-    let cat_id = $(this).data('id');
+    let subcat_id = $(this).data('id');
     // alert(cat_id);
 
-    $.get("category/edit/" + cat_id, function(data){
+    $.get("subcategory/edit/" + subcat_id, function(data){
 
-      // console.log(data);
-      $('#e_category_name').val(data.category_name);
-      $('#e_category_id').val(data.id);
+        $("#modal_body").html(data);
+
 
     });
   });
