@@ -51,9 +51,9 @@
 @include('sweetalert::alert');
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  <!-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+  </div> -->
 
   <!-- Navbar -->
   @include('layouts.admin_partial.navbar')
@@ -168,7 +168,7 @@ toastr.options = {
 
 
 
-
+<!-- //for data table ====> -->
 <script>
 
   $(function () {
