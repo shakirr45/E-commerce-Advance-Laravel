@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">+ Add New</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">+ Add New</button>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -60,44 +60,52 @@
  
 
     <!-- category insert Modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Child Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form action="{{ route('subcategory.store') }}" method="POST"> 
+      <form action="{{ route('childcategory.store') }}" method="POST" id="add-form"> 
         @csrf
     <div class="modal-body">
 
     <div class="form-group">
-    <label for="category_name">Category Name</label>
+    <label for="category_name">Category/Subcategory Name</label>
 
-    <select class="form-control" name="category_id" required="">
-
+    <select class="form-control" name="subcategory_id" required="">
 
     <!--  //for yajra ====> --remove foreach and btn> -->
+    @foreach($category as $row)
+    @php
+    $subcat=DB::table('subcategories')->where('category_id',$row->id)->get();
+    @endphp 
+    <option  disabled="" style="color:blue;" value="">{{ $row->category_name }}</option>
 
+        @foreach($subcat as $row)
 
+        <option value="{{ $row->id }}"> --- {{ $row->subcategory_name }}</option>3
+        @endforeach
+
+        @endforeach
 
     </select>
   </div>
 
 
   <div class="form-group">
-    <label for="subcategory_name">SubCategory Name</label>
-    <input type="text" class="form-control" name="subcategory_name" required="">
-    <small id="emailHelp" class="form-text text-muted">This is Your Sub Category</small>
+    <label for="childcategory_name">Child Category Name</label>
+    <input type="text" class="form-control" name="childcategory_name" required="">
+    <small id="emailHelp" class="form-text text-muted">This is Your Child Category</small>
   </div>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary"> <span class="d-none">Loading........</span> Submit</button>
       </div>
       </form>
     </div>
@@ -111,7 +119,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit SubCategory</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Child Category</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -131,7 +139,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
 
 <script>
 
@@ -152,6 +160,20 @@
     });
 
  });
+
+
+ // For Edit child category ====>
+ $('body').on('click','.edit', function(){
+    let id = $(this).data('id');
+    // alert(cat_id);
+
+    $.get("childcategory/edit/" + id, function(data){
+
+        $("#modal_body").html(data);
+        
+
+    });
+  });
   
 </script>
     @endsection

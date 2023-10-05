@@ -151,7 +151,7 @@
     $.get("subcategory/edit/" + subcat_id, function(data){
 
         $("#modal_body").html(data);
-
+        
 
     });
   });

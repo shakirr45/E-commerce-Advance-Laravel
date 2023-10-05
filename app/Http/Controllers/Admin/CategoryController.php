@@ -46,7 +46,7 @@ class CategoryController extends Controller
             // $data['category_slug']=Str::of($request->category_name)->slug('-');
             // // dd($data);
             // DB::table('categories')->insert($data);
-
+            
 
             // Eloquent ORM ------>
             Categories::insert([
