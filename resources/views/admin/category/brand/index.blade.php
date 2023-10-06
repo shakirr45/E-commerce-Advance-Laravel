@@ -162,6 +162,20 @@
  });
 
 
+  // For Edit Brand category ====>
+  $('body').on('click','.edit', function(){
+    let id = $(this).data('id');
+    // alert(cat_id);
+
+    $.get("brand/edit/" + id, function(data){
+
+        $("#modal_body").html(data);
+        
+
+    });
+  });
+
+
   
 </script>
 

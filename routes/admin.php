@@ -25,6 +25,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
     Route::get('/admin/home', 'AdminController@admin')->name('admin.home');
     Route::get('/admin/logout', 'AdminController@logout')->name('admin.logout');
 
+    // For Change pass as admin =====>
+    Route::get('/admin/password/change', 'AdminController@PasswordChange')->name('admin.password.change');
+    Route::post('/admin/password/update', 'AdminController@PasswordUpdate')->name('admin.password.update');
+
+    
+
+
+    
+
     // Category Route-----.
     Route::group(['prefix' => 'category'],function(){
         Route::get('/', 'CategoryController@index')->name('category.index');
@@ -56,9 +65,9 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
         Route::group(['prefix' => 'brand'],function(){
             Route::get('/', 'Brandcontroller@index')->name('brand.index');
             Route::post('/store', 'Brandcontroller@store')->name('brand.store');
-            // Route::get('/delete/{id}', 'Brandcontroller@destroy')->name('brand.delete');
-            // Route::get('/edit/{id}', 'Brandcontroller@edit');
-            // Route::post('/update', 'Brandcontroller@update')->name('brand.update');
+            Route::get('/delete/{id}', 'Brandcontroller@destroy')->name('brand.delete');
+            Route::get('/edit/{id}', 'Brandcontroller@edit');
+            Route::post('/update', 'Brandcontroller@update')->name('brand.update');
         });
 
 });
