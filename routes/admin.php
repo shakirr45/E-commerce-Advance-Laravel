@@ -70,6 +70,23 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'Brandcontroller@update')->name('brand.update');
         });
 
+        // Setting  Route-----.
+        Route::group(['prefix' => 'setting'],function(){
+
+        // SEO Setting-----.
+        Route::group(['prefix' => 'seo'],function(){
+            Route::get('/', 'SettingController@smtp')->name('seo.setting');
+            // Route::post('/update', 'SettingController@seoUpdate')->name('seo.setting.update');
+        });
+
+        // smtp Setting-----.
+        Route::group(['prefix' => 'smtp'],function(){
+            Route::get('/', 'SettingController@seo')->name('smtp.setting');
+            Route::post('/update/{id}', 'SettingController@smtpUpdate')->name('smtp.setting.update');
+        });
+
+        });
+
 });
 
 
