@@ -85,7 +85,20 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update/{id}', 'SettingController@smtpUpdate')->name('smtp.setting.update');
         });
 
+        // page Setting-----.
+        Route::group(['prefix' => 'page'],function(){
+            Route::get('/', 'PageController@index')->name('page.index');
+            Route::get('/create/page', 'PageController@create')->name('create.page');
+            Route::post('/store', 'PageController@store')->name('page.store');
+            Route::get('/delete/{id}', 'PageController@delete')->name('page.delete');
+            Route::get('/edit/{id}', 'PageController@edit')->name('page.edit');
+            Route::post('/update/{id}', 'PageController@update')->name('page.update');
+            
         });
+
+        });
+
+
 
 });
 
