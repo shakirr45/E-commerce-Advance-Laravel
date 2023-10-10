@@ -70,6 +70,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'Brandcontroller@update')->name('brand.update');
         });
 
+        // coupon Route-----.
+        Route::group(['prefix' => 'coupon'],function(){
+            Route::get('/', 'CouponController@index')->name('coupon.index');
+            Route::post('/store', 'CouponController@store')->name('coupon.store');
+            Route::Delete('/delete/{id}', 'CouponController@destroy')->name('coupon.delete');
+            // Route::get('/edit/{id}', 'CouponController@edit');
+            // Route::post('/update', 'CouponController@update')->name('coupon.update');
+        });
+
         // Warehouse Route-----.
         Route::group(['prefix' => 'warehouse'],function(){
             Route::get('/', 'WarehouseController@index')->name('warehouse.index');
