@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- // for ajax ===> -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  
   <title>AdminLTE 3 | Dashboard 2</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -200,6 +203,15 @@ toastr.options = {
       "responsive": true,
     });
   });
+</script>
+
+
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 </script>
 </body>
 </html>

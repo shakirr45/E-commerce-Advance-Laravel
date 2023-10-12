@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CouponController;
+
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
@@ -70,13 +73,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'Brandcontroller@update')->name('brand.update');
         });
 
-        // coupon Route-----.
+        // coupon Route--- with ajax--.
         Route::group(['prefix' => 'coupon'],function(){
             Route::get('/', 'CouponController@index')->name('coupon.index');
             Route::post('/store', 'CouponController@store')->name('coupon.store');
-            Route::Delete('/delete/{id}', 'CouponController@destroy')->name('coupon.delete');
-            // Route::get('/edit/{id}', 'CouponController@edit');
-            // Route::post('/update', 'CouponController@update')->name('coupon.update');
+            Route::delete('/delete', 'CouponController@destroy')->name('delete.coupon');
+            Route::post('/update', 'CouponController@update')->name('coupon.update');
         });
 
         // Warehouse Route-----.
@@ -122,11 +124,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
 
 
 
+
         });
 
         
 
 });
+
+
+
 
 
 
