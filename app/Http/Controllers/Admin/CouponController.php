@@ -26,8 +26,7 @@ class CouponController extends Controller
 
         
         if ($request->ajax()) {
-            $data = DB::table('coupons')->get();
-    
+         $data = DB::table('coupons')->get();
         // yajra data tables pass ====> 
         return DataTables::of($data)
         ->addIndexColumn()

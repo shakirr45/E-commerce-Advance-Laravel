@@ -123,6 +123,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
         });
 
 
+        // pickuppoint -----.with ajax--.
+        Route::group(['prefix' => 'pickuppoint'],function(){
+            Route::get('/', 'pickupController@index')->name('pickuppoint.index');
+            Route::post('/store', 'pickupController@store')->name('pickuppoint.store');
+            Route::post('/update', 'pickupController@update')->name('pickuppoint.update');
+            Route::delete('/delete', 'pickupController@delete')->name('pickuppoint.delete');
+            
+        });
+
+
 
 
         });
