@@ -54,7 +54,52 @@
                   </div>
 
 
+
+
                   <div class="row">
+                    
+                  <div class="form-group col">
+                    <label>Disabled Result</label>
+                    <select class="form-control select2">
+                        <option selected="selected">1</option>
+                        <!-- <option>1</option> -->
+                    </select>
+                    </div>
+                    <div class="form-group col">
+                    <label>Disabled Result</label>
+                    <select class="form-control select2">
+                        <option selected="selected">1</option>
+                        <!-- <option>1</option> -->
+                    </select>
+                    </div>
+  
+                    </div>
+
+
+
+
+
+                    <div class="row">
+                    
+                    <div class="form-group col">
+                      <label>Disabled Result</label>
+                      <select class="form-control select2">
+                          <option selected="selected">1</option>
+                          <!-- <option>1</option> -->
+                      </select>
+                      </div>
+                  <div class="form-group col">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+    
+                     </div>
+
+
+
+
+
+                     <div class="row">
                     
                     <div class="form-group col">
                       <label for="exampleInputEmail1">Email address</label>
@@ -64,26 +109,61 @@
                       <label for="exampleInputPassword1">Password</label>
                       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     </div>
-
                     <div class="form-group col">
                       <label for="exampleInputPassword1">Password</label>
                       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
                     </div>
+  
+                    </div>
 
 
 
+
+                    <div class="row">
+                    
                     <div class="form-group col">
-                    <label>Disabled Result</label>
-                    <select class="form-control select2">
-                        <option selected="selected">1</option>
-                        <!-- <option>1</option> -->
-                    </select>
+                      <label>Disabled Result</label>
+                      <select class="form-control select2">
+                          <option selected="selected">1</option>
+                          <!-- <option>1</option> -->
+                      </select>
+                      </div>
+                  <div class="form-group col">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+    
+                     </div>
+
+
+                     
+                    <div class="row">
+                    
+                    <div class="form-group col-2">
+                      <label>sfas Result</label>
+                      <select class="form-control select2">
+                          <option selected="selected">1</option>
+                          <!-- <option>1</option> -->
+                      </select>
+                      </div>
+                  <div class="form-group col-2">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+    
+                     </div>
+
+
+                     
+
+
+                    <!-- // Use summer note ita come from head tag and scripthen into class add id as summernote its come from script  -->
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Page Description</label>
+                    <textarea name=""  class="form-control textarea" id="summernote" name="page_description" rows="10"></textarea>
+                    <small>This Data will Show on your Wbsite</small>
                     </div>
 
-
-
-          
-                    </div>
 
 
 
@@ -117,19 +197,70 @@
           <!-- right column -->
           <div class="col-md-4">
             <!-- Form Element sizes -->
-            <div class="card card-success">
+            <div class="card card-dark">
               <div class="card-header">
                 <h3 class="card-title">Different Height</h3>
               </div>
               <div class="card-body">
-                <input class="form-control form-control-lg" type="text" placeholder=".form-control-lg">
-                <br>
-                <input class="form-control" type="text" placeholder="Default input">
-                <br>
-                <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm">
+              <label class="form-label" for="customFile">Default file input example</label>
+                <input type="file" class="form-control" id="customFile" />
               </div>
               <!-- /.card-body -->
+
+              <!-- <div class="card-header">
+                    <h3 class="card-title">Bootstrap sfas</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch>
+                </div> -->
+              
             </div>
+
+            <div class="card card-dark">
+              <div class="card-header">
+                <h3 class="card-title">Different Height</h3>
+              </div>
+              <div class="card-body">
+              <label class="form-label" for="customFile">Default file input example</label>
+                <input type="file" class="form-control" id="customFile" />
+              </div>
+
+
+
+            <!-- // Bootstrap btn use with tag and script code also -->
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Bootstrap Switch</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                </div>
+                </div>
+
+
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Bootstrap Switch</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                </div>
+                </div>
+
+
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Bootstrap Switch</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
+                </div>
+                </div>
+
+
+
+
+
             <!-- /.card -->
             </div>
                 <div class="card-footer">
@@ -146,6 +277,14 @@
     </section>
     <!-- /.content -->
   </div>
+
+
+
+
+
+
+
+
 
 
 

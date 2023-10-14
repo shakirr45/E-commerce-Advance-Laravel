@@ -30,6 +30,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
+
 <!-- For DataTables -->
 <link rel="stylesheet" href="{{ asset('public/backend') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="{{ asset('public/backend') }}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -172,6 +173,20 @@ toastr.options = {
 
 <!-- // For Summernote -->
 <script src="{{ asset('public/backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
+
+
+<!-- Bootstrap Switch -->
+<script src="{{ asset('public/backend') }}/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<!-- Bootstrap Switch -->
+<script>
+      $("input[data-bootstrap-switch]").each(function(){
+      $(this).bootstrapSwitch('state', $(this).prop('checked'));
+    })
+</script>
+
+
+
+
 
 <script>
   $(function () {
