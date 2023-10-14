@@ -172,6 +172,7 @@ toastr.options = {
 
 <!-- // For Summernote -->
 <script src="{{ asset('public/backend') }}/plugins/summernote/summernote-bs4.min.js"></script>
+
 <script>
   $(function () {
     // Summernote
