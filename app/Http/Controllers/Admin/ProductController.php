@@ -16,13 +16,15 @@ class ProductController extends Controller
     }
 
 
-    //Product create page ===>
+    //Product create page ===>ekhane join kora ace product modal e ===+>
     public function create(){
         $category = DB::table('categories')->get();
         $brand = DB::table('brands')->get();
         $pickup_point = DB::table('pickup_points')->get();
+        $warehouse = DB::table('warehouses')->get();
 
-        return view('admin.product.create',compact('category','brand','pickup_point'));
+
+        return view('admin.product.create',compact('category','brand','pickup_point','warehouse'));
 
 
     }
