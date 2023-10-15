@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->string('video')->nullable();
             $table->string('purchase_price')->nullable();
             $table->string('selling_price')->nullable();
@@ -44,7 +46,7 @@ return new class extends Migration
             $table->integer('admin_id')->nullable();
 
 
-
+             
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
