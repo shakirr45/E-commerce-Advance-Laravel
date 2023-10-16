@@ -1,67 +1,6 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-<!-- <style>
-  /* bootstrap-tagsinput.css file - add in local */
-
-.bootstrap-tagsinput {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  display: inline-block;
-  padding: 4px 6px;
-  color: #555;
-  vertical-align: middle;
-  border-radius: 4px;
-  max-width: 100%;
-  line-height: 22px;
-  cursor: text;
-}
-.bootstrap-tagsinput input {
-  border: none;
-  box-shadow: none;
-  outline: none;
-  background-color: transparent;
-  padding: 0 6px;
-  margin: 0;
-  width: auto;
-  max-width: inherit;
-}
-.bootstrap-tagsinput.form-control input::-moz-placeholder {
-  color: #777;
-  opacity: 1;
-}
-.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
-  color: #777;
-}
-.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
-  color: #777;
-}
-.bootstrap-tagsinput input:focus {
-  border: none;
-  box-shadow: none;
-}
-.bootstrap-tagsinput .tag {
-  margin-right: 2px;
-  color: white;
-}
-.bootstrap-tagsinput .tag [data-role="remove"] {
-  margin-left: 8px;
-  cursor: pointer;
-}
-.bootstrap-tagsinput .tag [data-role="remove"]:after {
-  content: "x";
-  padding: 0px 2px;
-}
-.bootstrap-tagsinput .tag [data-role="remove"]:hover {
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-.bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-}
-
-
-</style> -->
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -95,8 +34,7 @@
               <div class="card-header">
                 <h3 class="card-title">Add New Product</h3>
               </div>
-              <!-- /.card-header -->
-              							<!-- category_id		childcategory_id		 unit	tags	color	size	video	purchase_price	selling_price	discount_price	stock_quantity	warehouse	description	thumbnail	images	fratured	today_deal	status	flash_deal_id	cash_on_delivary	admin_id	created_at	updated_a -->
+  
                 <div class="card-body">
 
 
@@ -104,11 +42,11 @@
                     
                   <div class="form-group col">
                     <label for="exampleInputEmail1">Product Name</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="name">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="name"  required="" >
                   </div>
                   <div class="form-group col">
                     <label for="exampleInputEmail1">Product Code</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="code">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="code"  required="" >
                   </div>
 
 
@@ -121,7 +59,7 @@
                     
                   <div class="form-group col">
                     <label>Category/Subcategory</label>
-                    <select class="form-control select2" name="subcategory_id">
+                    <select class="form-control select2" name="subcategory_id" id="subcategory_id">
                     <option disabled="" selected="">== Choose Category ==</option>
 
                         @foreach($category as $row)
@@ -131,7 +69,7 @@
                           <option style="color:blue;" disabled="">{{$row->category_name}}</option>
                           <!-- <option>1</option> -->
                           @foreach($subcategory as $row)
-                          <option>-- {{$row->subcategory_name}}</option>
+                          <option value="{{ $row->id }}">-- {{$row->subcategory_name}}</option>
 
                           @endforeach
 
@@ -141,8 +79,8 @@
                     </div>
                     <div class="form-group col">
                     <label>Child Category</label>
-                    <select class="form-control select2">
-                        <option selected="selected">1</option>
+                    <select class="form-control select2" name="childcategory_id" id="childcategory_id">
+                        <!-- <option selected="selected">1</option> done with ajax -->
                         <!-- <option>1</option> -->
                     </select>
                     </div>
@@ -159,7 +97,7 @@
                       <label> Brand</label>
                       <select class="form-control select2" name="brand_id">
                         @foreach($brand as $row)
-                      <option value="{{ $row->brand_name }}">{{ $row->brand_name }}</option>
+                      <option value="{{ $row->id }}">{{ $row->brand_name }}</option>
                         <!-- <option>1</option> -->
                         @endforeach
                       </select>
@@ -180,40 +118,36 @@
 
                      
                     <div class="row">
-                    
-                    <div class="form-group col">
-                      <label> Units</label>
-                      <select class="form-control select2">
-                          <option selected="selected">1</option>
-                          <!-- <option>1</option> -->
-                      </select>
-                      </div>
+
                       <div class="form-group col">
-                    <label for="exampleInputEmail1"> Tags</label>
-                    <input type="text" class="form-control" data-role="tagsinput">
+                    <label for="exampleInputEmail1">Units</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="unit"  required="" >
+                  </div>
+                  
+                  <div class="form-group col">
+                    <label for="exampleInputPassword1">Tags</label><br>
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="tags">
                   </div>
 
-    
+
+
+
                      </div>
-                     
-
-
-
 
 
                      <div class="row">
                     
                     <div class="form-group col">
                       <label for="exampleInputEmail1">Purchase Price</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" >
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="purchase_price" >
                     </div>
                     <div class="form-group col">
                       <label for="exampleInputPassword1">Selling Price</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" >
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="selling_price"  required="" >
                     </div>
                     <div class="form-group col">
                       <label for="exampleInputPassword1">Discount Price</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" >
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="discount_price">
                     </div>
   
                     </div>
@@ -234,7 +168,7 @@
                       </div>
                   <div class="form-group col">
                     <label for="exampleInputPassword1">Stock</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" >
+                    <input type="text" class="form-control" name="stock_quantity" >
                   </div>
     
                      </div>
@@ -243,13 +177,13 @@
                      
                     <div class="row">
 
-                      <div class="form-group col-2">
+                      <div class="form-group col-4">
                     <label for="exampleInputPassword1">Color</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput">
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="color">
                   </div>
-                  <div class="form-group col-2">
+                  <div class="form-group col-4">
                     <label for="exampleInputPassword1">Size</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput">
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="size">
                   </div>
     
                      </div>
@@ -261,14 +195,14 @@
                     <!-- // Use summer note ita come from head tag and scripthen into class add id as summernote its come from script  -->
                     <div class="form-group">
                     <label for="exampleInputPassword1">Page Description</label>
-                    <textarea name=""  class="form-control textarea" id="summernote" name="page_description" rows="10"></textarea>
+                    <textarea name="description"  class="form-control textarea" id="summernote" name="page_description" rows="10"></textarea>
                     <small>This Data will Show on your Wbsite</small>
                     </div>
 
 
                     <div class="form-group ">
                     <label for="exampleInputPassword1">Video Embed Code</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" >
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="video">
                   </div>
 
 
@@ -296,7 +230,7 @@
               </div>
               <div class="card-body">
               <label class="form-label" for="customFile">Default file input example</label>
-                <input type="file" class="form-control" id="customFile" />
+                <input type="file" class="form-control" id="customFile" name="thumbnail" />
               </div>
               <!-- /.card-body -->
 
@@ -304,55 +238,15 @@
                     <h3 class="card-title">Bootstrap sfas</h3>
                 </div>
                 <div class="card-body">
+
                     <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch>
                 </div> -->
               
             </div>
 
-            <div class="card card-dark">
-              <div class="card-header">
-                <h3 class="card-title">More Image</h3>
-              </div>
-              <div class="card-body">
-              <label class="form-label" for="customFile">Default file input example</label>
-                <input type="file" class="form-control" id="customFile" />
-              </div>
 
-
-
-            <!-- // Bootstrap btn use with tag and script code also -->
-            <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Features Product</h3>
-                </div>
-                <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                </div>
-                </div>
-
-
-                <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title">Today Deal</h3>
-                </div>
-                <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                </div>
-                </div>
-
-
-                <div class="card card-dark">
-                <div class="card-header">
-                    <h3 class="card-title"> Status</h3>
-                </div>
-                <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success">
-                </div>
-                </div>
-
-
-                <!-- // for add more image -->
-                <div class="">
+                 <!-- // for add more image -->
+                 <div class="">
                   <table class="table table-bordered" id="dynamic_field">
                     <div class="card-header">
                       <h3 class="card-title">More Image (Click Add For More Image)</h3>
@@ -364,6 +258,41 @@
                   </table>
                 </div>
 
+
+                
+
+            <!-- // Bootstrap btn use with tag and script code also --must use value 1 -->
+            <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Features Product</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="fratured" value="1">
+                </div>
+                </div>
+
+
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Today Deal</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="today_deal" value="1">
+                </div>
+                </div>
+
+
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title"> Status</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="status" value="1">
+                </div>
+                </div>
+
+
+             
 
 
 
@@ -411,11 +340,53 @@
    
   </script>
 
+ <!-- ajax request send for collect childcategory -->
+  <script>
+    $('#subcategory_id').change(function(){
+      var id = $(this).val();
+      // alert(id);
+      $.ajax({
+        url: "{{ url("/get_child_category/") }}/"+id,
+        type: 'get',
+        success:function(data){
+          $('select[name="childcategory_id"]').empty();
+          $.each(data, function(key,data){
+            $('select[name="childcategory_id"]').append('<option value="'+ data.id +'">'+ data.childcategory_name + '</option>');
+          })
+        }
+
+      })
+    })
+  </script>
 
 
 
 
-// tags Script =================>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- // tags Script =================> -niche onk boro code sudhu etar jonne-> -->
 <script>
   // bootstrap-tagsinput.js file - add in local
 

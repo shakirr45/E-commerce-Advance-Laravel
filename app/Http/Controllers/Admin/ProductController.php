@@ -36,4 +36,12 @@ class ProductController extends Controller
     }
 
 
+    // Get Child category =====>
+    public function getChildcategory($id){ //sub category id ==oi somosto id jegular ta sub child e same
+        $data = DB::table('childcategories')->where('subcategory_id', $id)->get();
+
+        return response()->json($data);
+    }
+
+
 }
