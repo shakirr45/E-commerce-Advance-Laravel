@@ -1,7 +1,7 @@
 <form action="{{ route('subcategory.update') }}" method="POST"> 
         @csrf
         <div class="form-group">
-    <label for="category_name">Category Name</label>
+    <label for="category_name">Sub Category Name</label>
 
     <select class="form-control" name="category_id" required="">
 

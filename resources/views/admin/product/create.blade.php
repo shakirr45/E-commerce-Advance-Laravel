@@ -19,11 +19,21 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+    <!-- // For errore message  -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+ 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      <form action="" method="Post" enctype="multipart/form-data">
+      <form action="{{ route('product.store') }}" method="Post" enctype="multipart/form-data">
         @csrf
         <div class="row">
 
@@ -42,11 +52,11 @@
                     
                   <div class="form-group col">
                     <label for="exampleInputEmail1">Product Name</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="name"  required="" >
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="name"  required="" value="{{ old('name') }}">
                   </div>
                   <div class="form-group col">
                     <label for="exampleInputEmail1">Product Code</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="code"  required="" >
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="code"  required="" value="{{ old('code') }}">
                   </div>
 
 
@@ -121,12 +131,12 @@
 
                       <div class="form-group col">
                     <label for="exampleInputEmail1">Units</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="unit"  required="" >
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="unit"  required="" value="{{ old('unit') }}">
                   </div>
                   
                   <div class="form-group col">
                     <label for="exampleInputPassword1">Tags</label><br>
-                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="tags">
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="tags" value="{{ old('tags') }}">
                   </div>
 
 
@@ -139,15 +149,15 @@
                     
                     <div class="form-group col">
                       <label for="exampleInputEmail1">Purchase Price</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" name="purchase_price" >
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="purchase_price"  value="{{ old('purchase_price') }}">
                     </div>
                     <div class="form-group col">
                       <label for="exampleInputPassword1">Selling Price</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="selling_price"  required="" >
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="selling_price"  required=""  value="{{ old('selling_price') }}">
                     </div>
                     <div class="form-group col">
                       <label for="exampleInputPassword1">Discount Price</label>
-                      <input type="text" class="form-control" id="exampleInputPassword1" name="discount_price">
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="discount_price" value="{{ old('discount_price') }}">
                     </div>
   
                     </div>
@@ -168,7 +178,7 @@
                       </div>
                   <div class="form-group col">
                     <label for="exampleInputPassword1">Stock</label>
-                    <input type="text" class="form-control" name="stock_quantity" >
+                    <input type="text" class="form-control" name="stock_quantity" value="{{ old('stock_quantity') }}">
                   </div>
     
                      </div>
@@ -179,11 +189,11 @@
 
                       <div class="form-group col-4">
                     <label for="exampleInputPassword1">Color</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="color">
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="color" value="{{ old('color') }}">
                   </div>
                   <div class="form-group col-4">
                     <label for="exampleInputPassword1">Size</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="size">
+                    <input type="text" class="form-control" id="exampleInputPassword1" data-role="tagsinput" name="size" value="{{ old('size') }}">
                   </div>
     
                      </div>
@@ -195,14 +205,14 @@
                     <!-- // Use summer note ita come from head tag and scripthen into class add id as summernote its come from script  -->
                     <div class="form-group">
                     <label for="exampleInputPassword1">Page Description</label>
-                    <textarea name="description"  class="form-control textarea" id="summernote" name="page_description" rows="10"></textarea>
+                    <textarea class="form-control textarea" id="summernote" name="description" rows="10" >{{ old('description') }}</textarea>
                     <small>This Data will Show on your Wbsite</small>
                     </div>
 
 
                     <div class="form-group ">
                     <label for="exampleInputPassword1">Video Embed Code</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="video">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="video"  value="{{ old('video') }}">
                   </div>
 
 
@@ -230,7 +240,7 @@
               </div>
               <div class="card-body">
               <label class="form-label" for="customFile">Default file input example</label>
-                <input type="file" class="form-control" id="customFile" name="thumbnail" />
+                <input type="file" class="form-control" id="customFile" name="thumbnail" required=""/>
               </div>
               <!-- /.card-body -->
 
@@ -239,7 +249,7 @@
                 </div>
                 <div class="card-body">
 
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch>
+                    <input type="checkbox"  checked data-bootstrap-switch>
                 </div> -->
               
             </div>
@@ -267,7 +277,7 @@
                     <h3 class="card-title">Features Product</h3>
                 </div>
                 <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="fratured" value="1">
+                    <input type="checkbox"  checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="fratured" value="1">
                 </div>
                 </div>
 
@@ -277,7 +287,7 @@
                     <h3 class="card-title">Today Deal</h3>
                 </div>
                 <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="today_deal" value="1">
+                    <input type="checkbox"  checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="today_deal" value="1">
                 </div>
                 </div>
 
@@ -287,7 +297,7 @@
                     <h3 class="card-title"> Status</h3>
                 </div>
                 <div class="card-body">
-                    <input type="checkbox" name="my-checkbox" checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="status" value="1">
+                    <input type="checkbox"  checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="status" value="1">
                 </div>
                 </div>
 

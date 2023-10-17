@@ -22,6 +22,7 @@ return new class extends Migration
 
             
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->string('code');
 
             $table->string('unit')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->string('selling_price')->nullable();
             $table->string('discount_price')->nullable();
             $table->string('stock_quantity')->nullable();
-            $table->integer('warehouse')->nullable();
+            $table->string('warehouse')->nullable();
             $table->string('description')->nullable();
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
@@ -43,9 +44,10 @@ return new class extends Migration
             // $table->integer('flash_deal_id')->nullable();
             // $table->integer('cash_on_delivary')->nullable();
             $table->integer('admin_id')->nullable();
+            $table->integer('date')->nullable();
+            $table->integer('month')->nullable();
 
 
-             
 
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

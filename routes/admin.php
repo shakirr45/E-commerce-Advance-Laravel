@@ -46,9 +46,6 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
         Route::post('/update', 'CategoryController@update')->name('category.update');
     });
 
-    // Global Route ==============================>
-    Route::get('/get_child_category/{id}', 'ProductController@getChildcategory');
-
 
         // Sub Category Route-----.
         Route::group(['prefix' => 'subcategory'],function(){
@@ -79,11 +76,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
 
         // product Route--with ajax---.===================
         Route::group(['prefix' => 'product'],function(){
-            Route::get('/', 'ProductController@create')->name('product.create');
-            Route::post('/store', 'ProductController@store')->name('brand.store');
+            Route::get('/', 'ProductController@index')->name('product.index');
+            Route::get('/create', 'ProductController@create')->name('product.create');
+            Route::post('/store', 'ProductController@store')->name('product.store');
             // Route::get('/edit/{id}', 'ProductController@edit');
             // Route::post('/update', 'ProductController@update')->name('product.update');
         });
+            // Global Route =========== for product sub select krle child ashbe axaj e===================>
+    Route::get('/get_child_category/{id}', 'ProductController@getChildcategory');
+
+
 
 
         

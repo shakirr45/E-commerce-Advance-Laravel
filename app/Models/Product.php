@@ -50,7 +50,10 @@ class Product extends Model
     ];
 
     // // For join======>go to modal jgula join krte cassci okhne fillable gula use krte hobe
-
+////////////////////
+// =====================check heAD===============
+/////////////
+////////////////////
     public function category(){
         return $this->belongsTo(Categories::class, 'category_id');
     }
