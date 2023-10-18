@@ -79,7 +79,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::get('/', 'ProductController@index')->name('product.index');
             Route::get('/create', 'ProductController@create')->name('product.create');
             Route::post('/store', 'ProductController@store')->name('product.store');
+
+            Route::get('/not-featured/{id}', 'ProductController@notfeatured');
+            Route::get('/active-featured/{id}', 'ProductController@activefeatured');
+            Route::get('/not-deal/{id}', 'ProductController@notdeal');
+            Route::get('/active-deal/{id}', 'ProductController@activedeal');
+            Route::get('/not-status/{id}', 'ProductController@notstatus');
+            Route::get('/active-status/{id}', 'ProductController@activestatus');
+
+
             // Route::get('/edit/{id}', 'ProductController@edit');
+
             // Route::post('/update', 'ProductController@update')->name('product.update');
         });
             // Global Route =========== for product sub select krle child ashbe axaj e===================>

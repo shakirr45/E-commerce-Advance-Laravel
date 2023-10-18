@@ -43,7 +43,7 @@ class Product extends Model
         'description',
         'thumbnail',
         'images',
-        'fratured',
+        'featured',
         'today_deal',
         'status',
         'admin_id'

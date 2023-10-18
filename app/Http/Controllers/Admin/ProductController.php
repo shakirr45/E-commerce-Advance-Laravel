@@ -96,7 +96,7 @@ class ProductController extends Controller
             $data['description'] = $request->description;
             $data['video'] = $request->video;
 
-            $data['fratured'] = $request->fratured;
+            $data['featured'] = $request->featured;
             $data['today_deal'] = $request->today_deal;
             $data['status'] = $request->status;
             $data['admin_id'] = Auth::id();
@@ -139,17 +139,37 @@ class ProductController extends Controller
         return redirect()->back()->with('success' , 'Success to add a Product');
   }
 
-  // For show Product =====> { Model link use kora ace }
+  // For show Product =====> { Model link use kora ace } {{ ekhane search er code ace with yajra so jeta jeta @@@@@ use hobe oituk oitar code r cmt kora gula search cara (&& use jeta age cilo)}} mane ak kothay ager ta cilo orm r eta query builder
   public function index(Request $request){
     if($request->ajax()){
-        // For image pass ===>db te sudhu name pass korar karone eta insert jkhne kora img sekhene==+>tar jonne db te sudhu path ace
+        // For image pass ===>db te sudhu name pass korar karone eta insert jkhne kora img sekhene==+>tar jonne db te sudhu path ace.
         $imgurl = 'public/files/product';
 
         // nicer ei vabe get krte hobe=quesry bldr dea krle hobe na karon join kora orm dea =>
-        $data = Product::latest()->get();        
-        return DataTables::of($data)
+        $data = Product::latest()->get(); //&&----------------------------
+
+
+        // @@@@-----------------
+        // $product = "";
+        // @@@@----------------------------- etar maddhome krle niche editcolumn er code lgtac na-------
+        // $query = DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')->leftJoin('subcategories', 'products.subcategory_id', 'subcategories.id')->leftJoin('brands', 'products.brand_id', 'brands.id');
+
+        // if($request->category_id){
+        //     $query->where('products.category_id', $request->category_id);
+        // }
+        
+        // $product= $query->select('products.*', 'categories.category_name', 'subcategories.subcategory_name', 'brands.brand_name')->get();
+
+        //@@@@--------------------------------------------
+        
+        // return DataTables::of($product)
+        //@@@@----------------------------------------------
+
+        
+        return DataTables::of($data) //&&---------------------------------------
         ->addIndexColumn()
-        // jodi join kori ---> product model er vetor join kora ace {jeta func er age dibo ota rawcolumns er vetor dite hobe}$row->category etar nam model er function theke astac
+        // jodi join kori ---> product model er vetor join kora ace {jeta func er age dibo ota rawcolumns er vetor dite hobe}$row->category etar nam model er function theke astac.
+        //&&---------------------------start==
         ->editColumn('category_name',function($row){
             return $row->category->category_name;
         })
@@ -159,16 +179,40 @@ class ProductController extends Controller
         ->editColumn('brand_name',function($row){
             return $row->brand->brand_name;
         })
-        // thumb nail er jonne opr er var er jonne use ($imgurl)
+        //&&---------------------------------end==
+        // thumb nail er jonne opr er var er jonne use ($imgurl).
         ->editColumn('thumbnail',function($row) use ($imgurl) {
             return '<img src="'.$imgurl.'/'.$row->thumbnail.'" height="30" width="30">';
         })
 
-        ->editColumn('fratured',function($row){
-            if($row->fratured == 1){
-                return "Yes";
+        // jkhn on off kora hobe / active inactive kora hobe eta hobe ajax er maddhome==>
+        ->editColumn('featured',function($row){
+            if($row->featured == 1){
+                // return "Yes";
+                return '<a href="#" data-id="'.$row->id.'" class="deactive_featured"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+
             }else{
-                return "No";
+                return '<a href="#" data-id="'.$row->id.'" class="active_featured"><i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">deactive</span> </a>';
+            }
+        })
+
+        ->editColumn('today_deal',function($row){
+            if($row->today_deal == 1){
+                // return "Yes";
+                return '<a href="#" data-id="'.$row->id.'" class="deactive_deal"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+
+            }else{
+                return '<a href="#" data-id="'.$row->id.'" class="active_deal"><i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">deactive</span> </a>';
+            }
+        })
+
+        ->editColumn('status',function($row){
+            if($row->status == 1){
+                // return "Yes";
+                return '<a href="#"  data-id="'.$row->id.'" class="deactive_status"><i class="fas fa-thumbs-down text-danger"></i> <span class="badge badge-success">active</span> </a>';
+
+            }else{
+                return '<a href="#" data-id="'.$row->id.'" class="active_status"><i class="fas fa-thumbs-up text-success"></i> <span class="badge badge-danger">deactive</span> </a>';
             }
         })
         ->addColumn('action', function($row){
@@ -178,12 +222,52 @@ class ProductController extends Controller
             <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
             return $actionbtn;
         })
-        ->rawColumns(['action','category_name','subcategory_name','brand_name','thumbnail','fratured'])
+        ->rawColumns(['action','category_name','subcategory_name','brand_name','thumbnail','featured','today_deal','status'])
         ->make(true);
 
     }
-    return view('admin.product.index');
+    //select akare show korarjonne===>for search
+    $category = DB::table('categories')->get();
+    $brand = DB::table('brands')->get();
+    $warehouse = DB::table('warehouses')->get();
+
+    return view('admin.product.index',compact('category','brand','warehouse'));
   }
+
+  // product notfeatured ====>
+  public function notfeatured($id){
+    DB::table('products')->where('id',$id)->update(['featured'=>0]);
+    return response()->json('product Not Featured');
+  }
+    // product activefeatured ====>
+    public function activefeatured($id){
+        DB::table('products')->where('id',$id)->update(['featured'=>1]);
+        return response()->json('product active Featured');
+      }
+
+    // product not deal ====>
+  public function notdeal($id){
+    DB::table('products')->where('id',$id)->update(['today_deal'=>0]);
+    return response()->json('product Not today_deal');
+  }
+    // product active deal ====>
+    public function activedeal($id){
+        DB::table('products')->where('id',$id)->update(['today_deal'=>1]);
+        return response()->json('product active today_deal');
+      }
+
+
+    // product not status ====>
+  public function notstatus($id){
+    DB::table('products')->where('id',$id)->update(['status'=>0]);
+    return response()->json('product Not status');
+  }
+    // product active deal ====>
+    public function activestatus($id){
+        DB::table('products')->where('id',$id)->update(['status'=>1]);
+        return response()->json('product active status');
+      }
+
 
 
 }

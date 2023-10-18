@@ -15,7 +15,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#addModal">+ Add New</button>
+                <a href="{{ route('product.create') }}" class="btn btn-primary">+ Add New</a>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,8 +30,57 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Products List </h3>
-              </div>
+              </div><br>
               <!-- /.card-header -->
+
+
+              <div class="row p-2">
+
+                    <div class="form-group col-3">
+                      <label>Category</label>
+                      <select class="form-control submitable" name="category_id" id="category_id">
+                        <option value="">All</option>
+                        @foreach($category as $row)
+                        <option value="{{ $row->id }}">{{ $row->category_name }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    
+                    <div class="form-group col-3">
+                      <label>Brand</label>
+                      <select class="form-control submitable" name="brand_id" id="brand_id">
+                        <option value="">All</option>
+                      @foreach($brand as $row)
+                        <option value="{{ $row->id }}">{{ $row->brand_name }}</option>
+                        @endforeach
+
+                      </select>
+                    </div>
+
+                    <div class="form-group col-3">
+                      <label>Warehouse</label>
+                      <select class="form-control submitable" name="warehouse" id="warehouse">
+                        <option value="">All</option>
+                      @foreach($warehouse as $row)
+                        <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
+                        @endforeach
+
+                      </select>
+                    </div>
+
+                    <div class="form-group col-3">
+                      <label>Status</label>
+                      <select class="form-control submitable" name="status" id="status">
+                        <option value="">All</option>
+                        <option value="1">Active</option>
+                        <option value="2">Inactive</option>
+
+                      </select>
+                    </div>
+  
+  
+                    </div>
+
               <div class="card-body">
 
               <!-- // for yajra ytable = remove==> id example1 j tablestate datab tables banabo-->
@@ -69,7 +118,7 @@
  </div>
  
 
- 
+
 
  <!-- For yajra datatables -------=============================------------- -->
 <!-- Ajax use for edit product  -->
@@ -81,12 +130,30 @@
 
 <script>
 
- $(function product(){
+ $(function products(){
     // ei table take data table banalam
     var table = $('.ytable').DataTable({
-        processing:true,
-        serverSide:true,
-        ajax:"{{ route('product.index') }}",
+        // processing:true,
+        // serverSide:true,
+        // niche kicu change kora hoice search korar jonne r ytable er code ace ekhne r fresh code search cara brand er vetor ace-->
+        // ajax:"{{ route('product.index') }}",
+
+
+        //For search--->
+        "processing":true,
+        "serverSide":true,
+        "searching":true,
+        "ajax":{
+          "url": "{{ route('product.index') }}",
+          "data":function(e) {
+            e.category_id =$("#category_id").val();
+            e.brand_id =$("#brand_id").val();
+            e.warehouse =$("#warehouse").val();
+            e.status =$("#status").val();
+
+          }
+        },
+
         columns:[
             {data:'DT_RowIndex' ,name:'DT_RowIndex'},
             // contoller theke img ta ana hoace r img ar ek vbe show kora jay jeta ace brand index e . evabe kore kora hoice karon img ace public e r db te pass kora ace sudhu image er name
@@ -96,7 +163,7 @@
             {data:'category_name' ,name:'category_name'},
             {data:'subcategory_name' ,name:'subcategory_name'},
             {data:'brand_name' ,name:'brand_name'},
-            {data:'fratured' ,name:'fratured'},
+            {data:'featured' ,name:'featured'},
             {data:'today_deal' ,name:'today_deal'},
             {data:'status' ,name:'status'},
 
@@ -107,14 +174,114 @@
 
  });
 
-  
+ 
 </script>
 
 
-<!-- // for dropify ===========> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
-
+<!-- button e click er por reload cara value 1 theke 0 korahoace -->
 <script>
-    $('.dropify').dropify();
+  // For deactive btn====>
+  $(document).on('click','.deactive_featured',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/not-featured') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+  // for active featured ======>
+  $(document).on('click','.active_featured',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/active-featured') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+
+    // For deactive deal====>
+    $(document).on('click','.deactive_deal',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/not-deal') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+  // for active deal ======>
+  $(document).on('click','.active_deal',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/active-deal') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+
+
+
+      // For deactive status====>
+      $(document).on('click','.deactive_status',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/not-status') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+  // for active status ======>
+  $(document).on('click','.active_status',function(e){
+        e.preventDefault();
+        let id=$(this).data('id');
+        // alert(id);
+        var url = "{{ url('product/active-status') }}/"+id;
+        $.ajax({
+          url: url,
+            type: 'get',
+            success: function (data) {
+                  $('.table').DataTable().ajax.reload();
+            }
+        });
+
+  })
+
+
 </script>
+
     @endsection
+

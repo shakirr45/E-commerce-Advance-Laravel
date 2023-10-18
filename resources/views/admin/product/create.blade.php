@@ -277,7 +277,7 @@
                     <h3 class="card-title">Features Product</h3>
                 </div>
                 <div class="card-body">
-                    <input type="checkbox"  checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="fratured" value="1">
+                    <input type="checkbox"  checked data-bootstrap-switch data-off-color="danger" data-on-color="success" name="featured" value="1">
                 </div>
                 </div>
 
@@ -350,7 +350,7 @@
    
   </script>
 
- <!-- ajax request send for collect childcategory -->
+ <!-- ajax request send for collect childcategory --etar madhhome sub select krle child auto pwa jabe form e -->
   <script>
     $('#subcategory_id').change(function(){
       var id = $(this).val();

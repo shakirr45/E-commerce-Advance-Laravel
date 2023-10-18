@@ -263,7 +263,7 @@ $.ajaxSetup({
 
        });
 
-    //    For update pickup=====>
+    //  For update pickup=====>
     //for insert as update ====>
     $(document).on('click', '.update_pickup', function(e){
         e.preventDefault();
