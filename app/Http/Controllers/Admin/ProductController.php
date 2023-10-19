@@ -150,36 +150,55 @@ class ProductController extends Controller
 
 
         // @@@@-----------------
-        // $product = "";
+        $product = "";
         // @@@@----------------------------- etar maddhome krle niche editcolumn er code lgtac na-------
-        // $query = DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')->leftJoin('subcategories', 'products.subcategory_id', 'subcategories.id')->leftJoin('brands', 'products.brand_id', 'brands.id');
+        $query = DB::table('products')->leftJoin('categories', 'products.category_id', 'categories.id')->leftJoin('subcategories', 'products.subcategory_id', 'subcategories.id')->leftJoin('brands', 'products.brand_id', 'brands.id');
 
-        // if($request->category_id){
-        //     $query->where('products.category_id', $request->category_id);
-        // }
+
+
+        if($request->category_id){
+            $query->where('products.category_id', $request->category_id);
+        }
+
+        if($request->brand_id){
+            $query->where('products.brand_id', $request->brand_id);
+        }
+
+        if($request->warehouse){
+            $query->where('products.warehouse', $request->warehouse);
+        }
+
+        if($request->status == 1){
+            $query->where('products.status', 1);
+        }if($request->status == 0){
+            $query->where('products.status', 0);
+
+        }
         
-        // $product= $query->select('products.*', 'categories.category_name', 'subcategories.subcategory_name', 'brands.brand_name')->get();
+
+
+        $product= $query->select('products.*', 'categories.category_name', 'subcategories.subcategory_name', 'brands.brand_name')->get();
 
         //@@@@--------------------------------------------
         
-        // return DataTables::of($product)
+        return DataTables::of($product)
         //@@@@----------------------------------------------
 
         
-        return DataTables::of($data) //&&---------------------------------------
+        // return DataTables::of($data) //&&---------------------------------------
         ->addIndexColumn()
         // jodi join kori ---> product model er vetor join kora ace {jeta func er age dibo ota rawcolumns er vetor dite hobe}$row->category etar nam model er function theke astac.
         //&&---------------------------start==
-        ->editColumn('category_name',function($row){
-            return $row->category->category_name;
-        })
-        ->editColumn('subcategory_name',function($row){
-            return $row->subcategory->subcategory_name;
-        })
-        ->editColumn('brand_name',function($row){
-            return $row->brand->brand_name;
-        })
-        //&&---------------------------------end==
+        // ->editColumn('category_name',function($row){
+        //     return $row->category->category_name;
+        // })
+        // ->editColumn('subcategory_name',function($row){
+        //     return $row->subcategory->subcategory_name;
+        // })
+        // ->editColumn('brand_name',function($row){
+        //     return $row->brand->brand_name;
+        // })
+        //&&---------------------------------end==>
         // thumb nail er jonne opr er var er jonne use ($imgurl).
         ->editColumn('thumbnail',function($row) use ($imgurl) {
             return '<img src="'.$imgurl.'/'.$row->thumbnail.'" height="30" width="30">';

@@ -62,7 +62,7 @@
                       <select class="form-control submitable" name="warehouse" id="warehouse">
                         <option value="">All</option>
                       @foreach($warehouse as $row)
-                        <option value="{{ $row->id }}">{{ $row->warehouse_name }}</option>
+                        <option value="{{ $row->warehouse_name }}">{{ $row->warehouse_name }}</option>
                         @endforeach
 
                       </select>
@@ -71,13 +71,13 @@
                     <div class="form-group col-3">
                       <label>Status</label>
                       <select class="form-control submitable" name="status" id="status">
-                        <option value="">All</option>
+                        <!-- // all er ta 1 kora lgbe then select kore dkhte hobe -->
+                        <option value="1">All</option>
                         <option value="1">Active</option>
-                        <option value="2">Inactive</option>
+                        <option value="0">Inactive</option>
 
                       </select>
                     </div>
-  
   
                     </div>
 
@@ -138,8 +138,9 @@
         // niche kicu change kora hoice search korar jonne r ytable er code ace ekhne r fresh code search cara brand er vetor ace-->
         // ajax:"{{ route('product.index') }}",
 
+        
 
-        //For search--->
+        //For search--->ajax load niche ace
         "processing":true,
         "serverSide":true,
         "searching":true,
@@ -166,7 +167,7 @@
             {data:'featured' ,name:'featured'},
             {data:'today_deal' ,name:'today_deal'},
             {data:'status' ,name:'status'},
-
+            
             {data:'action', name:'action', orderable:true, searchable:true},
 
         ]
@@ -176,6 +177,7 @@
 
  
 </script>
+
 
 
 <!-- button e click er por reload cara value 1 theke 0 korahoace -->
@@ -278,6 +280,11 @@
             }
         });
 
+  })
+
+  // submitable class call for every change and loading=======>
+  $(document).on('change','.submitable', function(){
+    $('.ytable').DataTable().ajax.reload();
   })
 
 
