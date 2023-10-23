@@ -291,6 +291,15 @@
                 </div>
                 </div>
 
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Slider Product</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox"   data-bootstrap-switch data-off-color="danger" data-on-color="success" name="product_slider" value="1">
+                </div>
+                </div>
+
 
                 <div class="card card-dark">
                 <div class="card-header">

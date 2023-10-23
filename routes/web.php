@@ -13,20 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    // return view('layouts.app');
-    return view('frontend.index');
+// Route::get('/', function () { // age eta then controller dea lkaj
+//     // return view('welcome');
+//     // return view('layouts.app');
+//     return view('frontend.index');
 
 
-});
+// });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('frontend/product', function () {
-    return view('frontend.product_details');
+// Route::get('frontend/product', function () {
+//     return view('frontend.product_details');
+// });
 
+
+
+
+// Frontend All routes here =======>
+Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
+
+    // for view home page---->
+    Route::get('/', 'IndexController@index');
 });

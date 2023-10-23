@@ -9,15 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/bootstrap4/bootstrap.min.css">
-<!-- <link href="{{ asset('public/frontend') }}/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
- -->
+<!-- <link href="{{ asset('public/frontend') }}/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
@@ -28,14 +28,9 @@
 
 
 
-<link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/product_styles.css">
-<link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/product_responsive.css">
-
-
-<!-- dhdfh -->
+<!-- /// for product page drow down menu ...product er ta use krte pari nai tai regular use kora  -->
 <!-- <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/regular_styles.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend') }}/styles/regular_responsive.css"> -->
-
 
 </head>
 
@@ -61,17 +56,15 @@
 									<li>
 										<a href="#">English<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="#">English </a></li>
-											<li><a href="#">Bangla</a></li>
+										<li><a href="#">English </a></li>
+										<li><a href="#">Bangla</a></li>
 										</ul>
 									</li>
 									<li>
 										<a href="#">Currency<i class="fas fa-chevron-down"></i></a>
 										<ul>
-											<li><a href="#">Taka (৳)</a></li>
-											<li><a href="#">Dollar ($)</a></li>
-
-
+										<li><a href="#">Taka (৳)</a></li>
+										<li><a href="#">Dollar ($)</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -96,7 +89,7 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">SRS</a></div>
 						</div>
 					</div>
 
@@ -157,18 +150,14 @@
 				</div>
 			</div>
 		</div>
-		
-		<!-- Main Navigation -->
-
-
-		
 		<!-- Menu -->
+		@yield('navbar')
+
 	</header>
 	
 	<!-- Banner -->
 
-    <!-- // for home ==== -->
-    @yield('content')
+   @yield('content')
 
 	<!-- Footer -->
 
@@ -179,7 +168,7 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">LHMART</a></div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
 						<div class="footer_phone">+38 068 005 3570</div>
@@ -256,8 +245,8 @@
 					
 					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
 						<div class="copyright_content">
-                        Copyright &copy;<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://templatespoint.net/" target="_blank">TemplatesPoint</a>
-                        </div>
+Copyright &copy;<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://templatespoint.net/" target="_blank">TemplatesPoint</a>
+</div>
 						<div class="logos ml-sm-auto">
 							<ul class="logos_list">
 								<li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
@@ -286,13 +275,7 @@
 <script src="{{ asset('public/frontend') }}/plugins/easing/easing.js"></script>
 <script src="{{ asset('public/frontend') }}/js/custom.js"></script>
 
-
-
-<script src="{{ asset('public/frontend') }}/js/product_custom.js"></script>
-
-
-
-<!-- dhdfh -->
+<!-- /// for product page drow down menu ...product er ta use krte pari nai tai regular use kora  -->
 <!-- <script src="{{ asset('public/frontend') }}/js/regular_custom.js"></script> -->
 
 
@@ -306,6 +289,8 @@
 
   gtag('config', 'UA-23581568-13');
 </script>
-</body>
-</html>
 
+</body>
+
+
+</html>
