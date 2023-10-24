@@ -17,7 +17,7 @@
 					<div class="banner_content">
 						<h1 class="banner_text">{{ $bannerproduct->name }}</h1>
 
-						<!-- // pura website e taka or dollar convert er jonee eta route service provider e ace ========================> -->
+						<!-- // pura website e taka or dollar convert er jonee eta Appservice provider e ace ========================> -->
 
 						@if($bannerproduct->discount_price == NULL)
 						<div class="banner_price"></span>{{ $setting->currency }}{{ $bannerproduct->selling_price }}</div>
