@@ -88,12 +88,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::get('/active-status/{id}', 'ProductController@activestatus');
 
 
-            // Route::get('/edit/{id}', 'ProductController@edit');
+            Route::get('/edit/{id}', 'ProductController@edit')->name('product.edit');
 
             // Route::post('/update', 'ProductController@update')->name('product.update');
         });
             // Global Route =========== for product sub select krle child ashbe axaj e===================>
-    Route::get('/get_child_category/{id}', 'ProductController@getChildcategory');
+            Route::get('/get_child_category/{id}', 'ProductController@getChildcategory');
 
 
 

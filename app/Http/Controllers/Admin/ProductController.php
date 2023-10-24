@@ -22,6 +22,17 @@ use DataTables;
 //For join jhutu model er vetor ace
 use App\Models\Product;
 
+
+use App\Models\Categories;
+use App\Models\Subcategories;
+use App\Models\Brand;
+use App\Models\Warehouse;
+use App\Models\PickupPoint;
+
+
+
+
+
 class ProductController extends Controller
 {
     //
@@ -140,6 +151,27 @@ class ProductController extends Controller
         return redirect()->back()->with('success' , 'Success to add a Product');
   }
 
+  // For product edit ===================>
+  public function edit($id){
+    $product = DB::table('products')->where('id',$id)->first();
+    //$product = Product::findorfail($id); // etaw use kora jay
+
+    // $category = DB::table('categories')->get();
+    $category = Categories::all();
+    $brand = Brand::all();
+    $warehouse = Warehouse::all();
+    $pickup_point = PickupPoint::all();
+
+
+
+    return view('admin.product.edit',compact('product','category','brand','warehouse','pickup_point'));
+  }
+
+
+
+
+
+
   // For show Product =====> { Model link use kora ace } {{ ekhane search er code ace with yajra so jeta jeta @@@@@ use hobe oituk oitar code r cmt kora gula search cara (&& use jeta age cilo)}} mane ak kothay ager ta cilo orm r eta query builder
   public function index(Request $request){
     if($request->ajax()){
@@ -237,8 +269,10 @@ class ProductController extends Controller
         })
         ->addColumn('action', function($row){
             $actionbtn= '
-            <a href="#" class="btn btn-info btn-sm edit"><i class="fas fa-edit"></i></a>
             <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+
+            <a href="'.route('product.edit',[$row->id]).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+
             <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
             return $actionbtn;
         })
