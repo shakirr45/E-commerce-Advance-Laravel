@@ -1,4 +1,6 @@
-<nav class="main_nav">
+		<!-- Main Navigation -->
+
+		<nav class="main_nav">
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -14,37 +16,33 @@
 								</div>
 
 								<ul class="cat_menu">
-
 								@foreach($category as $row)
-								
-								<!-- // For get sub category  -->
-								@php 
-								$subcategory = DB::table('subcategories')->where('category_id', $row->id)->get();
-								@endphp
+
+									<!-- // For get sub category  -->
+									@php 
+									$subcategory = DB::table('subcategories')->where('category_id', $row->id)->get();
+									@endphp
 
 									<li class="hassubs">
 										<a href="#">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
 										<ul>
-
 										@foreach($subcategory as $row)
 
-										@php 
-										$childcategory = DB::table('childcategories')->where('subcategory_id', $row->id)->get();
-										@endphp
+											@php 
+											$childcategory = DB::table('childcategories')->where('subcategory_id', $row->id)->get();
+											@endphp	
 
 											<li class="hassubs">
 												<a href="#">{{ $row->subcategory_name}}<i class="fas fa-chevron-right"></i></a>
 												<ul>
 													@foreach($childcategory as $row)
-
-													<li><a href="#">{{ $row->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
-													
-													@endforeach
+													<li><a href="#">{{ $row->childcategory_name}}<i class="fas fa-chevron-right"></i></a></li>
+										     	@endforeach
 
 												</ul>
 											</li>
-
 											@endforeach
+
 										</ul>
 									</li>
 
@@ -61,7 +59,6 @@
 									<li><a href="blog.html">Campaign<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
 									<li><a href="contact.html">Helpline<i class="fas fa-chevron-down"></i></a></li>
-
 								</ul>
 							</div>
 
@@ -83,15 +80,9 @@
 		</nav>
 
 
+		 <!-- its for mobile menu  -->
 
-
-
-
-
-
-
-		<!-- For mobile menu bar  -->
-
+		 
 		<div class="page_menu">
 			<div class="container">
 				<div class="row">
@@ -167,8 +158,8 @@
 							</ul>
 							
 							<div class="menu_contact">
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/phone_white.png" alt=""></div>+38 068 005 3570</div>
-								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="images/mail_white.png" alt=""></div><a href="https://colorlib.com/cdn-cgi/l/email-protection#fd9b9c8e898e9c91988ebd9a909c9491d39e9290"><span class="__cf_email__" data-cfemail="5f393e2c2b2c3e333a2c1f38323e3633713c3032">[email&#160;protected]</span></a></div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{{ asset('public/frontends') }}/images/phone_white.png" alt=""></div>+38 068 005 3570</div>
+								<div class="menu_contact_item"><div class="menu_contact_icon"><img src="{{ asset('public/frontends') }}/images/mail_white.png" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
 							</div>
 						</div>
 					</div>

@@ -26,8 +26,14 @@ class IndexController extends Controller
         // $bannerproduct = DB::table('products')->where('product_slider', 1)->latest()->first();
         $bannerproduct = Product::where('product_slider', 1)->latest()->first();
 
-
-
         return view('frontend.index',compact('category','bannerproduct'));
+    }
+
+    // singleproduct page calling method =====>
+    public function productDetails($slug){
+        // $product = DB::table('products')->where('slug',$slug)->first();
+        $product = Product::where('slug',$slug)->first();
+
+        return view('frontend.product_details',compact('product'));
     }
 }
