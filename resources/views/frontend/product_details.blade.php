@@ -14,7 +14,7 @@
 			<div class="row">
 
 				<!-- Images -->
-				<div class="col-lg-2 order-lg-1 order-2">
+				<div class="col-lg-1 order-lg-1 order-2" >
 					<ul class="image_list">
 						<li data-image="{{ asset('public/frontends') }}/images/single_4.jpg"><img src="{{ asset('public/frontends') }}/images/single_4.jpg" alt=""></li>
 						<li data-image="{{ asset('public/frontends') }}/images/single_2.jpg"><img src="{{ asset('public/frontends') }}/images/single_2.jpg" alt=""></li>
@@ -23,49 +23,86 @@
 				</div>
 
 				<!-- Selected Image -->
-				<div class="col-lg-5 order-lg-2 order-1">
+				<div class="col-lg-4 order-lg-2 order-1">
 					<div class="image_selected"><img src="{{ asset('public/frontends') }}/images/single_4.jpg" alt=""></div>
 				</div>
 
 				<!-- Description -->
-				<div class="col-lg-5 order-3">
+				<div class="col-lg-4 order-3">
 					<div class="product_description">
-						<div class="product_category">Laptops</div>
-						<div class="product_name">MacBook Air 13</div>
-						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
-						<div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div>
+						<div class="product_category">{{ $product->category->category_name }} > {{ $product->subcategory->subcategory_name }}</div>
+						<div class="product_name" style="font-size: 20px;">{{ $product->name }}</div>
+
+						<div class="product_category"><b> brand: {{ $product->brand->brand_name }}</b></div>
+						<div class="product_category"><b> stock: {{ $product->stock_quantity }}</b></div>
+
+
+						<div class="rating_r rating_r_4 product_rating">
+							<span style="color: orange;" class="fa fa-star checked"></span>
+							<span style="color: orange;" class="fa fa-star checked"></span>
+							<span style="color: orange;" class="fa fa-star checked"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+						</div>
+
+						<!-- // pura website e taka or dollar convert er jonee eta Appservice provider e ace ========================> -->
+						@if($product->discount_price == NULL)
+						<div  class="product_price" style="margin-top: 25px;"></span>{{ $setting->currency }}{{ $product->selling_price }}</div>
+
+						@else
+						<div  class="product_price" style="margin-top: 25px; "><del class="text-danger">{{ $setting->currency }}{{ $product->selling_price }}</del>{{ $setting->currency }}{{ $product->discount_price }}</div>
+
+						@endif
+
+
+
 						<div class="order_info d-flex flex-row">
 							<form action="#">
+
+							<!-- this code is for color and size  -->
+							<div class="form-group">
+									<div class="row">
+										<div class="col-lg-6">
+
+											<label for="">Pick Size</label>
+											<select name="size" class="form-control form-control-sm">
+												<option value="">A</option>
+												<option value="">B</option>
+												<option value="">C</option>
+											</select>
+										</div>
+
+										<div class="col-lg-6">
+
+										<label for="">Pick Color</label>
+											<select name="color" class="form-control form-control-sm">
+												<option value="">A</option>
+												<option value="">B</option>
+												<option value="">C</option>
+											</select>
+										</div>
+
+									</div>
+								</div>
+								<br>
+
 								<div class="clearfix" style="z-index: 1000;">
 
 									<!-- Product Quantity -->
-									<div class="product_quantity clearfix">
+									<div class="product_quantity clearfix ml-3">
 										<span>Quantity: </span>
-										<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+										<input id="quantity_input" type="text" pattern="[1-9]*" value="1">
 										<div class="quantity_buttons">
 											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
 											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
 										</div>
 									</div>
 
-									<!-- Product Color -->
-									<ul class="product_color">
-										<li>
-											<span>Color: </span>
-											<div class="color_mark_container"><div id="selected_color" class="color_mark"></div></div>
-											<div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
 
-											<ul class="color_list">
-												<li><div class="color_mark" style="background: #999999;"></div></li>
-												<li><div class="color_mark" style="background: #b19c83;"></div></li>
-												<li><div class="color_mark" style="background: #000000;"></div></li>
-											</ul>
-										</li>
-									</ul>
 
 								</div>
 
-								<div class="product_price">$2000</div>
+								
 								<div class="button_container">
 									<button type="button" class="button cart_button">Add to Cart</button>
 									<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -76,9 +113,185 @@
 					</div>
 				</div>
 
+
+				<!-- // For new another one div  -->
+				<div class="col-lg-3 order-3">
+
+				<div style="border-left: 1px solid black; height: 550px; padding:8px;" class="vl">
+
+				<div class="product_category"><b> Pickup Point of this product</b></div>
+				<div ><b> Dhaka Motijheel Arambag</b></div>
+				<hr style="width:95%;text-align:left;margin-left:0">
+				<br>
+
+
+				<div class="product_category"><b> Home Delivery:</b></div>
+				<p style="color:black;">-> (4-8) days after the order placed. <br>-> Cash on Delivery Available.</p>
+				<hr style="width:95%;text-align:left;margin-left:0">
+				<br>
+
+
+
+				<div class="product_category"><b> Product Return & Warrenty:</b></div>
+				<p style="color:black;">-> 7 days return guarranty. <br>-> Warrenty not available.</p>
+				<hr style="width:95%;text-align:left;margin-left:0">
+				<br>
+
+
+
+				<div ><b> Product Video:</b></div>
+				<iframe width="300" height="180" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+				</iframe>
+
+			
+				  </div>
+				</div>  
+				<!-- //  -->
+
+
+
+
 			</div>
 		</div>
 	</div>
+
+
+
+
+	<!-- // another container start =======  -->
+	<div class="container">
+	 <div class="row">
+	   <div class="col">
+
+			<div class="card ">
+		<h5 class="card-header">Product details of Iphone 15 pro max</h5>
+		<div class="card-body">
+			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+		</div>
+		</div>
+		<br>
+
+
+
+
+		<div class="card ">
+		<h5 class="card-header">Product details of Iphone 15 pro max</h5>
+		<div class="card-body">
+
+		
+		<div class="form-group">
+			<div class="row">
+
+
+			<div class="col-lg-3">
+
+			<p style="color:black;">Average Review of Iphone 15 pro max Variation silver:</p>
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+
+			</div>
+
+
+
+			<div class="col-lg-3">
+
+			<p style="color:black;">Total Review Of This Product:</p>
+
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<samp>Total 52</samp>
+
+				</div>
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total 52</samp>
+				</div>				
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total 52</samp>
+				</div>
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span  class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total 52</samp>
+				</div>
+			    <div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total 52</samp>
+				</div>
+
+
+			</div>
+
+
+
+			<div class="col-lg-6">
+
+			<label>Write Your Review</label>
+			<textarea name="" id="" cols="60" rows="4"></textarea>
+
+			<label for="">Write Your Review</label>
+			<select name="color" class="form-control w-50">
+				<option value="">Select Your Review</option>
+				<option value="">B</option>
+				<option value="">C</option>
+			</select>	
+			<br>
+			
+			<button type="button" class="btn btn-info">submit review</button>
+			
+			</div>
+
+
+
+		</div>
+	</div>
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- // another container start end =======  -->
+
+
+
+
+
+
+
 
 	<!-- Recently Viewed -->
 
