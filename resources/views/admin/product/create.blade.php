@@ -212,7 +212,8 @@
 
                     <div class="form-group ">
                     <label for="exampleInputPassword1">Video Embed Code</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" name="video"  value="{{ old('video') }}">
+                    <input type="text" class="form-control" id="exampleInputPassword1" name="video"  value="{{ old('video') }}" placeholder="Only code sfter embed work">
+                    <small class="text-danger">Only code sfter embed work</small>
                   </div>
 
 
@@ -262,7 +263,7 @@
                       <h3 class="card-title">More Image (Click Add For More Image)</h3>
                     </div>
                     <tr>
-                      <td><input type="file" accept="image/*" name="images[]" class="form-control name_list" ></td>
+                      <td><input type="file" accept="image/*" name="images[]" class="form-control name_list" required="" ></td>
                       <td><button type="button" name="add" id="add" class="btn btn-success">ADD</button></td>
                     </tr>
                   </table>

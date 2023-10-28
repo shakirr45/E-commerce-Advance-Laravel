@@ -34,6 +34,12 @@ class IndexController extends Controller
         // $product = DB::table('products')->where('slug',$slug)->first();
         $product = Product::where('slug',$slug)->first();
 
-        return view('frontend.product_details',compact('product'));
+	    //  Related Product Show =====> $product ana ei khner opr er line theke ====>
+        $related_product = DB::table('products')->where('subcategory_id',$product->subcategory_id)->orderBy('id','DESC')->take(10)->get();
+        // dd($related_product);
+        // return response()->json($related_product);
+
+
+        return view('frontend.product_details',compact('product','related_product'));
     }
 }

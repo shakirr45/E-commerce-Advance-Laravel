@@ -13,18 +13,32 @@
 		<div class="container">
 			<div class="row">
 
+
+			<!-- json {decode incode} jar madhommer mutiple image ashbe ===============array akare colro db te ace explode {,} ace tai=========  -->
+			@php
+			$images = json_decode($product->images, true);
+
+			$color = explode(',',$product->color);
+			$size = explode(',',$product->size);
+
+
+
+			@endphp
+
 				<!-- Images -->
+				@isset($images)
 				<div class="col-lg-1 order-lg-1 order-2" >
 					<ul class="image_list">
-						<li data-image="{{ asset('public/frontends') }}/images/single_4.jpg"><img src="{{ asset('public/frontends') }}/images/single_4.jpg" alt=""></li>
-						<li data-image="{{ asset('public/frontends') }}/images/single_2.jpg"><img src="{{ asset('public/frontends') }}/images/single_2.jpg" alt=""></li>
-						<li data-image="{{ asset('public/frontends') }}/images/single_3.jpg"><img src="{{ asset('public/frontends') }}/images/single_3.jpg" alt=""></li>
+						@foreach($images as $key => $image)
+						<li data-image="{{ asset('public/files/product/'.$image) }}"><img src="{{ asset('public/files/product/'.$image) }}" alt=""></li>
+						@endforeach
 					</ul>
 				</div>
+				@endisset
 
 				<!-- Selected Image -->
 				<div class="col-lg-4 order-lg-2 order-1">
-					<div class="image_selected"><img src="{{ asset('public/frontends') }}/images/single_4.jpg" alt=""></div>
+					<div class="image_selected"><img src="{{ asset('public/files/product/'.$product->thumbnail) }}" alt=""></div>
 				</div>
 
 				<!-- Description -->
@@ -36,8 +50,11 @@
 						<div class="product_category"><b> brand: {{ $product->brand->brand_name }}</b></div>
 						<div class="product_category"><b> stock: {{ $product->stock_quantity }}</b></div>
 
+						<div class="product_category"><b> Unit: {{ $product->unit }}</b></div>
 
-						<div class="rating_r rating_r_4 product_rating">
+
+
+						<div class="">
 							<span style="color: orange;" class="fa fa-star checked"></span>
 							<span style="color: orange;" class="fa fa-star checked"></span>
 							<span style="color: orange;" class="fa fa-star checked"></span>
@@ -62,25 +79,33 @@
 							<!-- this code is for color and size  -->
 							<div class="form-group">
 									<div class="row">
+
+
+										@isset($product->size)
 										<div class="col-lg-6">
 
 											<label for="">Pick Size</label>
-											<select name="size" class="form-control form-control-sm">
-												<option value="">A</option>
-												<option value="">B</option>
-												<option value="">C</option>
+											<select class="form-control form-control-sm"  name="size">
+												@foreach($size as $row)
+												<option value="{{ $row }}">{{ $row }}</option>
+												@endforeach
 											</select>
 										</div>
+										@endisset
 
+
+										@isset($product->color)
 										<div class="col-lg-6">
 
 										<label for="">Pick Color</label>
-											<select name="color" class="form-control form-control-sm">
-												<option value="">A</option>
-												<option value="">B</option>
-												<option value="">C</option>
+											<select  class="form-control form-control-sm" name="color">
+												@foreach($color as $row)
+												<option value="{{ $row }}">{{ $row }}</option>
+												@endforeach
 											</select>
 										</div>
+										@endisset
+
 
 									</div>
 								</div>
@@ -89,7 +114,7 @@
 								<div class="clearfix" style="z-index: 1000;">
 
 									<!-- Product Quantity -->
-									<div class="product_quantity clearfix ml-3">
+									<div class="product_quantity clearfix ml-2">
 										<span>Quantity: </span>
 										<input id="quantity_input" type="text" pattern="[1-9]*" value="1">
 										<div class="quantity_buttons">
@@ -120,7 +145,7 @@
 				<div style="border-left: 1px solid black; height: 550px; padding:8px;" class="vl">
 
 				<div class="product_category"><b> Pickup Point of this product</b></div>
-				<div ><b> Dhaka Motijheel Arambag</b></div>
+				<div ><b>{{ $product->pickupPoint->pickup_point_name }}</b></div>
 				<hr style="width:95%;text-align:left;margin-left:0">
 				<br>
 
@@ -138,10 +163,11 @@
 				<br>
 
 
-
+                @isset($product->video)
 				<div ><b> Product Video:</b></div>
-				<iframe width="300" height="180" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+				<iframe width="300" height="180" src="https://www.youtube.com/embed/{{ $product->video }}">
 				</iframe>
+				@endisset
 
 			
 				  </div>
@@ -164,9 +190,9 @@
 	   <div class="col">
 
 			<div class="card ">
-		<h5 class="card-header">Product details of Iphone 15 pro max</h5>
+		<h5 class="card-header">Product details of {{ $product->name }}</h5>
 		<div class="card-body">
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+			<p class="card-text">{{ $product->description }}</p>
 		</div>
 		</div>
 		<br>
@@ -175,7 +201,7 @@
 
 
 		<div class="card ">
-		<h5 class="card-header">Product details of Iphone 15 pro max</h5>
+		<h5 class="card-header">Rating & Review of {{ $product->name }}</h5>
 		<div class="card-body">
 
 		
@@ -185,7 +211,7 @@
 
 			<div class="col-lg-3">
 
-			<p style="color:black;">Average Review of Iphone 15 pro max Variation silver:</p>
+			<p style="color:black;">Average Review of {{ $product->name }}:</p>
 			    <div class="rating_r rating_r_4 product_rating">
 					<span style="color: orange;" class="fa fa-star checked"></span>
 					<span style="color: orange;" class="fa fa-star checked"></span>
@@ -252,7 +278,7 @@
 			<div class="col-lg-6">
 
 			<label>Write Your Review</label>
-			<textarea name="" id="" cols="60" rows="4"></textarea>
+			<textarea class="form-control" name="" id="" cols="60" rows="3"></textarea>
 
 			<label for="">Write Your Review</label>
 			<select name="color" class="form-control w-50">
@@ -293,14 +319,14 @@
 
 
 
-	<!-- Recently Viewed -->
+	<!-- Related Product -->
 
 	<div class="viewed">
 		<div class="container">
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">Related Product</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -309,100 +335,41 @@
 
 					<div class="viewed_slider_container">
 						
-						<!-- Recently Viewed Slider -->
+						<!-- Related Product Slider -->
 
 						<div class="owl-carousel owl-theme viewed_slider">
+
+							@foreach($related_product as $row)
+							<!-- Related Product Item -->
+							<div class="owl-item">
+								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+									<div class="viewed_image"><img src="{{ asset('public/files/product/'.$row->thumbnail) }}" alt="{{ $row->name }}"></div>
+									<div class="viewed_content text-center">
+
+
+							            <!-- // pura website e taka or dollar convert er jonee eta Appservice provider e ace ========================> -->
+										@if($row->discount_price == NULL)
+										<div  class="viewed_price">{{ $setting->currency }} {{ $row->selling_price }}</div>
+
+										@else
+
+										<div class="viewed_price">{{ $setting->currency }} {{ $row->discount_price }}<span>{{ $setting->currency }} {{ $row->selling_price }}</span></div>
+
+										@endif
+
+										<!-- // take 40 carectrer from string [ $small = substr($big, 0, 100); ] -->
+										<div class="viewed_name"><a href="{{ route('product.details',$row->slug) }}">{{ $small = substr($row->name, 0, 20) }}</a></div>
+									</div>
+									<ul class="item_marks">
+										<li class="item_mark item_discount">new</li>
+									</ul>
+								</div>
+							</div>
+							@endforeach
+
 							
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_1.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Beoplay H7</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_2.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_3.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225</div>
-										<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_4.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_5.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('public/frontends') }}/images/view_6.jpg" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$375</div>
-										<div class="viewed_name"><a href="#">Speedlink...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
 						</div>
+
 
 					</div>
 				</div>
