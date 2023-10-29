@@ -85,7 +85,7 @@
 										<div class="col-lg-6">
 
 											<label for="">Pick Size</label>
-											<select class="form-control form-control-sm"  name="size">
+											<select class="custom-select form-control-sm" style="min-width: 120px;"  name="size" >
 												@foreach($size as $row)
 												<option value="{{ $row }}">{{ $row }}</option>
 												@endforeach
@@ -96,9 +96,9 @@
 
 										@isset($product->color)
 										<div class="col-lg-6">
-
+										
 										<label for="">Pick Color</label>
-											<select  class="form-control form-control-sm" name="color">
+											<select  name="color" class="custom-select form-control-sm" style="min-width: 120px;">
 												@foreach($color as $row)
 												<option value="{{ $row }}">{{ $row }}</option>
 												@endforeach
@@ -276,34 +276,106 @@
 
 
 			<div class="col-lg-6">
-
+				
+			<form action="{{ route('store.review') }}" method="post">
+				@csrf
 			<label>Write Your Review</label>
-			<textarea class="form-control" name="" id="" cols="60" rows="3"></textarea>
+			<textarea class="form-control" name="review" id="" cols="60" rows="3"></textarea>
+			<br>
+			<!-- for sent product id =====>  -->
+			<input type="hidden" name="product_id" value="{{ $product->id }}">
 
 			<label for="">Write Your Review</label>
-			<select name="color" class="form-control w-50">
-				<option value="">Select Your Review</option>
-				<option value="">B</option>
-				<option value="">C</option>
+			<select name="rating" class="custom-select form-control-sm" style="min-width: 120px;">
+				<option disabled="" selected="" value="">Select Your Rating</option>
+				<option value="1">1 star</option>
+				<option value="2">2 star</option>
+				<option value="3">3 star</option>
+				<option value="4">4 star</option>
+				<option value="5">5 star</option>
+
 			</select>	
+
 			<br>
-			
-			<button type="button" class="btn btn-info">submit review</button>
-			
+			<br>
+
+			@if(Auth::check())
+			<button type="submit" class="btn btn-info">submit review</button>
+			@else
+			<p>Please at first login to your account for submit a review.</p>
+			@endif
+			</form>
 			</div>
 
+		</div>
+	</div>
+
+			<!-- For Show all reviews start -->
+			<strong>All review of {{ $product->name }}</strong><hr>
+		<div class="row">
+			@foreach($review as $row)
+			<div class="card col-lg-5 m-2">
+				<div class="card-header">
+				{{ $row->user->name }} (  {{ date('d F, Y'), strtotime($row->review_date) }}  )
+				</div>
+				<div class="card-body">
+				{{ $row->review }}
+
+				@if($row->rating == 5)
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+				</div>
+				@elseif($row->rating == 4)
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif($row->rating == 3)
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif($row->rating == 2)
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif($row->rating == 1)
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+
+				@endif
+
+
+				</div>
+			</div>
+			@endforeach
+
+		</div>
+
+			<!-- For Show all reviews End -->
 
 
 		</div>
 	</div>
-
-
-		</div>
-	</div>
-
-
-
-
 
 
 			</div>

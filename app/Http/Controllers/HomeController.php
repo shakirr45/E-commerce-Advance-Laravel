@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// For logout ============>
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +27,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function logout(){
+        Auth::logout();
+        //for sweetalert---->
+        // Alert::warning('Product Added Successfully','We have added product to the Cart');
+
+        //with message tstor--->
+        return redirect()->back();
     }
 
 

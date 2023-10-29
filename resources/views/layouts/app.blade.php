@@ -23,6 +23,16 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontends') }}/styles/responsive.css">
 
 
+<!-- // For toastr ==========> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
 </head>
 
 <body>
@@ -42,29 +52,80 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('public/frontends') }}/images/phone.png" alt=""></div>+38 068 005 3570</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('public/frontends') }}/images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">shamiurr04@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
+
+						@if(Auth::check())
 							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
+								<ul class="standard_dropdown top_bar_dropdown" >
 									<li>
-										<a href="#">English<i class="fas fa-chevron-down"></i></a>
-										<ul>
-										<li><a href="#">English </a></li>
-										<li><a href="#">Bangla</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="#">Currency<i class="fas fa-chevron-down"></i></a>
-										<ul>
-										<li><a href="#">Taka (৳)</a></li>
-										<li><a href="#">Dollar ($)</a></li>
+										<a href="#">{{ Auth::user()->name }}<i class="fas fa-chevron-down"></i></a>
+										<ul  style="width:200px;">
+										<li><a href="{{ route('home') }}">Profile </a></li>
+										<li><a href="#">Setting</a></li>
+										<li><a href="#">Product list </a></li>
+										<li><a href="{{ route('customer.logout') }}">Logout</a></li>
+
 										</ul>
 									</li>
 								</ul>
 							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="{{ asset('public/frontends') }}/images/user.svg" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><a href="#">Sign in</a></div>
+							@endif
+
+							@guest
+							<div class="top_bar_menu">
+								<ul class="standard_dropdown top_bar_dropdown">
+									<li>
+										
+										<a href="#">Login<i class="fas fa-chevron-down"></i></a>
+										<ul style="width:250px; padding:10px;">
+											<div>
+												<br>
+												<form action="{{ route('login') }}" method="post">
+													@csrf
+													<div class="form-group">
+														<label for="">Email Address</label>
+														<input type="email"  class="form-control" name="email" autocomplete ="off"  required="">
+													</div>
+													<form action="">
+													<div class="form-group">
+														<label for="">Password</label>
+														<input type="password"  class="form-control" name="password" required="">
+													</div>
+
+													<!-- // From auth/login  -->
+													<div class="row mb-3">
+													<div class="offset-md-2">
+														<div class="form-check">
+															<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+															<label class="form-check-label" for="remember">
+																{{ __('Remember Me') }}
+															</label>
+														</div>
+													</div>
+												</div>
+
+
+													<div class="form-group">
+														<button type="submit" class="btn btn-sm btn-info">login</button>
+													</div>
+												</form>
+											</div>
+										</ul>
+
+									</li>
+									<li>
+										<a href="#">Register<i class="fas fa-chevron-down"></i></a>
+										<ul>
+										<li><a href="#">Taka (৳)</a></li>
+										<li><a href="#">Dollar ($)</a></li>
+										</ul>
+										
+
+									</li>
+								</ul>
 							</div>
+							@endguest
+
 						</div>
 					</div>
 				</div>
@@ -268,6 +329,27 @@
 
 <!-- for product page responsive nav. its from product.html  single page akta pic e click krle jate oi pic dkha jay or jonne add kora hoa ce--> 
 <script src="{{ asset('public/frontends') }}/js/product_custom.js"></script>
+
+<!-- // For toastr ==========> -->
+<script>
+
+@if(Session::has('success'))
+toastr.options = {
+  "closeButton": true,
+  "progressBar": true,
+}
+  toastr.success("{{ session('success') }}")
+@endif
+
+@if(Session::has('error'))
+  toastr.options =
+  {
+  	"closeButton" : true,
+  	"progressBar" : true
+  }
+  		toastr.error("{{ session('error') }}");
+  @endif
+</script>
 
 </body>
 

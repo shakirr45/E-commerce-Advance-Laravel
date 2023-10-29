@@ -11,6 +11,9 @@ use App\Models\Categories;
 // Etar moddhe join kora ace jonne index e kicu kicu jaygay er kaj kora hoace jamon banner er brand name er khatre
 use App\Models\Product;
 
+use App\Models\Review;
+
+
 
 class IndexController extends Controller
 {
@@ -34,12 +37,23 @@ class IndexController extends Controller
         // $product = DB::table('products')->where('slug',$slug)->first();
         $product = Product::where('slug',$slug)->first();
 
+
 	    //  Related Product Show =====> $product ana ei khner opr er line theke ====>
         $related_product = DB::table('products')->where('subcategory_id',$product->subcategory_id)->orderBy('id','DESC')->take(10)->get();
         // dd($related_product);
         // return response()->json($related_product);
 
 
-        return view('frontend.product_details',compact('product','related_product'));
+        // For get review from db to show into sigle page product ======>etay orm model use kora hoace karon etar join model e kora=====>
+        $review = Review::where('product_id', $product->id)->get();
+
+
+        // -------------------------------------- 
+
+
+        
+
+
+        return view('frontend.product_details',compact('product','related_product','review'));
     }
 }
