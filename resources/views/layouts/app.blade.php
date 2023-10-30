@@ -114,12 +114,7 @@
 
 									</li>
 									<li>
-										<a href="#">Register<i class="fas fa-chevron-down"></i></a>
-										<ul>
-										<li><a href="#">Taka (৳)</a></li>
-										<li><a href="#">Dollar ($)</a></li>
-										</ul>
-										
+										<a href="{{ route('register') }}">Register</a>
 
 									</li>
 								</ul>
@@ -173,6 +168,11 @@
 						</div>
 					</div>
 
+					@php
+					$wishlist = DB::table('wishlists')->where('user_id', Auth::id())->count();
+
+					@endphp
+
 					<!-- Wishlist -->
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
@@ -180,7 +180,7 @@
 								<div class="wishlist_icon"><img src="{{ asset('public/frontends') }}/images/heart.png" alt=""></div>
 								<div class="wishlist_content">
 									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">115</div>
+									<div class="wishlist_count">{{ $wishlist }}</div>
 								</div>
 							</div>
 

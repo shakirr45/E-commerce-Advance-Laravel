@@ -45,7 +45,7 @@ class IndexController extends Controller
 
 
         // For get review from db to show into sigle page product ======>etay orm model use kora hoace karon etar join model e kora=====>
-        $review = Review::where('product_id', $product->id)->get();
+        $review = Review::where('product_id', $product->id)->orderBy('id','DESC')->take(6)->get();
 
 
         // -------------------------------------- 

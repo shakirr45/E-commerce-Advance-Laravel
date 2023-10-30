@@ -3,8 +3,26 @@
 <!-- for product page responsive nav. its from product.html  -->
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontends') }}/styles/product_styles.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('public/frontends') }}/styles/product_responsive.css">
+
+<!-- wishlink add to cart btn e design paccilo na jonne ei link add dici  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <!-- Main Navigation from product.html -->
 @include('layouts.front_partial.collaps_nav')
+
+
+	 <!-- // For show all rating r ekhner product id controller theke ana jeta ei page e ace -->
+	 @php
+	 $review_5 = App\Models\Review::where('product_id', $product->id)->where('rating', 5)->count();
+	 $review_4 = App\Models\Review::where('product_id', $product->id)->where('rating', 4)->count();
+	 $review_3 = App\Models\Review::where('product_id', $product->id)->where('rating', 3)->count();
+	 $review_2 = App\Models\Review::where('product_id', $product->id)->where('rating', 2)->count();
+	 $review_1 = App\Models\Review::where('product_id', $product->id)->where('rating', 1)->count();
+
+	 $sum_rating = App\Models\Review::where('product_id', $product->id)->sum('rating');
+	 $count_rating = App\Models\Review::where('product_id', $product->id)->count('rating');
+
+	@endphp
 
 
 	<!-- Single Product from product.html-->
@@ -22,7 +40,7 @@
 			$size = explode(',',$product->size);
 
 
-
+			
 			@endphp
 
 				<!-- Images -->
@@ -55,11 +73,51 @@
 
 
 						<div class="">
-							<span style="color: orange;" class="fa fa-star checked"></span>
-							<span style="color: orange;" class="fa fa-star checked"></span>
-							<span style="color: orange;" class="fa fa-star checked"></span>
-							<span class="fa fa-star"></span>
-							<span class="fa fa-star"></span>
+                <!-- // For everage show======  intval($average/5) ===============  -->
+				@if($count_rating !=NULL)
+                @if(intval($sum_rating/$count_rating) == 5)
+			    <div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) < $count_rating )
+			    <div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 1 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+			    	<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@endif
+				@endif
+
 						</div>
 
 						<!-- // pura website e taka or dollar convert er jonee eta Appservice provider e ace ========================> -->
@@ -129,8 +187,12 @@
 
 								
 								<div class="button_container">
-									<button type="button" class="button cart_button">Add to Cart</button>
-									<div class="product_fav"><i class="fas fa-heart"></i></div>
+									<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<button class="btn btn-outline-info mr-2 rounded" type="submit">Add to Cart</button>
+										<a href="{{ route('add.wishlist',$product->id) }}" class="btn btn-outline-primary rounded" type="button">Add to Wishlist</a>
+									</div>
+									</div>
 								</div>
 								
 							</form>
@@ -208,67 +270,107 @@
 		<div class="form-group">
 			<div class="row">
 
-
 			<div class="col-lg-3">
 
 			<p style="color:black;">Average Review of {{ $product->name }}:</p>
+					
+			<!-- // For everage show======  intval($average/5) ===============  -->
+			@if($count_rating !=NULL)
+			@if(intval($sum_rating/$count_rating) == 5)
 			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) < $count_rating )
+			    <div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
 				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+				    <span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@elseif(intval($sum_rating/$count_rating) >= 1 && intval($sum_rating/5) < $count_rating )
+				<div class="rating_r rating_r_4 product_rating">
+			    	<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+				</div>
+				@endif
+				@endif
+
+
 
 			</div>
-
-
 
 			<div class="col-lg-3">
 
 			<p style="color:black;">Total Review Of This Product:</p>
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<samp>Total {{ $review_5 }}</samp>
 
-			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
+				</div>
+				<div class="rating_r rating_r_4 product_rating">
 					<span style="color: orange;" class="fa fa-star"></span>
 					<span style="color: orange;" class="fa fa-star"></span>
-					<samp>Total 52</samp>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total {{ $review_4 }}</samp>
+				</div>
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span style="color: orange;" class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total {{ $review_3 }}</samp>
 
 				</div>
-			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
 					<span style="color: orange;" class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
-					<samp>Total 52</samp>
-				</div>				
-			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
 					<span class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
-					<samp>Total 52</samp>
+					<samp>Total {{ $review_2 }}</samp>
+
 				</div>
-			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span  class="fa fa-star checked"></span>
+				<div class="rating_r rating_r_4 product_rating">
+					<span style="color: orange;" class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
 					<span class="fa fa-star"></span>
-					<samp>Total 52</samp>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<samp>Total {{ $review_1 }}</samp>
+
 				</div>
-			    <div class="rating_r rating_r_4 product_rating">
-					<span style="color: orange;" class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star checked"></span>
-					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
-					<samp>Total 52</samp>
-				</div>
+
 
 
 			</div>

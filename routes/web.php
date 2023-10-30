@@ -27,9 +27,7 @@ Route::get('/login',function(){
     return redirect()->to('/');
 })->name('login');
 
-Route::get('/register',function(){
-    return redirect()->to('/');
-})->name('register');
+
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -53,6 +51,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     // For store review =====>
     Route::post('/store/review', 'ReviewController@store')->name('store.review');
+
+    // For store wishlist =====>
+    Route::get('/add/wishlist/{id}', 'ReviewController@AddWishlist')->name('add.wishlist');
+
 
 
 });
