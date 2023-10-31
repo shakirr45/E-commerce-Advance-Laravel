@@ -81,7 +81,7 @@
   
                     </div>
 
-              <div class="card-body">
+              <div class="card-body ">
 
               <!-- // for yajra ytable = remove==> id example1 j tablestate datab tables banabo-->
                 <table id="" class="table table-bordered table-sm ytable">

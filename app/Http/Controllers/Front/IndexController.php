@@ -29,7 +29,10 @@ class IndexController extends Controller
         // $bannerproduct = DB::table('products')->where('product_slider', 1)->latest()->first();
         $bannerproduct = Product::where('product_slider', 1)->latest()->first();
 
-        return view('frontend.index',compact('category','bannerproduct'));
+        // For show featured product =====>->orderBy('id', 'DESC') use karon nutun gula--->
+        $featured = Product::where('featured', 1)->orderBy('id', 'DESC')->limit(8)->get();
+
+        return view('frontend.index',compact('category','bannerproduct','featured'));
     }
 
     // singleproduct page calling method =====>
@@ -46,13 +49,6 @@ class IndexController extends Controller
 
         // For get review from db to show into sigle page product ======>etay orm model use kora hoace karon etar join model e kora=====>
         $review = Review::where('product_id', $product->id)->orderBy('id','DESC')->take(6)->get();
-
-
-        // -------------------------------------- 
-
-
-        
-
 
         return view('frontend.product_details',compact('product','related_product','review'));
     }
