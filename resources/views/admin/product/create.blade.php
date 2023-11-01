@@ -301,6 +301,15 @@
                 </div>
                 </div>
 
+                <div class="card card-dark">
+                <div class="card-header">
+                    <h3 class="card-title">Trendy Product</h3>
+                </div>
+                <div class="card-body">
+                    <input type="checkbox"   data-bootstrap-switch data-off-color="danger" data-on-color="success" name="trendy_product" value="1">
+                </div>
+                </div>
+
 
                 <div class="card card-dark">
                 <div class="card-header">

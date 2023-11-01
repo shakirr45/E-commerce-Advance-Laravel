@@ -110,6 +110,7 @@ class ProductController extends Controller
             $data['featured'] = $request->featured;
             $data['today_deal'] = $request->today_deal;
             $data['product_slider'] = $request->product_slider;
+            $data['trendy'] = $request->trendy_product;
             $data['status'] = $request->status;
             $data['admin_id'] = Auth::id();
             $data['date'] = date('d-m-Y');

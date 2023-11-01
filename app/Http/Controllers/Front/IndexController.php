@@ -27,12 +27,20 @@ class IndexController extends Controller
 
         //For show banner ---->
         // $bannerproduct = DB::table('products')->where('product_slider', 1)->latest()->first();
-        $bannerproduct = Product::where('product_slider', 1)->latest()->first();
+        $bannerproduct = Product::where('status', 1)->where('product_slider', 1)->latest()->first();
 
         // For show featured product =====>->orderBy('id', 'DESC') use karon nutun gula--->
-        $featured = Product::where('featured', 1)->orderBy('id', 'DESC')->limit(8)->get();
+        $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'DESC')->limit(16)->get();
 
-        return view('frontend.index',compact('category','bannerproduct','featured'));
+        // For get popular product =======>
+        $popular_product = Product::where('status', 1)->orderBy('product_views', 'DESC')->limit(16)->get();
+
+        // For get trendy product =======>
+        $trendy_product = Product::where('status', 1)->where('trendy',1)->orderBy('id', 'DESC')->limit(8)->get();
+
+
+
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product'));
     }
 
     // singleproduct page calling method =====>
@@ -40,6 +48,8 @@ class IndexController extends Controller
         // $product = DB::table('products')->where('slug',$slug)->first();
         $product = Product::where('slug',$slug)->first();
 
+        // Product view er jonne===>
+        Product::where('slug',$slug)->increment('product_views');
 
 	    //  Related Product Show =====> $product ana ei khner opr er line theke ====>
         $related_product = DB::table('products')->where('subcategory_id',$product->subcategory_id)->orderBy('id','DESC')->take(10)->get();

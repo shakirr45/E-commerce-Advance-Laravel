@@ -42,6 +42,8 @@ return new class extends Migration
             $table->integer('today_deal')->nullable();
             $table->integer('status')->nullable();
             $table->integer('product_slider')->nullable();
+            $table->integer('product_views')->nullable();
+            $table->integer('trendy')->nullable();
             // $table->integer('flash_deal_id')->nullable();
             // $table->integer('cash_on_delivary')->nullable();
             $table->integer('admin_id')->nullable();
