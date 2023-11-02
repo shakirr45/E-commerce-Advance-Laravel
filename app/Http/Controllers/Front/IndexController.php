@@ -60,6 +60,16 @@ class IndexController extends Controller
         // For get review from db to show into sigle page product ======>etay orm model use kora hoace karon etar join model e kora=====>
         $review = Review::where('product_id', $product->id)->orderBy('id','DESC')->take(6)->get();
 
-        return view('frontend.product_details',compact('product','related_product','review'));
+        return view('frontend.product.product_details',compact('product','related_product','review'));
+    }
+
+
+    // For product quickview with ajax ====>
+    public function ProductQuickview($id){
+        $product= Product::where('id',$id)->first();
+        
+        // return response()->json($product);
+
+        return view('frontend.product.quick_view',compact('product'));
     }
 }

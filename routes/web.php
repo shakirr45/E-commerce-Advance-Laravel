@@ -49,13 +49,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::get('/', 'IndexController@index');
     Route::get('/product-details/{slug}', 'IndexController@productDetails')->name('product.details');
 
+    // For quickview show with ajax request ===========>
+    Route::get('/product-quick-view/{id}', 'IndexController@ProductQuickview');
+    
+
+
     // For store review =====>
     Route::post('/store/review', 'ReviewController@store')->name('store.review');
-
     // For store wishlist =====>
     Route::get('/add/wishlist/{id}', 'ReviewController@AddWishlist')->name('add.wishlist');
-
-
 
 });
 

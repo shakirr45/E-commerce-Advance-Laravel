@@ -39,8 +39,6 @@
 			$color = explode(',',$product->color);
 			$size = explode(',',$product->size);
 
-
-			
 			@endphp
 
 				<!-- Images -->

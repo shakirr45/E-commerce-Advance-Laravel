@@ -292,7 +292,7 @@
 												<div class="product_extras">
 
 												<!-- For quick view modal ================== -->
-												<a href="" data-toggle="modal" data-target="#quickview">quickview</a>
+												<a href="" data-toggle="modal" data-target="#quickview" class="quickview" id="{{ $row->id }}">quickview</a>
 
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -341,7 +341,7 @@
 												<div class="product_extras">
 
 												<!-- For quick view modal ================== -->
-												<a href="" data-toggle="modal" data-target="#quickview">quickview</a>
+												<a href="" data-toggle="modal" data-target="#quickview" class="quickview" id="{{ $row->id }}">quickview</a>
 
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
@@ -3009,7 +3009,7 @@
 											</div>
 											
 										</div>
-									</div>
+									</div>featured
 									<ul class="trends_marks">
 										<li class="trends_mark trends_discount">-25%</li>
 										<a href="" class="trends_mark trends_new">
@@ -3334,69 +3334,36 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-	  <div class="modal-body">
-		<div class="modal-body">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-4">
-						<div class="">
-						<img src="https://www.lenovo.com/medias/lenovo-laptops-ideapad-3i-gen-7-14-intel-hero.png?context=bWFzdGVyfHJvb3R8NDYyOTU3fGltYWdlL3BuZ3xoNWYvaGE3LzE0NjgzNTMyNzU0OTc0LnBuZ3w1OGQ0OTIwN2YwNjQ0MjMxZjAzYmNiNDBiOWY2ZWVlZGZiNGJlMTYwZTk5NzI5ZTM4M2M0YzI2N2I1OTI0NTQ5"
-                       class="img-fluid" alt="">
-						</div>
-					</div>
 
-					<div class="col-lg-8">
-						<h3>This is the main product title</h3>
-						<p>Category > subcategory</p>
-						<p>Brand: brandname</p>
-						<div class="">Price: $120</div><br>
-						<div class="order_info d-flex flex-row">
-							<form action="">
-								<div class="form-group">
-									<div class="row">
-										<div class="col-lg-5">
-											<label class="ml-2">Pick Size:</label>
-											<select class="custom-select form-control-sm" name="size" style="min-width:120px;">
-											<option value="">Example</option>
-											<option value="">Example</option>
-											<option value="">Example</option>
-										</select>
-										</div>
-
-										<div class="col-lg-5">
-											<label class="ml-2">Pick Color:</label>
-											<select class="custom-select form-control-sm" name="color" style="min-width:120px;">
-											<option value="">Example</option>
-											<option value="">Example</option>
-											<option value="">Example</option>
-										</select>
-										</div>
+	  <div class="modal-body" id="quick_view_body">
 
 
-									</div>
-								</div>
-								
-								<div class="button_container">
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<button class="btn btn-outline-info" type="submit">Add to cart</button>
-										</div>
-									</div>
-								</div>
-
-
-							</form>
-						</div>
-						</div>
-
-				</div>
-			</div>
-		</div>
 	  </div>
-
-
    </div>
   </div>
 </div>
+
+<!-- quickview ajax app er vetor csrf tokn pass kora ace =========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- quickview ajax app er vetor csrf tokn pass kora ace =========== -->
+<script>
+    $(document).on('click', '.quickview', function(){
+      var id = $(this).attr('id');
+    //   alert(id);
+      $.ajax({
+        url: "{{ url("/product-quick-view/") }}/"+id,
+        type: 'get',
+        success:function(data){
+			$("#quick_view_body").html(data);
+        }
+
+      });
+    });
+  </script>
+
+
+
+
+
 
 @endsection
