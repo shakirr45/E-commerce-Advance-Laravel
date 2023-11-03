@@ -47,8 +47,8 @@ return new class extends Migration
             // $table->integer('flash_deal_id')->nullable();
             // $table->integer('cash_on_delivary')->nullable();
             $table->integer('admin_id')->nullable();
-            $table->integer('date')->nullable();
-            $table->integer('month')->nullable();
+            $table->string('date')->nullable();
+            $table->string('month')->nullable();
 
 
 

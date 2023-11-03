@@ -108,6 +108,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'CouponController@update')->name('coupon.update');
         });
 
+        // campaign Route---with yajra--.
+        Route::group(['prefix' => 'campaign'],function(){
+            Route::get('/', 'CampaignController@index')->name('campaign.index');
+            Route::post('/store', 'CampaignController@store')->name('campaign.store');
+            Route::get('/delete/{id}', 'CampaignController@destroy')->name('campaign.delete');
+            // Route::post('/update', 'CampaignController@update')->name('campaign.update');
+        });
+
         // Warehouse Route-----.
         Route::group(['prefix' => 'warehouse'],function(){
             Route::get('/', 'WarehouseController@index')->name('warehouse.index');
