@@ -109,7 +109,7 @@ class Brandcontroller extends Controller
         $data['brand_slug'] = Str::of($request->brand_name)->slug('-');
         // dd($data);
 
-        // for check is there new photo or not ====>
+        // for check is there new photo or not ====> pic delete hocce na thik vabe kora ace campaign controller e 
         if($request->brand_logo){
             if(File::exists($request->old_image)){
                 unlink($request->old_image);

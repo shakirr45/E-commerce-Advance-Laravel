@@ -80,7 +80,7 @@
         <input type="text" class="form-control" name="title" value="" required="">
         </div>
 
-        <input type="text" name="id" value="">
+        <input type="hidden" name="id" value="">
 
         <div class="row">
 
@@ -147,14 +147,16 @@
 <!-- Edit Modal====> -->
  <!-- Modal -->
  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Child Category</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Campaign</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div id="modal_body"></div>
+
 
 
       </div>
@@ -195,18 +197,18 @@
  });
 
 
- // For Edit child campaign ====>
-//  $('body').on('click','.edit', function(){
-//     let id = $(this).data('id');
-//     // alert(cat_id);
+//  For Edit child campaign ====>
+ $('body').on('click','.edit', function(){
+    let id = $(this).data('id');
+    // alert(cat_id);
 
-//     $.get("childcategory/edit/" + id, function(data){
+    $.get("campaign/edit/" + id, function(data){
 
-//         $("#modal_body").html(data);
+        $("#modal_body").html(data);
         
 
-//     });
-//   });
+    });
+  });
   
 </script>
 

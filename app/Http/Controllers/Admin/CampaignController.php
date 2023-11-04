@@ -111,6 +111,49 @@ class CampaignController extends Controller
         return redirect()->back()->with('success' , 'Success to delete campaign');
     }
 
+    // for campaign edit ========>
+    public function edit($id){
+       $data = DB::table('campaigns')->where('id',$id)->first();
+       return view('admin.offer.campaign.edit',compact('data'));
+    }
+
+    
+    // for campaign update ========>
+    public function update(Request $request){
+        // For img ===>
+        $slug = Str::of($request->title)->slug('-');
+
+        $data = array();
+        $data['title'] = $request->title;
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['status'] = $request->status;
+        $data['discount'] = $request->discount;
+        // dd($data);
+
+        // for check is there new photo or not ====>
+        if($request->image){
+            if (File::exists($request->old_image)){
+                unlink($request->old_image);
+            }
+
+        $photo =$request->image;
+        $photoname = $slug.'.'.$photo->getClientOriginalExtension();
+        // $photo->move('public/files/campaign/',$photoname); //without image intervention
+        Image::make($photo)->resize(468,90)->save('public/files/campaign/'.$photoname); // image intervention===>>
+        $data['image'] = 'public/files/campaign/'.$photoname;
+        DB::table('campaigns')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success' , 'Success to Update campaign');
 
 
+        }else{
+        $data['image'] = $request->old_image; 
+        DB::table('campaigns')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success' , 'Success to Update campaign');
+        }
+    }
+
+
+
+    
 }
