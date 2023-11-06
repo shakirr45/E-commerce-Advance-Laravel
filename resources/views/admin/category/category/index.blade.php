@@ -35,6 +35,8 @@
                     <th>SL</th>
                     <th>Category Name</th>
                     <th>Category Slug</th>
+                    <th>Icon</th>
+                    <th>Home Page</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -44,6 +46,15 @@
                     <td>{{ $key+1 }}</td>
                     <td>{{ $row->category_name }}</td>
                     <td>{{ $row->category_slug }}</td>
+                    <td>
+                    <img src="{{ asset($row->icon) }}" alt="{{ $row->category_name }}" width="30" height="30">
+                    </td>
+                    <td>
+                    @if($row->home_page == 1)
+                    <a href="#"> <span class="badge badge-success">Active</span> </a>
+                    @endif
+                    </td>
+
                     <td>
                         <a href="" class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#editModal" data-id="{{ $row->id }}"><i class="fas fa-edit"></i></a>
 
@@ -77,7 +88,7 @@
         </button>
       </div>
 
-      <form action="{{ route('category.store') }}" method="POST"> 
+      <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data"> 
         @csrf
     <div class="modal-body">
   <div class="form-group">
@@ -85,6 +96,22 @@
     <input type="text" class="form-control" id="category_name" name="category_name" required="">
     <small id="emailHelp" class="form-text text-muted">This is Your Main Category</small>
   </div>
+
+  <div class="form-group">
+    <label for="home_page">Home Page</label>
+    <select class="form-control" name="home_page" id="">
+      <option value="1">Home Page</option>
+      <option value="0">Not For Home Page</option>
+    </select>
+    <small id="emailHelp" class="form-text text-muted">For Showing into Home Page</small>
+  </div>
+
+  <div class="form-group ">
+    <label for="icon">Icon</label>
+    <input type="file" name="icon" required="">
+    <small id="emailHelp" class="form-text text-muted">This is Your Category Icon</small>
+  </div>
+
 
       </div>
       <div class="modal-footer">
@@ -109,9 +136,10 @@
         </button>
       </div>
 
-      <form action="{{ route('category.update') }}" method="POST"> 
+      <form action="{{ route('category.update') }}" method="POST" enctype="multipart/form-data"> 
         @csrf
     <div class="modal-body">
+
   <div class="form-group">
     <label for="category_name">Category Name</label>
     <input type="text" class="form-control" id="e_category_name" name="category_name" required="">
@@ -122,7 +150,28 @@
     <small id="emailHelp" class="form-text text-muted">This is Your Main Category</small>
   </div>
 
+  <div class="form-group">
+    <label for="home_page">Home Page</label>
+    <select class="form-control" name="home_page" id="e_category_home_page" >
+      <option value="1">Home Page</option>
+      <option value="0">Not For Home Page</option>
+    </select>
+    <small id="emailHelp" class="form-text text-muted">For Showing into Home Page</small>
+  </div>
+
+  <div class="form-group ">
+    <label for="brand_name">Brands Logo</label>
+    <input type="file" class="" name="icon"  id="e_category_icon">
+    <small id="emailHelp" class="form-text text-muted">This is Your brand Logo</small>
+  <input type="hidden" name="old_icon" id="e_category_old_icon">
+
+  </div>
+
       </div>
+
+      
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Update</button>
@@ -145,9 +194,14 @@
 
     $.get("category/edit/" + cat_id, function(data){
 
-      // console.log(data);
+      console.log(data);
       $('#e_category_name').val(data.category_name);
       $('#e_category_id').val(data.id);
+      $('#e_category_home_page').val(data.home_page);
+      $('#e_category_old_icon').val(data.old_icon);
+      $('#e_category_old_icon').val(data.old_icon);
+      $('#e_category_icon').val(data.icon);
+
 
     });
   });

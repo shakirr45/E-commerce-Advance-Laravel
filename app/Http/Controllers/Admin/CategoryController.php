@@ -11,6 +11,11 @@ use App\Models\Categories;
 // for str slug ====>
 use Illuminate\Support\Str;
  
+// For image ===>
+use Image;
+
+// For delete image ===>
+use File;
 
 
 class CategoryController extends Controller
@@ -40,19 +45,32 @@ class CategoryController extends Controller
                 'category_name' => 'required|unique:categories|max:55',
             ]);
 
-            //query builder---->
-            // $data = array();
-            // $data['category_name']=$request->category_name;
-            // $data['category_slug']=Str::of($request->category_name)->slug('-');
-            // // dd($data);
-            // DB::table('categories')->insert($data);
-            
-
             // Eloquent ORM ------>
-            Categories::insert([
-                'category_name' =>$request->category_name,
-                'category_slug' =>Str::of($request->category_name)->slug('-')
-            ]);
+            // Categories::insert([
+            //     'category_name' =>$request->category_name,
+            //     'category_slug' =>Str::of($request->category_name)->slug('-')
+            // ]);
+
+
+            // query builder---->
+            $data = array();
+            $data['category_name']=$request->category_name;
+            $data['category_slug']=Str::of($request->category_name)->slug('-');
+            $data['home_page']=$request->home_page;
+            // dd($data);
+
+            // For img ===>
+            $slug = Str::of($request->category_name)->slug('-');
+
+            // For store icon---->
+            $icon =$request->icon;
+            $iconname = $slug.'.'.$icon->getClientOriginalExtension();
+            // $icon->move('public/files/category_icon/',$iconname); //without image intervention
+            Image::make($icon)->resize(240,120)->save('public/files/category_icon/'.$iconname); // image intervention===>>
+
+            $data['icon'] = 'public/files/category_icon/'.$iconname;
+
+            DB::table('categories')->insert($data);
 
             return redirect()->back()->with('success' , 'Success to Add');
 
@@ -85,28 +103,56 @@ class CategoryController extends Controller
         // For Update Category ====>
         public function update(Request $request){
 
-            //query builder---->
+            // // Eloquent ORM ------>
             // $id=$request->id;
-            // $data = array();
-            // $data['category_name']=$request->category_name;
-            // $data['category_slug']=Str::of($request->category_name)->slug('-');
+            // $category = Categories::where('id', $id)->first();
+
+            // // $category->update([
+            // //     'category_name' =>$request->category_name,
+            // //     'category_slug' =>Str::of($request->category_name)->slug('-'),
+            // //     'home_page' =>$request->home_page,
+            // // ]);
+
+
+            // query builder---->
+            $id=$request->id;
+            $data = array();
+            $data['category_name']=$request->category_name;
+            $data['category_slug']=Str::of($request->category_name)->slug('-');
+            $data['home_page']=$request->home_page;
+
             // DB::table('categories')->where('id' , $id)->update($data);
 
+            // return redirect()->back()->with('success' , 'Success to Update');
 
-            // Eloquent ORM ------>
-            $id=$request->id;
-            $category = Categories::where('id', $id)->first();
-            $category->update([
-                'category_name' =>$request->category_name,
-                'category_slug' =>Str::of($request->category_name)->slug('-')
-            ]);
+        // For img ===>
+        $slug = Str::of($request->category_name)->slug('-');
 
-            return redirect()->back()->with('success' , 'Success to Update');
+        // for check is there new photo or not ====>
+        if($request->icon){
+            if (File::exists($request->old_icon)){
+                unlink($request->old_icon);
+            }
+
+        $photo =$request->icon;
+        $photoname = $slug.'.'.$photo->getClientOriginalExtension();
+        // $photo->move('public/files/category_icon/',$photoname); //without image intervention
+        Image::make($photo)->resize(468,90)->save('public/files/category_icon/'.$photoname); // image intervention===>>
+        $data['icon'] = 'public/files/category_icon/'.$photoname;
+        DB::table('categories')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success' , 'Success to Update campaign');
+
+
+        }else{
+        $data['icon'] = $request->old_icon; 
+        DB::table('categories')->where('id',$request->id)->update($data);
+        return redirect()->back()->with('success' , 'Success to Update campaign');
+        }            
+ 
 
 
 
 
-            
         }
 
 

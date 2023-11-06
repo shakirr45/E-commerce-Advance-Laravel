@@ -11,6 +11,7 @@ class Categories extends Model
     protected $fillable = [
         'category_name',
         'category_slug',
-        
+        'home_page',
+        'icon',
     ];
 }

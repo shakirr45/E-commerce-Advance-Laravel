@@ -38,9 +38,11 @@ class IndexController extends Controller
         // For get trendy product =======>
         $trendy_product = Product::where('status', 1)->where('trendy',1)->orderBy('id', 'DESC')->limit(8)->get();
 
+        // For Home page Category Show====>
+        $home_category = DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
 
 
-        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product'));
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category'));
     }
 
     // singleproduct page calling method =====>

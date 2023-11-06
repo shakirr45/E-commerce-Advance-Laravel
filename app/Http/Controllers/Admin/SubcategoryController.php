@@ -85,7 +85,7 @@ class SubcategoryController extends Controller
 
         }
 
-        //Edid sub category ====>
+        //Edit sub category ====>
 
         public function edit($id){
 
