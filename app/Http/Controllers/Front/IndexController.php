@@ -25,6 +25,9 @@ class IndexController extends Controller
         // $category = Categories::all();
         $category = DB::table('categories')->get();
 
+        //For show brand ---->
+        $brand = DB::table('brands')->inRandomOrder()->limit(12)->get();
+
         //For show banner ---->
         // $bannerproduct = DB::table('products')->where('product_slider', 1)->latest()->first();
         $bannerproduct = Product::where('status', 1)->where('product_slider', 1)->latest()->first();
@@ -41,8 +44,11 @@ class IndexController extends Controller
         // For Home page Category Show====>
         $home_category = DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
 
+        // For get random product product =======>
+        $random_product = Product::where('status', 1)->inRandomOrder()->limit(16)->get();
 
-        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category'));
+
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product'));
     }
 
     // singleproduct page calling method =====>

@@ -24,7 +24,9 @@
 									@endphp
 
 									<li class="hassubs">
-										<a href="#">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
+										<a href="#">
+											<img src="{{ asset($row->icon) }}" alt="" height="18" width="18"> {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
+										</a>
 										<ul>
 										@foreach($subcategory as $row)
 

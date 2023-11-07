@@ -43,6 +43,8 @@ class CategoryController extends Controller
         public function store(Request $request){
             $validated = $request->validate([
                 'category_name' => 'required|unique:categories|max:55',
+                'icon' => 'required',
+
             ]);
 
             // Eloquent ORM ------>
@@ -66,7 +68,7 @@ class CategoryController extends Controller
             $icon =$request->icon;
             $iconname = $slug.'.'.$icon->getClientOriginalExtension();
             // $icon->move('public/files/category_icon/',$iconname); //without image intervention
-            Image::make($icon)->resize(240,120)->save('public/files/category_icon/'.$iconname); // image intervention===>>
+            Image::make($icon)->resize(320,320)->save('public/files/category_icon/'.$iconname); // image intervention===>>
 
             $data['icon'] = 'public/files/category_icon/'.$iconname;
 
@@ -137,7 +139,7 @@ class CategoryController extends Controller
         $photo =$request->icon;
         $photoname = $slug.'.'.$photo->getClientOriginalExtension();
         // $photo->move('public/files/category_icon/',$photoname); //without image intervention
-        Image::make($photo)->resize(468,90)->save('public/files/category_icon/'.$photoname); // image intervention===>>
+        Image::make($photo)->resize(320,320)->save('public/files/category_icon/'.$photoname); // image intervention===>>
         $data['icon'] = 'public/files/category_icon/'.$photoname;
         DB::table('categories')->where('id',$request->id)->update($data);
         return redirect()->back()->with('success' , 'Success to Update campaign');

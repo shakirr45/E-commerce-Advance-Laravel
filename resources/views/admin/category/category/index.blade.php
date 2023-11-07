@@ -47,11 +47,11 @@
                     <td>{{ $row->category_name }}</td>
                     <td>{{ $row->category_slug }}</td>
                     <td>
-                    <img src="{{ asset($row->icon) }}" alt="{{ $row->category_name }}" width="30" height="30">
+                    <img src="{{ asset($row->icon) }}" alt="{{ $row->category_name }}" width="32" height="32">
                     </td>
                     <td>
                     @if($row->home_page == 1)
-                    <a href="#"> <span class="badge badge-success">Active</span> </a>
+                    <a href="#"> <span class="badge badge-success">Home Page</span> </a>
                     @endif
                     </td>
 
@@ -98,12 +98,12 @@
   </div>
 
   <div class="form-group">
-    <label for="home_page">Home Page</label>
+    <label for="home_page">Show ON Home Page</label>
     <select class="form-control" name="home_page" id="">
-      <option value="1">Home Page</option>
-      <option value="0">Not For Home Page</option>
+      <option value="1">Yes</option>
+      <option value="0">No</option>
     </select>
-    <small id="emailHelp" class="form-text text-muted">For Showing into Home Page</small>
+    <small id="emailHelp" class="form-text text-muted">If yes it will be show on your Home Page</small>
   </div>
 
   <div class="form-group ">
