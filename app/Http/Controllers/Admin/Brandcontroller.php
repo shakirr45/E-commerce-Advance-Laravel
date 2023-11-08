@@ -34,12 +34,19 @@ class Brandcontroller extends Controller
             
             return DataTables::of($data)
             ->addIndexColumn()
+            ->editColumn('front_page',function($row){
+                if($row->front_page == 1){
+                    // return "Yes";
+                    return ' <span class="badge badge-success">Home Page</span> ';
+    
+                }
+            })
             ->addColumn('action', function($row){
                 $actionbtn= '<a href="#" class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'"><i class="fas fa-edit"></i></a>
                 <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
                 return $actionbtn;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','front_page'])
             ->make(true);
 
         }
@@ -58,6 +65,8 @@ class Brandcontroller extends Controller
         $data = array();
         $data['brand_name'] = $request->brand_name;
         $data['brand_slug'] = Str::of($request->brand_name)->slug('-');
+        $data['front_page'] = $request->front_page;
+        
 
         // For store image---->
         $photo =$request->brand_logo;
@@ -107,12 +116,14 @@ class Brandcontroller extends Controller
         $data=array();
         $data['brand_name'] = $request->brand_name;
         $data['brand_slug'] = Str::of($request->brand_name)->slug('-');
+        $data['front_page'] = $request->front_page;
+
         // dd($data);
 
         // for check is there new photo or not ====>  
         if($request->brand_logo){
-            if(File::exists($request->old_image)){
-                unlink($request->old_image);
+            if(File::exists($request->old_logo)){
+                unlink($request->old_logo);
             }
 
         $photo =$request->brand_logo;
@@ -125,7 +136,7 @@ class Brandcontroller extends Controller
 
 
         }else{
-        $data['brand_logo'] = $request->old_image; 
+        $data['brand_logo'] = $request->old_logo; 
         DB::table('brands')->where('id',$request->id)->update($data);
         return redirect()->back()->with('success' , 'Success to Update Brand');
         }

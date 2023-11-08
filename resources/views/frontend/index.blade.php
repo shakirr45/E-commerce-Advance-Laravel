@@ -45,8 +45,18 @@
 		<div class="container">
 			<div class="row">
 
+							@foreach($brand as $row)
+							<div class="col-lg-1 col-md-6 char_col" style="border: 1px solid grey; padding:5px; ">
+								<div class="brands_item">
+									<a href="" title="{{ $row->brand_name }}">
+										<img src="{{ asset($row->brand_logo) }}" alt="{{ $row->brand_name }}" height="100%" width="100%">
+								</a>
+								</div>
+							</div>
+							@endforeach
+
 				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+				<!-- <div class="col-lg-2 col-md-6 char_col">
 					
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_1.png" alt=""></div>
@@ -55,43 +65,9 @@
 							<div class="char_subtitle">from $50</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-					
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_2.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
-					</div>
-				</div>
 
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-					
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_3.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
-					
-					<div class="char_item d-flex flex-row align-items-center justify-content-start">
-						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_4.png" alt=""></div>
-						<div class="char_content">
-							<div class="char_title">Free Delivery</div>
-							<div class="char_subtitle">from $50</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -1308,6 +1284,65 @@
 
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+
+		<!-- Characteristics -->
+
+		<div class="characteristics">
+		<div class="container">
+			<div class="row">
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+					
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_1.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+					
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_2.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+					
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_3.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Char. Item -->
+				<div class="col-lg-3 col-md-6 char_col">
+					
+					<div class="char_item d-flex flex-row align-items-center justify-content-start">
+						<div class="char_icon"><img src="{{ asset('public/frontends') }}/images/char_4.png" alt=""></div>
+						<div class="char_content">
+							<div class="char_title">Free Delivery</div>
+							<div class="char_subtitle">from $50</div>
+						</div>
+					</div>
+				</div>
+
+				
 			</div>
 		</div>
 	</div>

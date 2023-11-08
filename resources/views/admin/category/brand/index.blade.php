@@ -42,6 +42,7 @@
                     <th>Brand Name</th>
                     <th>Brand Slug</th>
                     <th>Brand logo</th>
+                    <th>Home Page</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -83,7 +84,7 @@
 
 
   <div class="form-group">
-    <label for="brand_name">Brands Name</label>
+    <label for="brand_name">Brand Name</label>
     <input type="text" class="form-control" name="brand_name" required="">
     <small id="emailHelp" class="form-text text-muted">This is Your brand</small>
   </div>
@@ -93,6 +94,15 @@
     <label for="brand_name">Brands Logo</label>
     <input type="file" class="" data-height="140" id="input-file-now" name="brand_logo" required="">
     <small id="emailHelp" class="form-text text-muted">This is Your brand Logo</small>
+  </div>
+
+  <div class="form-group">
+    <label for="front_page">Home Page Show</label>
+    <select class="form-control" name="front_page">
+      <option value="1">Yes</option>
+      <option value="0">No</option>
+    </select>
+    <small id="emailHelp" class="form-text text-muted">If yes it will be show on your home page</small>
   </div>
 
 
@@ -154,6 +164,7 @@
             {data:'brand_logo' ,name:'brand_logo', render: function(data, type, full,meta){
                 return "<img src=\"" +data+ "\" height=\" 30\" />"
             }},
+            {data:'front_page' ,name:'front_page'},
             {data:'action', name:'action', orderable:true, searchable:true},
 
         ]

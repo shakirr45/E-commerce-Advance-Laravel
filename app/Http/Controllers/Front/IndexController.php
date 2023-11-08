@@ -26,7 +26,7 @@ class IndexController extends Controller
         $category = DB::table('categories')->get();
 
         //For show brand ---->
-        $brand = DB::table('brands')->inRandomOrder()->limit(12)->get();
+        $brand = DB::table('brands')->where('front_page', 1)->limit(24)->get();
 
         //For show banner ---->
         // $bannerproduct = DB::table('products')->where('product_slider', 1)->latest()->first();
