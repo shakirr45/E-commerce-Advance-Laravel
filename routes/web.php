@@ -51,6 +51,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     // For quickview show with ajax request ===========>
     Route::get('/product-quick-view/{id}', 'IndexController@ProductQuickview');
+
+    // For Add to cart form quickview store method ===========>
+    //Cart::total(); Cart::count() ..etc. eta dea chek krte hoy add hoice kina ... front page e dwa ace
+    Route::post('/addtocart', 'CartController@AddToCartQV')->name('add.to.cart.quickview');
     
 
 
