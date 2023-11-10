@@ -55,6 +55,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For Add to cart form quickview store method ===========>
     //Cart::total(); Cart::count() ..etc. eta dea chek krte hoy add hoice kina ... front page e dwa ace
     Route::post('/addtocart', 'CartController@AddToCartQV')->name('add.to.cart.quickview');
+
+    Route::get('/all-cart', 'CartController@AllCart')->name('all.cart');
+
+    
     
 
 

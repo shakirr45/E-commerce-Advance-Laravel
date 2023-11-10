@@ -40,10 +40,15 @@ class CartController extends Controller
 
         //Cart::total(); Cart::count(); etc,eta dea chek krte hoy add hoice kina ... front page e dwa ace
 
+    }
 
 
-
-
+    public function AllCart(){
+        $data = array();
+        $data['cart_qty'] = Cart::count();
+        $data['cart_total'] = Cart::total();
+        return response()->json($data);
 
     }
 }
+

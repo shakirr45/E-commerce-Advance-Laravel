@@ -189,11 +189,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="{{ asset('public/frontends') }}/images/cart.png" alt="">
-										<div class="cart_count"><span class="cart_qty"></span></div>
+										<div class="cart_count"><span>{{ Cart::count() }}</span></div>
 									</div>
 									<div class="cart_content">
 										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">{{ $setting->currency }}<span class="cart_total"></span></div>
+										<div class="cart_price">{{ $setting->currency }}{{ Cart::total() }}</div>
 									</div>
 								</div>
 							</div>
@@ -330,7 +330,6 @@
 <!-- for product page responsive nav. its from product.html  single page akta pic e click krle jate oi pic dkha jay or jonne add kora hoa ce--> 
 <script src="{{ asset('public/frontends') }}/js/product_custom.js"></script>
 
-
 <!-- // For toastr ==========> -->
 <script>
 
@@ -351,41 +350,6 @@ toastr.options = {
   		toastr.error("{{ session('error') }}");
   @endif
 </script>
-
-
-
-
-
-<!-- For add to cart============>  -->
-
-<script>
-	function cart(){
-		$.ajax({
-			type: 'get',
-			url: '{{ route('all.cart') }}',
-			dataType: 'json',
-			success:function(data){
-				$('.cart_qty').empty();
-				$('.cart_total').empty();
-				$('.cart_qty').append(data.cart_qty);
-				$('.cart_total').append(data.cart_total);
-			}
-		});
-	}
-	$(document).ready(function(event){
-		cart();
-	})
-</script>
-
-
-
-
-
-
-
-
-
-
 
 </body>
 

@@ -7,7 +7,6 @@
 
 	@endphp
 
-
 		
 		<div class="modal-body">
 			<div class="container-fluid">
