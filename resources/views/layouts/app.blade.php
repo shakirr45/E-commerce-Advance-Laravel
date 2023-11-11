@@ -192,7 +192,7 @@
 										<div class="cart_count"><span class="cart_qty"></span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
+										<div class="cart_text"><a href="{{ route('cart') }}">Cart</a></div>
 										<div class="cart_price">{{ $setting->currency }}<span class="cart_total"></span></div>
 									</div>
 								</div>

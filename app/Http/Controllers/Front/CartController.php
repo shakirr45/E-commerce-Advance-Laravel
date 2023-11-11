@@ -9,6 +9,7 @@ use DB;
 
 use Cart;
 use App\Models\Product;
+use Auth;
 
 class CartController extends Controller
 {
@@ -42,12 +43,21 @@ class CartController extends Controller
 
     }
 
-
+    // jkhn cart e add kora hobe tkhn price r koto gula add hoice ajax er maddhome barbe{app.blade.php}
     public function AllCart(){
         $data = array();
         $data['cart_qty'] = Cart::count();
         $data['cart_total'] = Cart::total();
         return response()->json($data);
+
+    }
+
+    // for cart page =====>
+    public function MyCart(){
+        $content = Cart::content();
+        // return response()->json($content);
+
+        return view('frontend.cart.cart', compact('content'));
 
     }
 }

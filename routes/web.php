@@ -52,21 +52,34 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For quickview show with ajax request ===========>
     Route::get('/product-quick-view/{id}', 'IndexController@ProductQuickview');
 
+
+
+    
     // For Add to cart form quickview store method ===========>
     //Cart::total(); Cart::count() ..etc. eta dea chek krte hoy add hoice kina ... front page e dwa ace
     Route::post('/addtocart', 'CartController@AddToCartQV')->name('add.to.cart.quickview');
 
-    Route::get('/all-cart', 'CartController@AllCart')->name('all.cart');
+    // jkhn cart e add kora hobe tkhn price r koto gula add hoice ajax er maddhome barbe{app.blade.php}
+    Route::get('/all-cart', 'CartController@AllCart')->name('all.cart'); // ajax request for sub total
+
+    // for cart page=====>
+    Route::get('/my-cart', 'CartController@MyCart')->name('cart'); // ajax request for sub total
+
 
     
     
-
-
-    // For store review =====>
-    Route::post('/store/review', 'ReviewController@store')->name('store.review');
     // For store wishlist =====>
     Route::get('/add/wishlist/{id}', 'ReviewController@AddWishlist')->name('add.wishlist');
 
+    // For store review =====>
+    Route::post('/store/review', 'ReviewController@store')->name('store.review');
+
+
+});
+
+// For remove cart data ====>
+Route::get('/cart/destroy', function (){
+    Cart::destroy();
 });
 
 

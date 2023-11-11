@@ -35,6 +35,9 @@ class IndexController extends Controller
         // For show featured product =====>->orderBy('id', 'DESC') use karon nutun gula--->
         $featured = Product::where('status', 1)->where('featured', 1)->orderBy('id', 'DESC')->limit(16)->get();
 
+        // For show teday deal product =====>
+        $todaydeal = Product::where('status', 1)->where('today_deal', 1)->orderBy('id', 'DESC')->limit(6)->get();
+
         // For get popular product =======>
         $popular_product = Product::where('status', 1)->orderBy('product_views', 'DESC')->limit(16)->get();
 
@@ -48,7 +51,7 @@ class IndexController extends Controller
         $random_product = Product::where('status', 1)->inRandomOrder()->limit(16)->get();
 
 
-        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product'));
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product','todaydeal'));
     }
 
     // singleproduct page calling method =====>
