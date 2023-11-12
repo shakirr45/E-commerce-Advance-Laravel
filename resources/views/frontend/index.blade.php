@@ -185,7 +185,7 @@
 												@endif
 
 												<div class="product_name"><div>
-													<a href="{{ route('product.details',$row->slug) }}">{{substr($row->name, 0,20);  }} ..</a>
+													<a href="{{ route('product.details',$row->slug) }}">{{substr($row->name, 0,20)  }} ..</a>
 												</div>
 												</div>
 												<div class="product_extras">

@@ -65,7 +65,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // for cart page=====>
     Route::get('/my-cart', 'CartController@MyCart')->name('cart'); // ajax request for sub total
 
-
+    // for single cart remove=====>
+    Route::get('/cartproduct/remove/{rowId}', 'CartController@RemoveProduct'); 
     
     
     // For store wishlist =====>

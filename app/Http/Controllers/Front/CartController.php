@@ -60,5 +60,12 @@ class CartController extends Controller
         return view('frontend.cart.cart', compact('content'));
 
     }
+
+    // for remove single product of cart ======>
+    public function RemoveProduct($rowId){
+        Cart::remove($rowId);
+        return response()->json('Success!');
+
+    }
 }
 
