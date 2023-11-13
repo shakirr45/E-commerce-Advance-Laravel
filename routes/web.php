@@ -65,12 +65,36 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // for cart page=====>
     Route::get('/my-cart', 'CartController@MyCart')->name('cart'); // ajax request for sub total
 
+    // for cart empty =====>
+    Route::get('/cart/empty', 'CartController@EmptyCart')->name('cart.empty'); 
+
     // for single cart remove=====>
     Route::get('/cartproduct/remove/{rowId}', 'CartController@RemoveProduct'); 
-    
-    
+
+    // for update product by quantity/qty=====>
+    Route::get('cartproduct/updateqty/{rowId}/{qty}', 'CartController@updateQty'); 
+    // for update product by color =====>
+    Route::get('cartproduct/updatecolor/{rowId}/{color}', 'CartController@updateColor'); 
+    // for update product by size =====>
+    Route::get('cartproduct/updatesize/{rowId}/{size}', 'CartController@updateSize'); 
+
+
+
     // For store wishlist =====>
-    Route::get('/add/wishlist/{id}', 'ReviewController@AddWishlist')->name('add.wishlist');
+    Route::get('/add/wishlist/{id}', 'CartController@AddWishlist')->name('add.wishlist');
+
+    // for wish list ====>
+    Route::get('/wishlist', 'CartController@wishlist')->name('wishlist'); 
+
+    // for wish list ====>
+    Route::get('/clear/wishlist', 'CartController@Clearwishlist')->name('clear.wishlist'); 
+
+    // for delete single product from wishlist ====>
+    Route::get('/wishlist/product/delete/{id}', 'CartController@WishlistProductDelete')->name('wishlistproduct.delete'); 
+    
+    
+    
+    
 
     // For store review =====>
     Route::post('/store/review', 'ReviewController@store')->name('store.review');
@@ -79,8 +103,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 });
 
 // For remove cart data ====>
-Route::get('/cart/destroy', function (){
-    Cart::destroy();
-});
+// Route::get('/cart/destroy', function (){
+//     Cart::destroy();
+// });
 
+
+// For check cart data ====>
+Route::get('/cart/check', function (){
+   return response()->json(Cart::content());
+});
 

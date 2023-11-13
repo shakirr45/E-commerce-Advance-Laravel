@@ -55,7 +55,7 @@
 											<div class="cart_item_title">Color</div>
 											<div class="cart_item_text">
 
-											<select class="custom-select form-control-sm" name="color" style="min-width:100px;">
+											<select class="custom-select form-control-sm color" data-id="{{ $row->rowId }}" name="color" style="min-width:100px;">
 											@foreach($color as $color)
 											<option value="{{ $color }}" @if($color==$row->options->color) selected="" @endif >{{ $color }}</option>
 											@endforeach
@@ -71,7 +71,7 @@
 											<div class="cart_item_title">Size</div>
 											<div class="cart_item_text">
 
-											<select class="custom-select form-control-sm" name="size" style="min-width:100px;">
+											<select class="custom-select form-control-sm size" data-id="{{ $row->rowId }}" name="size" style="min-width:100px;">
 											@foreach($size as $size)
 											<option value="{{ $size }}" @if($size==$row->options->size) selected="" @endif >{{ $size }}</option>
 											@endforeach
@@ -85,7 +85,7 @@
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Quantity</div>
 											<div class="cart_item_text">
-												<input class=" form-control-sm" style="min-width:70px;" type="number" name="qty" value="1" min="1" required="">
+												<input class=" form-control-sm qty" style="min-width:70px;" type="number" name="qty" data-id="{{ $row->rowId }}" value="{{ $row->qty }}" min="1" required="">
 											</div>
 										</div>
 										<div class="cart_item_price cart_info_col">
@@ -115,12 +115,12 @@
 						<div class="order_total">
 							<div class="order_total_content text-md-right">
 								<div class="order_total_title">Order Total:</div>
-								<div class="order_total_amount">$2000</div>
+								<div class="order_total_amount">{{ $setting->currency }} {{ Cart::total() }}</div>
 							</div>
 						</div>
 
 						<div class="cart_buttons">
-							<button type="button" class="button cart_button_clear btn-danger">Empty Cart</button>
+							<a href="{{ route('cart.empty') }}" class="button cart_button_clear btn-danger">Empty Cart</a>
 							<button type="button" class="button cart_button_checkout">Checkout</button>
 						</div>
 					</div>
@@ -171,6 +171,61 @@
 				toastr.success(data);
 				location.reload();
 
+			}
+		});
+
+	});
+
+	// for quantity ====> location.reload(); na krle id chg e prob hote pre
+	$('body').on('blur','.qty', function(){
+		let qty = $(this).val();
+		let rowId = $(this).data('id');
+		// alert(qty);
+		// alert(rowId);
+		$.ajax({
+			url: '{{ url('cartproduct/updateqty/') }}/'+rowId+'/'+qty,
+			type: 'get',
+			async: false,
+			success:function(data){
+				toastr.success(data);
+				location.reload();
+
+			}
+		});
+
+	});
+
+		// for color ====>  location.reload(); na krle id chg e prob hote pre
+		$('body').on('change','.color', function(){
+		let color = $(this).val();
+		let rowId = $(this).data('id');
+		// alert(color);
+		// alert(rowId);
+		$.ajax({
+			url: '{{ url('cartproduct/updatecolor/') }}/'+rowId+'/'+color,
+			type: 'get',
+			async: false,
+			success:function(data){
+				toastr.success(data);
+				location.reload();
+			}
+		});
+
+	});
+
+		// for size ====> location.reload(); na krle id chg e prob hote pre
+		$('body').on('change','.size', function(){
+		let size = $(this).val();
+		let rowId = $(this).data('id');
+		// alert(size);
+		// alert(rowId);
+		$.ajax({
+			url: '{{ url('cartproduct/updatesize/') }}/'+rowId+'/'+size,
+			type: 'get',
+			async: false,
+			success:function(data){
+				toastr.success(data);
+				location.reload();
 			}
 		});
 

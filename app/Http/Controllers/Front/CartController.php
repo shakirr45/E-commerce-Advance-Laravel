@@ -67,5 +67,108 @@ class CartController extends Controller
         return response()->json('Success!');
 
     }
+
+    // update cart quantity/qty =====>
+    public function updateQty($rowId, $qty){
+        // return $rowId;
+        // return $qty;
+
+        Cart::update($rowId, ['qty' => $qty]); // Will update the name
+        return response()->json('Successfully Updated!');
+
+    }
+
+        // update cart color =====>
+        public function updateColor($rowId, $color){
+            // return $rowId;
+            // return $qty;
+
+            $product = Cart::get($rowId);
+
+            $thumbnail= $product->options->thumbnail ;
+            $size= $product->options->size ;
+
+
+            Cart::update($rowId, ['options' => ['color' => $color, 'thumbnail' => $thumbnail , 'size' => $size]]); 
+            return response()->json('Successfully Updated!');
+    
+        }
+
+        // update cart size =====>
+        public function updateSize($rowId, $size){
+            // return $rowId;
+            // return $qty;
+
+            $product = Cart::get($rowId);
+
+            $thumbnail= $product->options->thumbnail ;
+            $color= $product->options->color ;
+
+
+            Cart::update($rowId, ['options' => ['size' => $size, 'thumbnail' => $thumbnail , 'color' => $color]]); 
+            return response()->json('Successfully Updated!');
+    
+        }
+
+        // For empty cart ==========>
+        public function EmptyCart(){
+            Cart::destroy();
+            return redirect()->to('/')->with('success' , 'Cart item clear successfully!');
+
+        }
+
+    // For add Wishlist =======>
+    public function AddWishlist($id){
+        // echo "$id";
+
+        // jodi age theke thake add tahole hobe na =====>
+        $check = DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
+        if($check){
+        return redirect()->back()->with('error' , 'Already have it on your wishlist');
+        }else{
+            $data = array();
+            $data['product_id'] = $id;
+            $data['user_id'] = Auth::id();
+            $data['date'] = date('d , F Y');
+
+            DB::table('wishlists')->insert($data);
+
+        return redirect()->back()->with('success' , 'Product added on wishlist');
+        }
+
+    }
+
+
+        // for wishlist ==========>
+        public function wishlist(){
+            if(Auth::check()) {
+                $wishlist= DB::table('wishlists')->leftJoin('products', 'wishlists.product_id', 'products.id')->select('products.name', 'products.thumbnail', 'products.slug', 'wishlists.*')->where('wishlists.user_id', Auth::id())->get();
+
+                return view('frontend.cart.wishlist',compact('wishlist'));
+            }
+            return redirect()->back()->with('error' , 'At first login your account!');
+
+        }
+
+        // For clear Wishlist ====>
+        public function Clearwishlist(){
+
+            DB::table('wishlists')->where('user_id', Auth::id())->delete();
+
+            return redirect()->back()->with('success' , 'Wishlist Clear');
+
+        }
+
+        // For clear single Wishlist product ====>
+        public function WishlistProductDelete($id){
+
+            DB::table('wishlists')->where('id',$id)->delete();
+
+            return redirect()->back()->with('success' , 'Successfully deleted!');
+
+        }        
+
+        
+
 }
 
