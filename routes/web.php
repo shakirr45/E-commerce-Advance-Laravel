@@ -58,19 +58,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For Add to cart form quickview store method ===========>
     //Cart::total(); Cart::count() ..etc. eta dea chek krte hoy add hoice kina ... front page e dwa ace
     Route::post('/addtocart', 'CartController@AddToCartQV')->name('add.to.cart.quickview');
-
     // jkhn cart e add kora hobe tkhn price r koto gula add hoice ajax er maddhome barbe{app.blade.php}
     Route::get('/all-cart', 'CartController@AllCart')->name('all.cart'); // ajax request for sub total
-
     // for cart page=====>
     Route::get('/my-cart', 'CartController@MyCart')->name('cart'); // ajax request for sub total
-
     // for cart empty =====>
     Route::get('/cart/empty', 'CartController@EmptyCart')->name('cart.empty'); 
-
     // for single cart remove=====>
     Route::get('/cartproduct/remove/{rowId}', 'CartController@RemoveProduct'); 
-
     // for update product by quantity/qty=====>
     Route::get('cartproduct/updateqty/{rowId}/{qty}', 'CartController@updateQty'); 
     // for update product by color =====>
@@ -82,22 +77,24 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     // For store wishlist =====>
     Route::get('/add/wishlist/{id}', 'CartController@AddWishlist')->name('add.wishlist');
-
     // for wish list ====>
     Route::get('/wishlist', 'CartController@wishlist')->name('wishlist'); 
-
     // for wish list ====>
     Route::get('/clear/wishlist', 'CartController@Clearwishlist')->name('clear.wishlist'); 
-
     // for delete single product from wishlist ====>
     Route::get('/wishlist/product/delete/{id}', 'CartController@WishlistProductDelete')->name('wishlistproduct.delete'); 
     
-    
-    
-    
+
 
     // For store review =====>
     Route::post('/store/review', 'ReviewController@store')->name('store.review');
+
+
+
+    // Category Wise Product ====>
+    Route::get('/category/product/{id}', 'IndexController@categoryWiseProduct')->name('categorywise.product'); 
+
+    
 
 
 });

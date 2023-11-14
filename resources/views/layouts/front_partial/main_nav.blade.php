@@ -24,7 +24,7 @@
 									@endphp
 
 									<li class="hassubs">
-										<a href="#">
+										<a href="{{ route('categorywise.product', $row->id) }}">
 											<img src="{{ asset($row->icon) }}" alt="" height="18" width="18"> {{ $row->category_name }}<i class="fas fa-chevron-right"></i>
 										</a>
 										<ul>

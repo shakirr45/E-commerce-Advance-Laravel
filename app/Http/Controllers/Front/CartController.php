@@ -121,20 +121,25 @@ class CartController extends Controller
     public function AddWishlist($id){
         // echo "$id";
 
-        // jodi age theke thake add tahole hobe na =====>
-        $check = DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
-        if($check){
-        return redirect()->back()->with('error' , 'Already have it on your wishlist');
-        }else{
-            $data = array();
-            $data['product_id'] = $id;
-            $data['user_id'] = Auth::id();
-            $data['date'] = date('d , F Y');
+        if(Auth::check()){
 
-            DB::table('wishlists')->insert($data);
+            // jodi age theke thake add tahole hobe na =====>
+            $check = DB::table('wishlists')->where('product_id', $id)->where('user_id', Auth::id())->first();
+            if($check){
+            return redirect()->back()->with('error' , 'Already have it on your wishlist');
+            }else{
+                $data = array();
+                $data['product_id'] = $id;
+                $data['user_id'] = Auth::id();
+                $data['date'] = date('d , F Y');
 
-        return redirect()->back()->with('success' , 'Product added on wishlist');
+                DB::table('wishlists')->insert($data);
+
+            return redirect()->back()->with('success' , 'Product added on wishlist');
+            }
         }
+        return redirect()->back()->with('error' , 'Login Your Account!');
+
 
     }
 
