@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+// For pagination===============>
+use Illuminate\Pagination\Paginator;
 
 // pura website e taka or dollar convert er khetre========================>
 use DB;
@@ -23,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // pagination +++++++++++++++++=====================>
+        Paginator::useBootstrap();
+
         //
         // pura website e taka or dollar convert er khetre========================>
         $settings = DB::table('settings')->first();

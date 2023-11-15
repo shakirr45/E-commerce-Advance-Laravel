@@ -18,7 +18,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="images/shop_background.jpg"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">{{ $category->category_name }}</h2>
+			<h2 class="home_title">{{ $brand->brand_name }}</h2>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 						<!-- Brands Slider -->
 
 						<div class="owl-carousel owl-theme brands_slider">
-							@foreach($brand as $row)
+							@foreach($brands as $row)
 							<div class="owl-item">
 								<div class="brands_item d-flex flex-column justify-content-center">
 									<a href="{{ route('brandwise.product', $row->id) }}" title="{{ $row->brand_name }}">
@@ -66,10 +66,10 @@
 					<!-- Shop Sidebar -->
 					<div class="shop_sidebar">
 						<div class="sidebar_section">
-							<div class="sidebar_title">Sub Categories</div>
+							<div class="sidebar_title">Categories</div>
 							<ul class="sidebar_categories">
-								@foreach($subcategory as $row)
-								<li><a href="{{ route('subcategotywise.product',$row->id) }}">{{ $row->subcategory_name }}</a></li>
+								@foreach($category as $row)
+								<li><a href="{{ route('categorywise.product',$row->id) }}">{{ $row->category_name }}</a></li>
 								@endforeach
 							</ul>
 						</div>
@@ -96,8 +96,8 @@
 						<div class="sidebar_section">
 							<div class="sidebar_subtitle brands_subtitle">Brands</div>
 							<ul class="brands_list">
-								@foreach($brand as $row)
-								<li class="brand"><a href="{{ route('brandwise.product', $row->id) }}">{{ $row->brand_name }}</a></li>
+								@foreach($brands as $row)
+								<li class="brand"><a href="#">{{ $row->brand_name }}</a></li>
 								@endforeach
 							</ul>
 						</div>

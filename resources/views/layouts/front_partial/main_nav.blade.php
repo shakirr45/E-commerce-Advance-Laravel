@@ -35,10 +35,10 @@
 											@endphp	
 
 											<li class="hassubs">
-												<a href="#">{{ $row->subcategory_name}}<i class="fas fa-chevron-right"></i></a>
+												<a href="{{ route('subcategotywise.product',$row->id) }}">{{ $row->subcategory_name}}<i class="fas fa-chevron-right"></i></a>
 												<ul>
 													@foreach($childcategory as $row)
-													<li><a href="#">{{ $row->childcategory_name}}<i class="fas fa-chevron-right"></i></a></li>
+													<li><a href="{{ route('childcategotywise.product',$row->id) }}">{{ $row->childcategory_name}}<i class="fas fa-chevron-right"></i></a></li>
 										     	@endforeach
 
 												</ul>
