@@ -107,8 +107,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::get('/brandwise/product/{id}', 'IndexController@brandWiseProduct')->name('brandwise.product'); 
 
     
-
-    
+    // For write review as user for website =====>
+    Route::get('/write/review', 'ReviewController@write')->name('write.review');
+    // For store review as user for website =====>
+    Route::post('/store/website/review', 'ReviewController@storeWebsiteReview')->name('store.website.review');
     
     
     

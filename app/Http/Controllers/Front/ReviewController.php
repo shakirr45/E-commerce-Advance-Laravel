@@ -44,8 +44,35 @@ class ReviewController extends Controller
         return redirect()->back()->with('success' , 'Thank for your review');
     }
 
+    // Write a review as User for website =====>
+    public function write(){
+        return view('user.review_write');
+    }
+
+    // For store website review as user =======>
+    public function storeWebsiteReview(Request $request){
+
+        // jodi review age akbr dei eta check krar jonne
+        $check = DB::table('webreviews')->where('user_id', Auth::id())->first();
+
+        if($check){
+        return redirect()->back()->with('error' , 'Review already exist !');
+        }
+        $data = array();
+        $data['user_id'] = Auth::id();
+        $data['name'] = $request->name;
+        $data['review'] = $request->review;
+        $data['rating'] = $request->rating;
+        $data['review_date'] = date('d , F Y');
+        $data['status'] = 0;
+
+        DB::table('webreviews')->insert($data);
+        return redirect()->back()->with('success' , 'Thank for your review');
+
+    }
 
 
+    								
 }
 
 
