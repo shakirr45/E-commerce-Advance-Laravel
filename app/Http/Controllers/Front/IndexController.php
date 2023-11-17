@@ -50,8 +50,11 @@ class IndexController extends Controller
         // For get random product product =======>
         $random_product = Product::where('status', 1)->inRandomOrder()->limit(16)->get();
 
+        // For get review for website =======>
+        $review = DB::table('webreviews')->where('status', 1)->orderBy('id', 'DESC')->limit(12)->get();
 
-        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product','todaydeal'));
+
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product','todaydeal','review'));
     }
 
     // singleproduct page calling method =====>

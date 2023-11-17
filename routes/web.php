@@ -112,6 +112,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For store review as user for website =====>
     Route::post('/store/website/review', 'ReviewController@storeWebsiteReview')->name('store.website.review');
     
+
+    // for Customer setting =====>
+    Route::get('/customer/setting', 'ProfileController@setting')->name('customer.setting');
+    // For user Password Change====>
+    Route::post('/home/password/update', 'ProfileController@PasswordChange')->name('customer.password.change');
+
+    
+    
     
     
 
