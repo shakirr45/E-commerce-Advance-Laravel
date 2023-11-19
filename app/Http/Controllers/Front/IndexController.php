@@ -146,7 +146,32 @@ class IndexController extends Controller
             
             return view('frontend.product.brandwise_products',compact('brand','category','brands','products','random_product'));
         }
-    
+
+
+        // page view Method =====>
+        public function ViewPage($page_slug){
+            $page = DB::table('pages')->where('page_slug', $page_slug)->first();
+            return view('frontend.page',compact('page'));
+        }
+
+
+        // For store Newsletter =====>
+        public function storeNewsletter(Request $request){
+            // return "OK";
+            $email = $request->email;
+            $check = DB::table('newsletters')->where('email', $email)->first();
+
+            if($check) {
+                return response()->json('Email already Exist! ');
+            }
+            else{
+                $data = array();
+                $data['email'] = $request->email;
+                DB::table('newsletters')->insert($data);
+                return response()->json('Thanks for subscribe us! ');
+
+            }
+        }
 
 
         

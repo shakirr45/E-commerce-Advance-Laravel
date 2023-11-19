@@ -119,8 +119,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::post('/home/password/update', 'ProfileController@PasswordChange')->name('customer.password.change');
 
     
-    
-    
+    // Page view =====>
+    Route::get('/page/{page_slug}', 'IndexController@ViewPage')->name('view.page');
+
+
+
+    // For Store newsletter ====>
+    Route::post('/store/newsletter', 'IndexController@storeNewsletter')->name('store.newsletter');
     
 
 });
