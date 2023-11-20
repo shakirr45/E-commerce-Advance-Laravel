@@ -24,19 +24,16 @@
 
 						<div class="cart_items">
 							<ul class="cart_list">
+
 						@foreach($content as $row)
-						
 						<!-- Color size anar jonne  -->
 						<!-- json {decode incode} jar madhommer mutiple image ashbe ===============array akare colro db te ace explode {,} ace tai=========  -->
 						@php
 						$product = DB::table('products')->where('id', $row->id)->first();
 
-
 						$color = explode(',',$product->color);
 						$size = explode(',',$product->size);
 						@endphp
-
-
 
 
 								<li class="cart_item clearfix">
@@ -121,7 +118,7 @@
 
 						<div class="cart_buttons">
 							<a href="{{ route('cart.empty') }}" class="button cart_button_clear btn-danger">Empty Cart</a>
-							<button type="button" class="button cart_button_checkout">Checkout</button>
+							<a href="{{ route('checkout') }}" class="button cart_button_checkout">Checkout</a>
 						</div>
 					</div>
 				</div>

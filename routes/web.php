@@ -74,6 +74,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::get('cartproduct/updatesize/{rowId}/{size}', 'CartController@updateSize'); 
 
 
+    // For checkout ======>
+    Route::get('/checkout', 'CheckoutController@Checkout')->name('checkout');
+
+
 
     // For store wishlist =====>
     Route::get('/add/wishlist/{id}', 'CartController@AddWishlist')->name('add.wishlist');
@@ -126,6 +130,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     // For Store newsletter ====>
     Route::post('/store/newsletter', 'IndexController@storeNewsletter')->name('store.newsletter');
+
+
+
+
+
+    
     
 
 });
