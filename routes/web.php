@@ -77,6 +77,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For checkout ======>
     Route::get('/checkout', 'CheckoutController@Checkout')->name('checkout');
 
+    // For apply coupon ======>
+    Route::post('/apply/coupon', 'CheckoutController@ApplyCoupon')->name('apply.coupon');
+
+
 
 
     // For store wishlist =====>

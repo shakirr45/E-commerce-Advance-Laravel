@@ -99,30 +99,43 @@
                 <div class="col-lg-4">
                   
                 <div class="card">
-                    <form action="">
 
                     <div class="p-4">
 
-                    <p>Subtotal: 0000</p>
-                    <p>Tax: 0000</p>
-                    <p>Shipping: 0000</p>
-                    <p><b>Total: 0000</b> </p>
+                    <p style="color: black;">Subtotal: <span style="float: right; padding-right:5px;">{{ Cart::subtotal() }} {{ $setting->currency }}</span></p>
+
+					<!-- session er kaj controller e kora ace  -->
+					@if(Session::has('coupon'))
+
+                    <p style="color: black;">Copun: ({{ Session::get('coupon')['name'] }}) <a href="" class="text-danger">x</a><span style="float: right; padding-right:5px;">{{ Session::get('coupon')['discount'] }} {{ $setting->currency }}</span> </p>
+					@else
+
+					@endif
+                    <p style="color: black;">Tax: <span style="float: right; padding-right:5px;"> 0.00 %</span></p>
+                    <p style="color: black;">Shipping: <span style="float: right; padding-right:5px;">  0.00 {{ $setting->currency }}</span> </p>
+                    <p style="color: black;"><b>Total: <span style="float: right; padding-right:5px;"> {{ Session::get('coupon')['after_discount'] }} {{ $setting->currency }}</span></b> </p>
 
 
 
-                        </div>
+                        </div><hr>
+
+						<!-- session er kaj controller e kora ace  -->
+						@if(!Session::has('coupon'))
+						<form action="{{ route('apply.coupon') }}" method="post">
+							@csrf
                         
                         <div class="p-4">
 
                         <div class="form-group">
                             <label for="">Coupon Apply</label>
-                            <input type="text" class="form-control" name="coupon" required="" placeholder="Coupon Code">
+                            <input type="text" class="form-control" name="coupon" required="" placeholder="Coupon Code" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-info">Apply Coupon</button>
                         </div>
                         </div>
                     </form>
+					@endif
                 </div>
 
 						<!-- <div class="cart_buttons">
