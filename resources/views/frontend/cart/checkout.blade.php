@@ -23,7 +23,8 @@
 						<div class="cart_title text-center p-2">Billing Address </div>
 
 						<div class="cart_items">
-                        <form action="">
+                        <form action="{{ route('order.place') }}" method="post">
+							@csrf 
                         
                         <div class="row p-4">
 
@@ -57,8 +58,8 @@
                         </div>
 
                         <div class="form-group col-lg-6">
-                            <label for="">Extra Address</label>
-                            <input type="text" class="form-control" name="c_extra_address" required="" >
+                            <label for="">City Name</label>
+                            <input type="text" class="form-control" name="c_city" required="" >
                         </div>
 
                         <div class="form-group col-lg-6">
@@ -71,26 +72,28 @@
                        
                                 <div class="form-group col-lg-4">
                                     <label for="">Paypal</label>
-                                    <input type="radio" name="payment_type"  >
+                                    <input type="radio" name="payment_type" value="Paypal">
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">SSL Commerze</label>
-                                    <input type="radio" name="payment_type" >
+                                    <input type="radio" name="payment_type" value="SSL Commerze" >
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Hand Cash</label>
-                                    <input type="radio" name="payment_type" checked="">
+                                    <input type="radio" name="payment_type" checked="" value="Hand Cash">
                                 </div>
-
-                        
 
 
                         </div>
                         <div class="form-group p-4">
                             <button type="submit" class="btn btn-info p-2">Order Place</button>
                         </div>
+						<span class="visually-hidden pl-2">Progressing....</span>
+
+
+
                          </form>
 						</div>
 					</div>
@@ -104,16 +107,24 @@
 
                     <p style="color: black;">Subtotal: <span style="float: right; padding-right:5px;">{{ Cart::subtotal() }} {{ $setting->currency }}</span></p>
 
+					<!-- Coupon Apply  -->
 					<!-- session er kaj controller e kora ace  -->
 					@if(Session::has('coupon'))
 
-                    <p style="color: black;">Copun: ({{ Session::get('coupon')['name'] }}) <a href="" class="text-danger">x</a><span style="float: right; padding-right:5px;">{{ Session::get('coupon')['discount'] }} {{ $setting->currency }}</span> </p>
+                    <p style="color: black;">Copun: ({{ Session::get('coupon')['name'] }})   <a href="{{ route('coupon.remove') }}" class="text-danger">X</a><span style="float: right; padding-right:5px;">{{ Session::get('coupon')['discount'] }} {{ $setting->currency }}</span> </p>
 					@else
 
 					@endif
                     <p style="color: black;">Tax: <span style="float: right; padding-right:5px;"> 0.00 %</span></p>
                     <p style="color: black;">Shipping: <span style="float: right; padding-right:5px;">  0.00 {{ $setting->currency }}</span> </p>
+
+					@if(Session::has('coupon'))
+
                     <p style="color: black;"><b>Total: <span style="float: right; padding-right:5px;"> {{ Session::get('coupon')['after_discount'] }} {{ $setting->currency }}</span></b> </p>
+					@else
+                    <p style="color: black;"><b>Total: <span style="float: right; padding-right:5px;"> {{ Cart::total() }} {{ $setting->currency }}</span></b> </p>
+
+					@endif
 
 
 

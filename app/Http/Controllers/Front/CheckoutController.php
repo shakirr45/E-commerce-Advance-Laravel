@@ -54,4 +54,63 @@ class CheckoutController extends Controller
             return redirect()->back()->with('error' , 'Invalid Coupon Code! Try again.');
         }
     } 
+
+    // For remove Coupon ====>
+    public function RemoveCoupon(){
+        Session::forget('coupon');
+        return redirect()->back()->with('success' , 'Coupon removed!');
+    }
+
+
+
+    // Store order place/store =====>
+    public function OrderPlace(Request $request){
+        $order = array();
+        $order['user_id'] = Auth::id();
+        $order['c_name'] = $request->c_name;
+        $order['c_phone'] = $request->c_phone;
+        $order['c_email'] = $request->c_email;
+        $order['c_country'] = $request->c_country;
+        $order['c_zipcode'] = $request->c_zipcode;
+        $order['c_address'] = $request->c_address;
+        $order['c_extra_phone'] = $request->c_extra_phone;
+        $order['c_city'] = $request->c_city;
+
+        if(Session::has('coupon')){
+                $order['subtotal'] = Cart::subtotal();
+                $order['total'] = Cart::total();
+                $order['coupon_code'] = Session::get('coupon')['name'];
+                $order['coupon_discount'] = Session::get('coupon')['discount'];
+                $order['after_discount'] = Session::get('coupon')['after_discount'];
+        }else{
+                $order['subtotal'] = Cart::subtotal();
+                $order['total'] = Cart::total();
+        }
+
+        $order['payment_type'] = $request->payment_type;
+        $order['tax'] = 0;
+        $order['shipping_charge'] = 0;
+        $order['order_id'] = rand(1000,90000);
+        $order['status'] = 0;
+        $order['date'] = date('d-m-Y');
+        $order['month'] = date('F');
+        $order['year'] = date('Y');
+
+        dd($order);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
