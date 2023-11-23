@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->string('quantity')->nullable();
-            $table->string('price')->nullable();
             $table->string('single_price')->nullable();
             $table->string('subtotal_price')->nullable();
 

@@ -96,13 +96,36 @@ class CheckoutController extends Controller
         $order['month'] = date('F');
         $order['year'] = date('Y');
 
-        dd($order);
+        // dd($order);
+
+        // order table e insert korar por id ta pass kore dwa holo order_id te 
+        $order_id = DB::table('orders')->insertGetId($order);
+        $content = Cart::content();
+
+        $details = array();
+
+        foreach($content as $row){
+            $details['order_id'] = $order_id;
+            $details['product_id'] = $row->id;
+            $details['product_name'] = $row->name;
+            $details['color'] = $row->options->color;
+            $details['size'] = $row->options->size;
+            $details['quantity'] = $row->qty;
+            $details['single_price'] = $row->price;
+            $details['subtotal_price'] = $row->price*$row->qty;
+
+            DB::table('order_details')->insert($details);
+        }
+
+        Cart::destroy();
+        if(Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
+        return redirect()->to('/')->with('success' , 'Successfully Order Placed!');
+
     }
 }
-
-
-
-
 
 
 

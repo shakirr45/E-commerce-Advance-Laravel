@@ -23,7 +23,8 @@
 						<div class="cart_title text-center p-2">Billing Address </div>
 
 						<div class="cart_items">
-                        <form action="{{ route('order.place') }}" method="post">
+							<!-- id for ajax  -->
+                        <form action="{{ route('order.place') }}" method="post" id="order-place">
 							@csrf 
                         
                         <div class="row p-4">
@@ -90,7 +91,7 @@
                         <div class="form-group p-4">
                             <button type="submit" class="btn btn-info p-2">Order Place</button>
                         </div>
-						<span class="visually-hidden pl-2">Progressing....</span>
+						<span class="visually-hidden pl-2 d-none">Progressing....</span>
 
 
 
