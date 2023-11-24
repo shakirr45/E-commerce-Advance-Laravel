@@ -13,6 +13,11 @@ use DB;
 
 use Session;
 
+// For send mail ===>
+use App\Mail\InvoiceMail;
+use Mail;
+
+
 class CheckoutController extends Controller
 {
     //
@@ -78,15 +83,13 @@ class CheckoutController extends Controller
 
         if(Session::has('coupon')){
                 $order['subtotal'] = Cart::subtotal();
-                $order['total'] = Cart::total();
                 $order['coupon_code'] = Session::get('coupon')['name'];
                 $order['coupon_discount'] = Session::get('coupon')['discount'];
                 $order['after_discount'] = Session::get('coupon')['after_discount'];
         }else{
                 $order['subtotal'] = Cart::subtotal();
-                $order['total'] = Cart::total();
         }
-
+        $order['total'] = Cart::total();
         $order['payment_type'] = $request->payment_type;
         $order['tax'] = 0;
         $order['shipping_charge'] = 0;
@@ -100,6 +103,15 @@ class CheckoutController extends Controller
 
         // order table e insert korar por id ta pass kore dwa holo order_id te 
         $order_id = DB::table('orders')->insertGetId($order);
+
+
+        // For mail send ===>go to app/Mail/InvoiceMail and also have invoice.blade.php // also use Mail And use App\Mail\InvoiceMail;
+        Mail::to($request->c_email)->send(new InvoiceMail($order));
+
+
+
+
+
         $content = Cart::content();
 
         $details = array();
