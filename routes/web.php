@@ -129,6 +129,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     // for Customer setting =====>
     Route::get('/customer/setting', 'ProfileController@setting')->name('customer.setting');
+
+    // my order =====>
+    Route::get('/my/order', 'ProfileController@MyOrder')->name('my.order');
+ 
+
     // For user Password Change====>
     Route::post('/home/password/update', 'ProfileController@PasswordChange')->name('customer.password.change');
 

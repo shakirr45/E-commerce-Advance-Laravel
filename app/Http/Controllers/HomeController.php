@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 // For logout ============>
 use Auth;
 
+use DB;
+
 class HomeController extends Controller
 {
     /**
@@ -26,7 +28,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $orders = DB::table('orders')->where('user_id', Auth::id())->orderBy('id', 'DESC')->take(10)->get();
+
+        // Total order ======>
+        $total_order = DB::table('orders')->where('user_id', Auth::id())->count();
+        // Complete Order ====>
+        $complete_order = DB::table('orders')->where('user_id', Auth::id())->where('status', 3)->count();
+        // cancel Order ====>
+        $cancel_order = DB::table('orders')->where('user_id', Auth::id())->where('status', 5)->count();
+        // return Order ====>
+        $return_order = DB::table('orders')->where('user_id', Auth::id())->where('status', 4)->count();        
+
+        // dd($orders);
+
+        return view('homes',compact('orders','total_order','complete_order','cancel_order','return_order'));
     }
 
     public function logout(){

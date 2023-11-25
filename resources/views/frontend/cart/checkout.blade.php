@@ -50,7 +50,7 @@
 
                         <div class="form-group col-lg-6">
                             <label for="">Email Address</label>
-                            <input type="text" class="form-control" name="c_email">
+                            <input type="email" class="form-control" name="c_email">
                         </div>
 
                         <div class="form-group col-lg-6">
