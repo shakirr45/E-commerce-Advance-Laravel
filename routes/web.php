@@ -147,6 +147,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::post('/store/newsletter', 'IndexController@storeNewsletter')->name('store.newsletter');
 
 
+    // For Support Ticket ======>
+    Route::get('/open/ticket', 'ProfileController@ticket')->name('open.ticket');
+    // For new ticket/ submit ticket =====>
+    Route::get('/new/ticket', 'ProfileController@NewTicket')->name('new.ticket');
+    // For store ticket ====>
+    Route::post('/store/ticket', 'ProfileController@StoreTicket')->name('store.ticket');
+
+    
+    
+
+
+    
 
 
 

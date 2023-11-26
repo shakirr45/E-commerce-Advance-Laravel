@@ -12,6 +12,8 @@ use App\Models\User;
 // for pass check hash for make===>
 use Hash;
 
+use Image;
+
 
 class ProfileController extends Controller
 {
@@ -64,4 +66,45 @@ class ProfileController extends Controller
         return view('user.my_order',compact('orders'));
     }
 
+    // For ticket page ====>
+    public function ticket(){
+        $ticket = DB::table('tickets')->where('user_id', Auth::id())->latest()->take(10)->get();
+        return view('user.ticket',compact('ticket'));
+    }
+
+    // For new Ticket =====>
+    public function NewTicket(){
+        return view('user.new_ticket');
+    }
+
+    // For store Ticket =====>
+    public function StoreTicket(Request $request){
+        $validated = $request->validate([
+            'subject' => 'required',
+        ]);
+
+
+        $data = array();
+        $data['subject'] = $request->subject;
+        $data['service'] = $request->service;
+        $data['priority'] = $request->priority;
+        $data['message'] = $request->message;
+        $data['user_id'] = Auth::id();
+        $data['status'] = 0;
+        $data['date'] = date('Y-m-d');
+
+        if($request->image){
+        // For store image---->
+        $photo =$request->image;
+        $photoname = uniqid().'.'.$photo->getClientOriginalExtension();
+        // $photo->move('public/files/ticket/',$photoname); //without image intervention
+        Image::make($photo)->resize(600,350)->save('public/files/ticket/'.$photoname); // image intervention===>>
+
+        $data['image'] = 'public/files/ticket/'.$photoname;
+        }
+
+        DB::table('tickets')->insert($data);
+
+        return redirect()->route('open.ticket')->with('success' , 'Ticket Inserted');
+    }
 }

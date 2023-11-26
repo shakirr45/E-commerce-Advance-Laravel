@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Rating</label>3
+                            <label for="exampleInputPassword1">Rating</label>
                             <select class="form-control" name="rating"  style="min-width: 120px;">
                                 <option value="1">1 star</option>
                                 <option value="2">2 star</option>
