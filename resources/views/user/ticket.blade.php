@@ -51,7 +51,7 @@
                                     </td>
 
                                     <td>
-                                        <a href="" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
+                                        <a href="{{ route('show.ticket', $row->id) }}" class="btn btn-sm btn-info"><i class="fa fa-eye"></i></a>
                                         <a href="" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
 
                                     </td>
