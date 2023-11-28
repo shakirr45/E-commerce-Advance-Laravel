@@ -170,6 +170,17 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
 
 
 
+        // ticket ------->
+        Route::group(['prefix' => 'ticket'],function(){
+            Route::get('/', 'TicketController@index')->name('ticket.index');
+            // Route::post('/store', 'TicketController@store')->name('ticket.store');
+            // Route::post('/update', 'TicketController@update')->name('ticket.update');
+            // Route::delete('/delete', 'TicketController@delete')->name('ticket.delete');
+            
+        });
+
+
+        
 
         });
 
