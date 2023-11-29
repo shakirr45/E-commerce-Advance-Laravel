@@ -73,12 +73,14 @@
                     <strong>Reply Message.</strong><br>
                     <div>
     
-                    <form action="{{ route('store.ticket') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('reply.ticket') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
                             <label for="exampleInputPassword1">Message</label>3
                             <textarea name="message" class="form-control"></textarea>
+                              <!-- // for id  -->
+                             <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
                         </div>
 
                         <div class="form-group">

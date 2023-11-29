@@ -46,7 +46,7 @@
 
                       </select>
                     </div>
-                    Running
+                    
 
 
                     <div class="form-group col-3">

@@ -155,8 +155,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::post('/store/ticket', 'ProfileController@StoreTicket')->name('store.ticket');
     // For show ticket page =====>
     Route::get('/show/ticket/{id}', 'ProfileController@ticketShow')->name('show.ticket');
+    // For reply ticket =====>
+    Route::post('/reply/ticket', 'ProfileController@ReplyTicket')->name('reply.ticket');
 
-    
+
 
     
     

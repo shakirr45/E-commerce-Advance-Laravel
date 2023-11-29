@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('replies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ticket_id');
+            $table->integer('user_id');
             $table->text('message')->nullable();
+            $table->string('reply_date')->nullable();
             $table->string('image')->nullable();
 
             $table->timestamps();

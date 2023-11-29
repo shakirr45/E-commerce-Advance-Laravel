@@ -113,4 +113,33 @@ class ProfileController extends Controller
         $ticket = DB::table('tickets')->where('id', $id)->first();
         return view('user.show_ticket',compact('ticket'));   
     }
+
+    // For reply Ticket =====>
+    public function ReplyTicket(Request $request){
+        $validated = $request->validate([
+            'message' => 'required',
+        ]);
+    
+    
+        $data = array();
+        $data['message'] = $request->message;
+        $data['ticket_id'] = $request->ticket_id;
+        // 0 dici karon admin re 0 rkhci
+        $data['user_id'] = Auth::id();
+        $data['reply_date'] = date('Y-m-d');
+    
+        if($request->image){
+        // For store image---->
+        $photo =$request->image;
+        $photoname = uniqid().'.'.$photo->getClientOriginalExtension();
+        // $photo->move('public/files/ticket/',$photoname); //without image intervention
+        Image::make($photo)->resize(600,350)->save('public/files/ticket/'.$photoname); // image intervention===>>
+    
+        $data['image'] = 'public/files/ticket/'.$photoname;
+        }
+    
+        DB::table('replies')->insert($data);
+    
+        return redirect()->back()->with('success' , 'Replied Done!');
+    }
 }

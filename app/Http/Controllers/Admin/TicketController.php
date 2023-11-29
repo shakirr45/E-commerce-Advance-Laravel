@@ -95,7 +95,7 @@ class TicketController extends Controller
 
         ->addColumn('action', function($row){
             $actionbtn= '
-            <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+            <a href="'.route('admin.ticket.show',[$row->id]).'" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
             <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
             return $actionbtn;
@@ -106,6 +106,42 @@ class TicketController extends Controller
     }
 
     return view('admin.ticket.index');
+  }
+
+  // For show ticket ======>
+  public function show($id){
+    $ticket = DB::table('tickets')->leftJoin('users', 'tickets.user_id', 'users.id')->select('tickets.*', 'users.name')->where('tickets.id', $id)->first();
+
+    return view('admin.ticket.view_ticket',compact('ticket'));
+  }
+
+  // For store Reply as admin =====>
+  public function ReplyTicket(Request $request){
+    $validated = $request->validate([
+        'message' => 'required',
+    ]);
+
+
+    $data = array();
+    $data['message'] = $request->message;
+    $data['ticket_id'] = $request->ticket_id;
+    // 0 dici karon admin re 0 rkhci
+    $data['user_id'] = 0;
+    $data['reply_date'] = date('Y-m-d');
+
+    if($request->image){
+    // For store image---->
+    $photo =$request->image;
+    $photoname = uniqid().'.'.$photo->getClientOriginalExtension();
+    // $photo->move('public/files/ticket/',$photoname); //without image intervention
+    Image::make($photo)->resize(600,350)->save('public/files/ticket/'.$photoname); // image intervention===>>
+
+    $data['image'] = 'public/files/ticket/'.$photoname;
+    }
+
+    DB::table('replies')->insert($data);
+
+    return redirect()->back()->with('success' , 'Replied Done!');
   }
 
 }
