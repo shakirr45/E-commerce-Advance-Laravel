@@ -29,35 +29,32 @@
 
 
             </div><br>
+
+            <!-- All reply message show here  -->
+            @php 
+                $replies = DB::table('replies')->where('ticket_id', $ticket->id)->orderBy('id', 'DESC')->get();
+            @endphp
             
             <div class="card p-4">
                 <strong>All Reply Message</strong>
 
                 <div class="card-body" style="overflow-y: scroll; height: 450px;">
                 
-                <div class="card">
-                    <div class="card-header">
-                      <i class="fa fa-user"></i>  {{ Auth::user()->name }}
+                @isset($replies)
+                @foreach($replies as $row)
+                <div class="card @if($row->user_id == 0) ml-4   @endif">
+                    <div class="card-header @if($row->user_id == 0) bg-info @else  bg-danger @endif">
+                      <i class="fa fa-user"></i> @if($row->user_id == 0) Admin @else  {{ Auth::user()->name }} @endif
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                        <p>{{$row->message}}</p>
+                        <footer class="blockquote-footer">{{ date('d F Y'),strtotime($row->reply_date) }}</footer>
                         </blockquote>
                     </div>
                     </div>
-
-                    <div class="card ml-4">
-                    <div class="card-header">
-                     <span  style="float:right;"><i class="fa fa-user"></i>  Admin</span> 
-                    </div>
-                    <div class="card-body">
-                        <blockquote class="blockquote mb-0">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                        </blockquote>
-                    </div>
-                    </div>
+                    @endforeach
+                    @endisset
 
   
 
