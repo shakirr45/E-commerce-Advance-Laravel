@@ -176,7 +176,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::get('/ticket/show/{id}', 'TicketController@show')->name('admin.ticket.show');
             Route::post('/ticket/reply', 'TicketController@ReplyTicket')->name('admin.store.reply');
             Route::get('/ticket/close/{id}', 'TicketController@CloseTicket')->name('admin.close.ticket');
-            Route::get('/ticket/delete{id}', 'TicketController@destroy')->name('admin.ticket.delete');
+            Route::delete('/ticket/delete', 'TicketController@delete')->name('admin.ticket.delete');
         });
 
 

@@ -12,6 +12,9 @@ use DataTables;
 
 use Image;
 
+use App\Models\Ticket;
+
+
 class TicketController extends Controller
 {
     //
@@ -97,7 +100,7 @@ class TicketController extends Controller
             $actionbtn= '
             <a href="'.route('admin.ticket.show',[$row->id]).'" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
-            <a href="'.route('admin.ticket.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
+            <a href="" data-id="'.$row->id.'" class="btn btn-danger btn-sm delete_ticket"><i class="fas fa-trash"></i></a>';
             return $actionbtn;
         })
         ->rawColumns(['action','status','date'])
@@ -148,18 +151,23 @@ class TicketController extends Controller
     return redirect()->back()->with('success' , 'Replied Done!');
   }
 
-  // For close ticket ======>
-  public function CloseTicket($id){
+    // For close ticket ======>
+    public function CloseTicket($id){
 
-    DB::table('tickets')->where('id', $id)->update(['status'=>2]);
-    return redirect()->route('ticket.index')->with('success' , 'Ticket Closed!');
-  }
+        DB::table('tickets')->where('id', $id)->update(['status'=>2]);
+        return redirect()->route('ticket.index')->with('success' , 'Ticket Closed!');
+    }
 
-  // For delete ticket ======>
-  public function destroy($id){
-    
-    DB::table('tickets')->where('id', $id)->delete();
-    return redirect()->back()->with('success' , 'successfully deleted!');
-  }
+
+     // For delete ticket ====>
+     public function delete(Request $request){
+        $id=$request->ticket_id;
+        $data=Ticket::find($id);
+        $data->delete();
+        return response()->json([
+            'status' => 'success',
+        ]);
+         
+     }
 
 }

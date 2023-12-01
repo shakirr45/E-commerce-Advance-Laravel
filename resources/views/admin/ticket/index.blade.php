@@ -177,5 +177,43 @@
 
 </script>
 
+
+
+  <!-- // For ajax  -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script>
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+
+
+<script>
+// For delete ticket ====>
+        //Delete data ====>
+         $(document).on('click','.delete_ticket',function(e){
+        e.preventDefault();
+        let ticket_id=$(this).data('id');
+
+        // alert(ticket_id);
+        if (confirm("are you sure to delete This Ticket ?")){
+            $.ajax({
+            type: 'DELETE',
+            url: "{{ route('admin.ticket.delete') }}",
+            data: {ticket_id: ticket_id},
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+                 if (response.status=='success') {
+                    $('.table').DataTable().ajax.reload();
+                 }
+            }
+        });
+        }
+       })
+</script>
+
     @endsection
 
