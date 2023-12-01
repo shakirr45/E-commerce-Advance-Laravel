@@ -68,7 +68,7 @@ class ProfileController extends Controller
 
     // For ticket page ====>
     public function ticket(){
-        $ticket = DB::table('tickets')->where('user_id', Auth::id())->latest()->take(10)->get();
+        $ticket = DB::table('tickets')->where('user_id', Auth::id())->orderBy('id', 'DESC')->take(10)->get();
         return view('user.ticket',compact('ticket'));
     }
 
@@ -139,6 +139,9 @@ class ProfileController extends Controller
         }
     
         DB::table('replies')->insert($data);
+
+        // Status er value 1 korar jonne 
+        DB::table('tickets')->where('id', $request->ticket_id)->update(['status'=>0]);
     
         return redirect()->back()->with('success' , 'Replied Done!');
     }

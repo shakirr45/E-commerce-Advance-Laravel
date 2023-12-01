@@ -53,7 +53,6 @@
                       <label>Status</label>
                       <select class="form-control submitable" name="status" id="status">
                         <!-- // all er ta 1 kora lgbe then select kore dkhte hobe -->
-                        <option value="0">All</option>
                         <option value="0">Panding</option>
                         <option value="1">Replied</option>
                         <option value="2">Closed</option>

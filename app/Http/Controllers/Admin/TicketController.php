@@ -97,7 +97,7 @@ class TicketController extends Controller
             $actionbtn= '
             <a href="'.route('admin.ticket.show',[$row->id]).'" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
 
-            <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
+            <a href="'.route('admin.ticket.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
             return $actionbtn;
         })
         ->rawColumns(['action','status','date'])
@@ -140,8 +140,26 @@ class TicketController extends Controller
     }
 
     DB::table('replies')->insert($data);
+    
+        // Status er value 1 korar jonne 
+        DB::table('tickets')->where('id', $request->ticket_id)->update(['status'=>1]);
+    
 
     return redirect()->back()->with('success' , 'Replied Done!');
+  }
+
+  // For close ticket ======>
+  public function CloseTicket($id){
+
+    DB::table('tickets')->where('id', $id)->update(['status'=>2]);
+    return redirect()->route('ticket.index')->with('success' , 'Ticket Closed!');
+  }
+
+  // For delete ticket ======>
+  public function destroy($id){
+    
+    DB::table('tickets')->where('id', $id)->delete();
+    return redirect()->back()->with('success' , 'successfully deleted!');
   }
 
 }
