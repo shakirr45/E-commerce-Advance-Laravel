@@ -160,6 +160,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
 
 
+    // For View Order =====>
+    Route::get('/view/order/{id}', 'ProfileController@ViewOrder')->name('view.order');
+
+
+    
+
+
+
     
     
 

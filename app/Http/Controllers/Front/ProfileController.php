@@ -145,4 +145,14 @@ class ProfileController extends Controller
     
         return redirect()->back()->with('success' , 'Replied Done!');
     }
+
+    // customer order view ====>
+    public function ViewOrder($id){
+
+        $order = DB::table('orders')->where('id', $id)->first();
+        $order_details = DB::table('order_details')->where('order_id', $id)->first();
+        
+        return view('user.order_details',compact('order_details','order'));   
+
+    }
 }
