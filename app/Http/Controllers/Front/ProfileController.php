@@ -150,7 +150,7 @@ class ProfileController extends Controller
     public function ViewOrder($id){
 
         $order = DB::table('orders')->where('id', $id)->first();
-        $order_details = DB::table('order_details')->where('order_id', $id)->first();
+        $order_details = DB::table('order_details')->where('order_id', $id)->get();
         
         return view('user.order_details',compact('order_details','order'));   
 

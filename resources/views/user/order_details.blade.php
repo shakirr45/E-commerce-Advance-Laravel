@@ -15,6 +15,38 @@
                     {{ __('Dashboard') }}
                 </div>
 
+
+                <div class="card-body mt-2">
+                        Name: {{ $order->c_name }} <br>
+                        Phone: {{ $order->c_phone }} <br>
+                        Order ID: {{ $order->order_id }} <br>
+
+                        Status:         
+                        @if($order->status == 0)
+                        <span class="badge badge-danger">Order Pending</span>
+                        @elseif($order->status == 1)
+                        <span class="badge badge-info">Order Recieved</span>
+                        @elseif($row->status == 2)
+                        <span class="badge badge-primary">Order Shipped</span>
+                        @elseif($order->status == 3)
+                        <span class="badge badge-success">Order Done</span>
+                        @elseif($order->status == 4)
+                        <span class="badge badge-warning">Order return</span>
+                        @elseif($order->status == 5)
+                        <span class="badge badge-danger">Order Cancel</span>
+                        @endif
+                        <br>
+
+                        Date: {{ date('d F Y'),strtotime($order->date) }} <br>
+                        Subtotal: {{ $order->subtotal }} {{ $setting->currency }} <br>
+                        Total: {{ $order->total }} {{ $setting->currency }} <br>
+                    </div>
+
+
+
+
+
+
                 <div class="card-body">
                     <h4>My Order</h4>
 
@@ -36,11 +68,14 @@
 
                                 @foreach($order_details as $key=>$row)
                                 <tr>
-                                    <th scope="row">{{ $key++ }}</th>
+                                    <th scope="row">{{ ++$key }}</th>
                                     <td>{{ $row->product_name }}</td>
                                     <td>{{ $row->color }}</td>
                                     <td>{{ $row->size }}</td>
                                     <td>{{ $row->quantity }}</td>
+                                    <td>{{ $row->single_price }} {{ $setting->currency }}</td>
+                                    <td>{{ $row->subtotal_price }} {{ $setting->currency }}</td>
+
 
                                 </tr>
                                 @endforeach
@@ -48,6 +83,8 @@
                             </tbody>
                         </table>
                     </div>
+
+
 
 
 
