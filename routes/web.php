@@ -164,13 +164,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     Route::get('/view/order/{id}', 'ProfileController@ViewOrder')->name('view.order');
 
 
+    // For Order Tracking ======>
+    Route::get('/order/tracking', 'IndexController@OrderTracking')->name('order.tracking');
+    // For order searcing =======>
+    Route::post('/check/order', 'IndexController@CheckOrder')->name('check.order');
+
     
-
-
-
-    
-    
-
 
     
 

@@ -173,6 +173,29 @@ class IndexController extends Controller
             }
         }
 
+    
+        // For Order Tracking ======>
+        public function OrderTracking(){
+            return view('frontend.order_tracking');
+        }
+
+        // For check/search order =====>
+        public function CheckOrder(Request $request){
+            $check = DB::table('orders')->where('order_id', $request->order_id)->first();
+
+            if($check){
+
+                $order = DB::table('orders')->where('order_id', $request->order_id)->first();
+                $order_details = DB::table('order_details')->where('order_id', $order->id)->get(); // ekhner id ta opr er line er theke $request->order_id likhlaw kaj kore
+
+                return view('frontend.order_details',compact('order','order_details'));
+
+            }else{
+              return redirect()->back()->with('error' , 'Invalid orderID! Try again!');
+
+            }
+        }
+
 
         
 
