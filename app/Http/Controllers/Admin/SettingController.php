@@ -114,11 +114,17 @@ class SettingController extends Controller
 
        DB::table('settings')->where('id' , $id)->update($data);
        return redirect()->back()->with('success' , 'Success to Update Settings');
+    }
 
+    // For payment getway ====>
+    public function PaymentGetway(){
+        $aamarpay = DB::table('payment_getway_bds')->first();
+        $surjapay = DB::table('payment_getway_bds')->skip(1)->first();
+        $ssl = DB::table('payment_getway_bds')->skip(2)->first();
 
-  
+        return view('admin.bdpayment_getway.edit', compact('aamarpay','surjapay','ssl'));
+
     }
 
 
 }
-

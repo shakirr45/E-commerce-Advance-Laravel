@@ -147,6 +147,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update/{id}', 'SettingController@websiteUpdate')->name('website.setting.update');
         });
 
+        // website Setting-----.
+        Route::group(['prefix' => 'payment-getway'],function(){
+            Route::get('/', 'SettingController@PaymentGetway')->name('payment.getway');
+        });
+
+        
+
         // page Setting-----.
         Route::group(['prefix' => 'page'],function(){
             Route::get('/', 'PageController@index')->name('page.index');
