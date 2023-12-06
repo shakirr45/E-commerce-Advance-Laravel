@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('getway_name')->nullable();
             $table->string('store_id')->nullable();
             $table->string('signature_key')->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->nullable();
             
             $table->timestamps();
         });

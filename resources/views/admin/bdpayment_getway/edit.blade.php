@@ -32,8 +32,9 @@
             <h3 class="card-title">Aamarpay Payment Getway</h3>
             </div>
 
-            <form action="" method="POST">
+            <form action="{{ route('update.aamarpay') }}" method="POST">
             @csrf
+            <!-- for take id  -->
             <input type="hidden" name="id" value="{{ $aamarpay->id }}">
             <div class="card-body">
 
@@ -45,6 +46,12 @@
             <div class="form-group">
             <label for="exampleInputEmail1">Signature KEY</label>
             <input type="text" class="form-control" name="signature_key" value="{{ $aamarpay->signature_key }}" required="">
+            </div>
+
+            <div class="form-group">
+            <input type="checkbox"  name="status" value="1" @if ($aamarpay->status ==1) checked @endif>
+            <label for="exampleInputEmail1">Live Server</label>
+            <small>(If Checkbox are not Checked it warking for sandbox only otherwise in liveserver)</small>
             </div>
 
             <div class="card-footer">
@@ -65,9 +72,10 @@
             <h3 class="card-title">SurjaPay Payment Getway</h3>
             </div>
 
-            <form action="" method="POST">
+            <form action="{{ route('update.surjapay') }}" method="POST">
             @csrf
-
+            <!-- for take id  -->
+            <input type="hidden" name="id" value="{{ $surjapay->id }}">
             <div class="card-body">
 
             <div class="form-group">
@@ -78,6 +86,14 @@
             <div class="form-group">
             <label for="exampleInputEmail1">Signature KEY</label>
             <input type="text" class="form-control" name="signature_key" value="{{ $surjapay->signature_key }}" required="">
+            </div>
+
+            <div class="form-group">
+            <input type="checkbox"  name="status" value="1" @if ($surjapay->status ==1) checked @endif>
+            <label for="exampleInputEmail1">Live </label>
+            <small>(If Checkbox are not Checked it warking for sandbox only otherwise in liveserver)</small>
+
+
             </div>
 
             <div class="card-footer">
@@ -98,9 +114,10 @@
             <h3 class="card-title">SSL Commerz Payment Getway</h3>
             </div>
 
-            <form action="" method="POST">
+            <form action="{{ route('update.ssl') }}" method="POST">
             @csrf
-
+            <!-- for take id  -->
+            <input type="hidden" name="id" value="{{ $ssl->id }}">
             <div class="card-body">
 
             <div class="form-group">
@@ -111,6 +128,12 @@
             <div class="form-group">
             <label for="exampleInputEmail1">Signature KEY</label>
             <input type="text" class="form-control" name="signature_key" value="{{ $ssl->signature_key }}" required="">
+            </div>
+
+            <div class="form-group">
+            <input type="checkbox"  name="status" value="1" @if ($ssl->status ==1) checked @endif>
+            <label for="exampleInputEmail1">Live </label>
+            <small>(If Checkbox are not Checked it warking for sandbox only otherwise in liveserver)</small>
             </div>
 
             <div class="card-footer">

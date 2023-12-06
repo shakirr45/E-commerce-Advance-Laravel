@@ -150,6 +150,15 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
         // website Setting-----.
         Route::group(['prefix' => 'payment-getway'],function(){
             Route::get('/', 'SettingController@PaymentGetway')->name('payment.getway');
+            //for update aamrpay-->
+            Route::post('/update/aamarpay', 'SettingController@UpdateAamarpay')->name('update.aamarpay');
+            //for update surjapay-->
+            Route::post('/update/surjapay', 'SettingController@UpdateSurjapay')->name('update.surjapay');
+            //for update ssl-->
+            Route::post('/update/ssl', 'SettingController@UpdateSsl')->name('update.ssl');
+
+
+            
         });
 
         

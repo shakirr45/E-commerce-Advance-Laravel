@@ -127,4 +127,35 @@ class SettingController extends Controller
     }
 
 
+    // for update UpdateAamarpay =====>
+    public function UpdateAamarpay(Request $request){
+        $data = array();
+        $data['store_id'] = $request->store_id;
+        $data['signature_key'] = $request->signature_key;
+        $data['status'] = $request->status;
+        DB::table('payment_getway_bds')->where('id', $request->id)->update($data);
+       return redirect()->back()->with('success' , 'Payment Getway Updated!');
+    }
+
+    // for update UpdateSurjapay =====>
+        public function UpdateSurjapay(Request $request){
+         $data = array();
+         $data['store_id'] = $request->store_id;
+         $data['signature_key'] = $request->signature_key;
+         $data['status'] = $request->status;
+         DB::table('payment_getway_bds')->where('id', $request->id)->update($data);
+        return redirect()->back()->with('success' , 'Payment Getway Updated!');
+    }
+
+    // for update UpdateSsl =====>
+    public function UpdateSsl(Request $request){
+        $data = array();
+        $data['store_id'] = $request->store_id;
+        $data['signature_key'] = $request->signature_key;
+        $data['status'] = $request->status;
+        DB::table('payment_getway_bds')->where('id', $request->id)->update($data);
+       return redirect()->back()->with('success' , 'Payment Getway Updated!');
+    }
+
+
 }
