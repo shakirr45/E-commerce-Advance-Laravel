@@ -171,6 +171,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
 
     
 
+
+    // For payment getway aamarpay ====>
+    Route::post('/success','CheckoutController@success')->name('success');
+    Route::post('/fail','CheckoutController@fail')->name('fail');
+
+    
+
     
 
 

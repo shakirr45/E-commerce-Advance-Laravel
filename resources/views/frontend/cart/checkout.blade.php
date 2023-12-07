@@ -77,13 +77,13 @@
                                 </div>
 
                                 <div class="form-group col-lg-4">
-                                    <label for="">SSL Commerze</label>
-                                    <input type="radio" name="payment_type" value="SSL Commerze" >
+                                    <label for=""> Bkash/Rocket/Nagad (SSL Commerze)</label>
+                                    <input type="radio" name="payment_type"  checked="" value="Aamarpay" >
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Hand Cash</label>
-                                    <input type="radio" name="payment_type" checked="" value="Hand Cash">
+                                    <input type="radio" name="payment_type" value="Hand Cash">
                                 </div>
 
 
