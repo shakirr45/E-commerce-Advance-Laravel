@@ -6,10 +6,12 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 class VerifyCsrfToken extends Middleware
 {
+    // For Aamarpay =====>
+    protected $addHttpCookie = true;
 
-
+    // For Aamarpay =====>
     protected $except = [
         //
-        '/pay-via-ajax', '/success','/cancel','/fail','/ipn'
+        'success','fail'
     ];
 }

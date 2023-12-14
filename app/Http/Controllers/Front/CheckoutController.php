@@ -137,12 +137,100 @@ class CheckoutController extends Controller
 
         return redirect()->to('/')->with('success' , 'Successfully Order Placed!');
 
-        // nicha  aamarpay payment getway (ssl commerez)
+        // nicha  aamarpay payment getway ======>
         }elseif($request->payment_type == "Aamarpay"){
             // echo "Aamarpay";
-            
+
+
+            $aamarpay =DB::table('payment_getway_bds')->first();
+            if($aamarpay->store_id ==NULL){
+                 return redirect()->back()->with('error' , 'Please Setting Your Payment Getway!');
+
+            }else{
+
+                // For live status 1
+                if($aamarpay->status ==1){
+                    $url = 'https://secure.aamarpay.com/request.php'; // for Live Transection use "https://secure.aamarpay.com/request.php" 
+                }else{
+                    $url = 'https://​sandbox​.aamarpay.com/request.php';
+                }
+                    $fields = array(
+                     'store_id' => $aamarpay->store_id,
+                     'amount' => Cart::total(),
+                     'payment_type' => 'VISA',
+                     'currency' => 'BDT',
+                     'tran_id' => rand(1111111,9999999),
+                     'cus_name' => $request->c_name,
+                     'cus_email' => $request->c_email,
+                     'cus_add1' => $request->c_address,
+                     'cus_add2' => 'Mohakhali DOHS',
+                     'cus_city' => $request->c_city,
+                     'cus_state' => 'Dhaka',
+                     'cus_postcode' => $request->c_zipcode,
+                     'cus_country' => $request->c_country,
+                     'cus_phone' => $request->c_phone,
+                     'cus_fax' => $request->c_extra_phone,
+                     'ship_name' => 'ship name',
+                     'ship_add1' => 'House B-121, Road 21',
+                     'ship_add2' => 'Mohakhali',
+                     'ship_city' => 'Dhaka',
+                     'ship_state' => 'Dhaka',
+                     'ship_postcode' => '1212',
+                     'ship_country' => 'Bangladesh',
+                     'desc' => 'Payment description',
+                     'success_url' => route('success'),
+                     'fail_url' => route('fail'),
+                     'cancel_url' => 'http://localhost/foldername/cancel.php',
+                     'opt_a' => Cart::subtotal(),
+                     'opt_b' => $request->payment_type,
+                     'opt_c' => Auth::id(),
+                     'opt_d' => rand(1000,90000),
+                     'signature_key' => $aamarpay->signature_key,);
+         
+                     $fields_string = http_build_query($fields);
+                     
+                   $ch = curl_init();
+                   curl_setopt($ch, CURLOPT_VERBOSE, true);
+                   curl_setopt($ch, CURLOPT_URL, $url);
+         
+                   curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+                   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+         
+                   $url_forward = str_replace('"', '', stripslashes(curl_exec($ch)));
+                   curl_close($ch);
+         
+                   $this->redirect_to_merchant($url_forward);
+            }
+
+          
         }
         
+    }
+
+
+    function redirect_to_merchant($url){
+        ?>
+        <html xmlns="http://www.w3.org/1999/xhtml">
+            <head><script type="text/javascript">
+                function closethisasap() { document.forms["redirectpost"].submit(); }
+            </script></head>
+            <body onLoad="closethisasap();">
+
+            <form name="redirectpost" method="post" action="<?php echo 'https://​sandbox​.aamarpay.com/'.$url; ?>"></form>
+                <!-- for live url https://source.aamarpay.com  -->
+            </body>
+        <?php
+        exit;
+    }
+
+    // Success or fail er code niche =====>
+    public function success(Request $request){
+        return $request;
+    }
+
+    public function fail(Request $request){
+        return $request;
     }
 
 

@@ -167,8 +167,10 @@ return [
     | the cookie from being sent to you when it can't be done securely.
     |
     */
+    // jate payment korar por logout na hoy ======>
+    // 'secure' => env('SESSION_SECURE_COOKIE'),
+    'secure' => false,
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -196,6 +198,10 @@ return [
     |
     */
 
-    'same_site' => 'lax',
+    // jate payment korar por logout na hoy ======>
+    // 'same_site' => 'lax',
+    'same_site' => null,
+
+    
 
 ];
