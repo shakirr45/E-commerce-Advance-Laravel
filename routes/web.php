@@ -175,6 +175,10 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     // For aamrpay =====>
     Route::post('success','CheckoutController@success')->name('success');
     Route::post('fail','CheckoutController@fail')->name('fail');
+    Route::get('cancel', function(){
+        return redirect()->to('/');
+    })->name('cancel');
+
 
 
     

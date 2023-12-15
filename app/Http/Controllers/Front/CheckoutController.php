@@ -180,11 +180,11 @@ class CheckoutController extends Controller
                      'desc' => 'Payment description',
                      'success_url' => route('success'),
                      'fail_url' => route('fail'),
-                     'cancel_url' => 'http://localhost/foldername/cancel.php',
-                     'opt_a' => Cart::subtotal(),
-                     'opt_b' => $request->payment_type,
-                     'opt_c' => Auth::id(),
-                     'opt_d' => rand(1000,90000),
+                     'cancel_url' => route('cancel'),
+                     'opt_a' => $request->c_country,
+                     'opt_b' => $request->c_city, // jula 2 bar ace tar mne opr er dik er value pacilona jonne
+                     'opt_c' => $request->c_phone,
+                     'opt_d' => $request->c_address,
                      'signature_key' => $aamarpay->signature_key,);
          
                      $fields_string = http_build_query($fields);
@@ -226,7 +226,71 @@ class CheckoutController extends Controller
 
     // Success or fail er code niche =====>
     public function success(Request $request){
-        return $request;
+        // return Auth::id();
+
+        $order = array();
+        $order['user_id'] = Auth::id();
+        $order['c_name'] = $request->cus_name;
+        $order['c_phone'] = $request->opt_c;
+        $order['c_country'] = $request->opt_a;
+        $order['c_address'] = $request->opt_d;
+        $order['c_email'] = $request->cus_email;
+        $order['c_city'] = $request->opt_b;
+        // $order['c_zipcode'] = $request->cus_postcode;
+        // $order['c_extra_phone'] = $request->c_extra_phone;
+
+        if(Session::has('coupon')){
+                $order['subtotal'] = Cart::subtotal();
+                $order['coupon_code'] = Session::get('coupon')['name'];
+                $order['coupon_discount'] = Session::get('coupon')['discount'];
+                $order['after_discount'] = Session::get('coupon')['after_discount'];
+        }else{
+                $order['subtotal'] = Cart::subtotal();
+        }
+        $order['total'] = Cart::total();
+        $order['payment_type'] = 'Aamarpay';
+        $order['tax'] = 0;
+        $order['shipping_charge'] = 0;
+        $order['order_id'] = rand(1000,90000);
+        $order['status'] = 1; //payment korar karone 1
+        $order['date'] = date('d-m-Y');
+        $order['month'] = date('F');
+        $order['year'] = date('Y');
+
+        // dd($order);
+
+        // order table e insert korar por id ta pass kore dwa holo order_id te 
+        $order_id = DB::table('orders')->insertGetId($order);
+
+
+        // For mail send ===>go to app/Mail/InvoiceMail and also have invoice.blade.php // also use Mail And use App\Mail\InvoiceMail;
+        Mail::to(Auth::user()->email)->send(new InvoiceMail($order)); // Auth::user()->email
+
+
+
+        $content = Cart::content();
+
+        $details = array();
+
+        foreach($content as $row){
+            $details['order_id'] = $order_id;
+            $details['product_id'] = $row->id;
+            $details['product_name'] = $row->name;
+            $details['color'] = $row->options->color;
+            $details['size'] = $row->options->size;
+            $details['quantity'] = $row->qty;
+            $details['single_price'] = $row->price;
+            $details['subtotal_price'] = $row->price*$row->qty;
+
+            DB::table('order_details')->insert($details);
+        }
+
+        Cart::destroy();
+        if(Session::has('coupon')) {
+            Session::forget('coupon');
+        }
+
+        return redirect()->route('home')->with('success' , 'Successfully Order Placed!');
     }
 
     public function fail(Request $request){
