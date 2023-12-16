@@ -47,6 +47,9 @@ class IndexController extends Controller
         // For Home page Category Show====>
         $home_category = DB::table('categories')->where('home_page',1)->orderBy('category_name', 'ASC')->get();
 
+        // For Home page campaign Show====>
+        $campaign = DB::table('campaigns')->where('status',1)->orderBy('id', 'DESC')->first();
+
         // For get random product product =======>
         $random_product = Product::where('status', 1)->inRandomOrder()->limit(16)->get();
 
@@ -54,7 +57,7 @@ class IndexController extends Controller
         $review = DB::table('webreviews')->where('status', 1)->orderBy('id', 'DESC')->limit(12)->get();
 
 
-        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product','todaydeal','review'));
+        return view('frontend.index',compact('category','bannerproduct','featured','popular_product','trendy_product','home_category','brand','random_product','todaydeal','review','campaign'));
     }
 
     // singleproduct page calling method =====>
