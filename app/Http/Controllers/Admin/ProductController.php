@@ -170,12 +170,9 @@ class ProductController extends Controller
 
 
 
-
-
-
-  // For show Product =====> { Model link use kora ace } {{ ekhane search er code ace with yajra so jeta jeta @@@@@ use hobe oituk oitar code r cmt kora gula search cara (&& use jeta age cilo)}} mane ak kothay ager ta cilo orm r eta query builder
-  public function index(Request $request){
-    if($request->ajax()){
+    // For show Product =====> { Model link use kora ace } {{ ekhane search er code ace with yajra so jeta jeta @@@@@ use hobe oituk oitar code r cmt kora gula search cara (&& use jeta age cilo)}} mane ak kothay ager ta cilo orm r eta query builder
+         public function index(Request $request){
+        if($request->ajax()){
         // For image pass ===>db te sudhu name pass korar karone eta insert jkhne kora img sekhene==+>tar jonne db te sudhu path ace.
         $imgurl = 'public/files/product';
 

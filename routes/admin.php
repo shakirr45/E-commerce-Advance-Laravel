@@ -117,6 +117,18 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'CampaignController@update')->name('campaign.update');
         });
 
+        // order Route---
+        Route::group(['prefix' => 'order'],function(){
+            Route::get('/', 'OrderController@index')->name('admin.order.index');
+            // Route::post('/store', 'OrderController@store')->name('order.store');
+            // Route::get('/delete/{id}', 'OrderController@destroy')->name('order.delete');
+            // Route::get('/edit/{id}', 'OrderController@edit');
+            // Route::post('/update', 'OrderController@update')->name('order.update');
+        });
+        
+
+
+
         // Warehouse Route-----.
         Route::group(['prefix' => 'warehouse'],function(){
             Route::get('/', 'WarehouseController@index')->name('warehouse.index');
