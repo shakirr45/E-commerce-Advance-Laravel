@@ -175,7 +175,7 @@ $setting = DB::table('settings')->first();
               <li class="nav-item">
                 <a href="{{ route('admin.order.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pending Order</p>
+                  <p> Orders</p>
                 </a>
               </li>
               

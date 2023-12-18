@@ -28,21 +28,25 @@ class OrderController extends Controller
             $product = "";
 
             $query = DB::table('orders')->orderBy('id', 'DESC');
+
+
+
+            if($request->payment_type){
+                $query->where('payment_type', $request->payment_type);
+            }    
     
+
+
+            
+            if($request->date){
+                // table e j formet e ace sei frmt e rqst theke atac na jonne nicher code ==>
+                $order_date = date('d-m-Y', strtotime($request->date));
+                $query->where('date', $order_date);
+            }
     
-            // if($request->payment_type){
-            //     $query->where('products.category_id', $request->category_id);
-            // }
-    
-            // if($request->brand_id){
-            //     $query->where('products.brand_id', $request->brand_id);
-            // }
-    
-            // if($request->warehouse){
-            //     $query->where('products.warehouse', $request->warehouse);
-            // }
-    
-            if($request->status == 1){
+
+
+            if($request->status == 0){
                 $query->where('status', 0);
             }
 
@@ -50,19 +54,19 @@ class OrderController extends Controller
                 $query->where('status', 1);
             }
 
-            if($request->status == 1){
+            if($request->status == 2){
                 $query->where('status', 2);
             }
 
-            if($request->status == 1){
+            if($request->status == 3){
                 $query->where('status', 3);
             }
 
-            if($request->status == 1){
+            if($request->status == 4){
                 $query->where('status', 4);
             }
 
-            if($request->status == 1){
+            if($request->status == 5){
                 $query->where('status', 5);
             }
             

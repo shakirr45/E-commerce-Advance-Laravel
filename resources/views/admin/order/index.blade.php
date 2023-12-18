@@ -34,13 +34,24 @@
 
               <div class="row p-2">
 
+                    <div class="form-group col-3">
+                      <label>Payment Type</label>
+                      <select class="form-control submitable" name="payment_type" id="payment_type">
+
+                        <option  value="">All</option>
+                        <option value="Hand Cash">Hand Cash</option>
+                        <option value="Aamarpay ">Aamarpay</option>
+                        <option value="Paypal">Paypal</option>
+                      </select>
+                    </div>
 
 
+
+              <!-- // submitable_input submitable_inputsubmitable_input kora nice script ace  -->
                     <div class="form-group col-3">
 
                       <label>Date</label>
-                      <input type="date" class="form-control submitable" name="date" id="date">
-
+                      <input type="date" class="form-control submitable_input" name="date" id="date">
                     </div>
                     
 
@@ -48,8 +59,7 @@
                     <div class="form-group col-3">
                       <label>Status</label>
                       <select class="form-control submitable" name="status" id="status">
-                        <!-- // all er ta 1 kora lgbe then select kore dkhte hobe -->
-                        <option value="0">All</option>
+                        <option>All</option>
                         <option value="0">Pending</option>
                         <option value="1">Recieved</option>
                         <option value="2">Shipped</option>
@@ -129,7 +139,11 @@
           "data":function(e) {
 
             e.status =$("#status").val();
+            e.date =$("#date").val();
+            e.payment_type =$("#payment_type").val();
 
+
+             
           }
         },
 
@@ -181,6 +195,19 @@
   $(document).on('change','.submitable', function(){
     $('.ytable').DataTable().ajax.reload();
   })
+
+    // submitable_input class call for date change and loading=======>
+    $(document).on('change','.submitable_input', function(){
+    $('.ytable').DataTable().ajax.reload();
+  })
+
+
+
+
+  //     // submitable_input class call for date change and loading=======> ei code e blur ace etab dile bahire clk krte hobe
+  //     $(document).on('blur','.submitable_input', function(){
+  //   $('.ytable').DataTable().ajax.reload();
+  // })
 
 
 </script>
