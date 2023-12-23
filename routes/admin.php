@@ -120,10 +120,12 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
         // order Route---
         Route::group(['prefix' => 'order'],function(){
             Route::get('/', 'OrderController@index')->name('admin.order.index');
-            // Route::post('/store', 'OrderController@store')->name('order.store');
+            Route::post('/update/order', 'OrderController@updateOrder')->name('order.update');
+            // Route::get('/admin/edit/{id}', 'OrderController@EditOrder');
+            // Route::post('/update/order/status', 'OrderController@OpdateOrderStatus')->name('update.order.status');
             // Route::get('/delete/{id}', 'OrderController@destroy')->name('order.delete');
-            // Route::get('/edit/{id}', 'OrderController@edit');
             // Route::post('/update', 'OrderController@update')->name('order.update');
+
         });
         
 

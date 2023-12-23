@@ -82,8 +82,8 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
-                    <th>Subtotal</th>
-                    <th>Total</th>
+                    <th>Subtotal ({{ $setting->currency }})</th>
+                    <th>Total ({{ $setting->currency }})</th>
                     <th>Payment Type</th>
                     <th>Date</th>
                     <th>Status</th>
@@ -106,7 +106,81 @@
 </section>
 
  </div>
- 
+
+
+
+
+<!-- Edit Modal====> -->
+ <!-- Modal -->
+ <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Child Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="" method="post" id="update_modal"> 
+        @csrf
+    <div class="modal-body">
+    				
+    <input type="hidden" id="up_id">
+
+
+  <div class="form-group">
+    <label for="coupon_code">Email</label>
+    <input type="text" class="form-control" name="up_email" required="" id="up_email">
+  </div>
+
+
+  <div class="form-group">
+    <label for="coupon_code">Name</label>
+    <input type="text" class="form-control" name="up_name" required="" id="up_name">
+  </div>
+
+
+  <div class="form-group">
+    <label for="coupon_code">Address</label>
+    <input type="text" class="form-control" name="up_address" required="" id="up_address">
+  </div>
+
+
+  <div class="form-group">
+    <label for="coupon_code">Phone</label>
+    <input type="text" class="form-control" name="up_phone" required="" id="up_phone">
+  </div>
+
+  <div class="form-group">
+    <label for="coupon_code">Status</label>
+          <select class="form-control" name="up_status" id="up_status">
+
+        <option value="0" >Pending</option>
+        <option value="1" >Recieved</option>
+        <option value="2" >Shipped</option>
+        <option value="3" >Completed</option>
+        <option value="4" >Return</option>
+        <option value="5" >Cancel</option>
+
+        </select>
+
+  </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-danger modal_close" data-dismiss="modal"> Close</button>
+
+        <button type="submit" class="btn btn-primary update_order" data-dismiss="modal"> <span class="loader d-none">Loading........</span> Update</button>
+      </div>
+      </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -166,6 +240,62 @@
 
  });
 
+
+
+        // for show data into table=====> for update
+      // show value
+      $(document).on('click','.edit_order', function () {
+         let id=$(this).data('id');
+         let c_name=$(this).data('c_name');
+         let c_email=$(this).data('c_email');
+         let c_address=$(this).data('c_address');
+         let c_phone=$(this).data('c_phone');
+         let status=$(this).data('status');
+        //  console.log(status);
+
+         $('#up_id').val(id);
+         $('#up_name').val(c_name);
+         $('#up_email').val(c_email);
+         $('#up_address').val(c_address);
+         $('#up_phone').val(c_phone);
+         $('#up_status').val(status);
+         
+       });
+
+
+       //for insert as update ====>
+       $(document).on('click', '.update_order', function(e){
+        e.preventDefault();
+        let up_id=$('#up_id').val();
+        let up_name=$('#up_name').val();
+        let up_email=$('#up_email').val();
+        let up_address=$('#up_address').val();
+        let up_phone=$('#up_phone').val();
+        let up_status=$('#up_status').val();
+        $('.loader').removeClass('d-none');
+        console.log(up_name , up_address ,up_phone, up_status, up_email);
+        $.ajax({
+          type: "post",
+            url: "{{ route('order.update') }}",
+            data: {up_id:up_id,up_name:up_name,up_email:up_email,up_address:up_address,up_phone:up_phone,up_status:up_status},
+            dataType: "json",
+            success: function (response) {
+                 if (response.status =='success') {
+                    $('#editModal').modal('hide');
+                    $('.loader').addClass('d-none');
+                    $('.table').DataTable().ajax.reload();
+
+                 }
+            }
+        })
+
+       })
+       
+       
+
+
+
+
  
 </script>
 
@@ -175,21 +305,23 @@
 <script>
 
 
-    // For deactive deal====>
-    $(document).on('click','.deactive_deal',function(e){
-        e.preventDefault();
-        let id=$(this).data('id');
-        // alert(id);
-        var url = "{{ url('product/not-deal') }}/"+id;
-        $.ajax({
-          url: url,
-            type: 'get',
-            success: function (data) {
-                  $('.table').DataTable().ajax.reload();
-            }
-        });
+  //   // For edit modal====>
+  //   $(document).on('click','.edit',function(e){
+  //       e.preventDefault();
+  //       let id=$(this).data('id');
+  //       // alert(id);
+  //       var url = "{{ url('order/admin/edit') }}/"+id; // order prefix er jonne admin.php
+  //       $.ajax({
+  //         url: url,
+  //           type: 'get',
+  //           success: function (data) {
+  //                 $("#modal_body").html(data);
+  //           }
+  //       });
 
-  })
+  // })
+
+  
 
   // submitable class call for every change and loading=======>
   $(document).on('change','.submitable', function(){

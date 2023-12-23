@@ -10,6 +10,10 @@ use DB;
 //For yajra datatables===>
 use DataTables;
 
+// For send mail ===>
+use App\Mail\RecievedMail;
+use Mail;
+
 class OrderController extends Controller
 {
     //
@@ -106,8 +110,8 @@ class OrderController extends Controller
                 $actionbtn= '
                 <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
     
-                <a href="'.route('product.edit',[$row->id]).'" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-    
+                <a href=""  class="btn btn-info btn-sm edit_order" data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-c_name="'.$row->c_name.'"  data-c_email="'.$row->c_email.'" data-c_address="'.$row->c_address.'" data-c_phone="'.$row->c_phone.'" data-status="'.$row->status.'" ><i class="fas fa-edit"></i></a>
+                
                 <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
                 return $actionbtn;
             })
@@ -116,8 +120,61 @@ class OrderController extends Controller
     
         }
 
+
+
         return view('admin.order.index');
     }
+
+    // // For order edit ====>
+    // public function EditOrder($id){
+    //     $order = DB::table('orders')->where('id', $id)->first();
+    //     return view('admin.order.edit', compact('order'));
+    // }
+
+    // // For update order status ======>
+    // public function OpdateOrderStatus(Request $request){
+    //     $data = array();
+    //     $data['c_name'] = $request->c_name;
+    //     $data['c_address'] = $request->c_address;
+    //     $data['c_phone'] = $request->c_phone;
+    //     $data['status'] = $request->status;
+
+    //     DB::table('orders')->where('id', $request->id)->update($data);
+    //     return response()->json('Successfully Change Status!');
+    //     // return redirect()->back()->with('success' , 'Successfully Change Status');
+
+
+    // }
+
+   // For update order =====>
+   public function updateOrder(Request $request) {
+
+        $data = array();
+        $data['c_name'] = $request->up_name;
+        $data['c_address'] = $request->up_address;
+        $data['c_phone'] = $request->up_phone;
+        $data['status'] = $request->up_status;
+
+        DB::table('orders')->where('id', $request->up_id)->update($data);
+
+        if($request->up_status == 1){
+        // For mail send ===>go to app/Mail/RecievedMail and also have invoice.blade.php // also use Mail And use App\Mail\RecievedMail;
+        Mail::to($request->up_email)->send(new RecievedMail($data));
+
+        }
+
+    return response()->json([
+     'status' => 'success',
+    ]);
+
+}
+
+
+
+
+
+
+
 
 
 }
