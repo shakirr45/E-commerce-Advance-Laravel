@@ -117,14 +117,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'CampaignController@update')->name('campaign.update');
         });
 
-        // order Route---
+        // order Route---with ajax
         Route::group(['prefix' => 'order'],function(){
             Route::get('/', 'OrderController@index')->name('admin.order.index');
             Route::post('/update/order', 'OrderController@updateOrder')->name('order.update');
-            // Route::get('/admin/edit/{id}', 'OrderController@EditOrder');
-            // Route::post('/update/order/status', 'OrderController@OpdateOrderStatus')->name('update.order.status');
-            // Route::get('/delete/{id}', 'OrderController@destroy')->name('order.delete');
-            // Route::post('/update', 'OrderController@update')->name('order.update');
+            Route::get('/view/admin/{id}', 'OrderController@ViewOrder');
+            Route::get('/delete/{id}', 'OrderController@destroy')->name('order.delete');
+            // Route::post('/update/order/status', 'OrderController@OpdateOrderStatus')->name('update.order.status'); // etar kaj modal hide hoccilona jonnne modal er html order_details page er karone akta form baneno lgbe jeta edit er vetor dkhle bojha jabe
 
         });
         

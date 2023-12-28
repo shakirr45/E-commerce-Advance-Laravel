@@ -182,7 +182,25 @@
   </div>
 </div>
 
+<!-- view Modal====> -->
+ <!-- Modal -->
+ <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Order Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
+    <div id="view_modal_body">
+
+
+      </div>
+    </div>
+  </div>
+</div>
 
  <!-- For yajra datatables -------=============================------------- -->
 <!-- Ajax use for edit product  -->
@@ -290,6 +308,24 @@
         })
 
        })
+
+
+
+       // For view order =====>
+          $(document).on('click','.view',function(e){
+              e.preventDefault();
+              let id=$(this).data('id');
+              // alert(id);
+              var url = "{{ url('order/view/admin') }}/"+id; // order prefix er jonne admin.php
+              $.ajax({
+                url: url,
+                  type: 'get',
+                  success: function (data) {
+                        $("#view_modal_body").html(data);
+                  }
+              });
+
+        })
        
        
 
@@ -305,21 +341,7 @@
 <script>
 
 
-  //   // For edit modal====>
-  //   $(document).on('click','.edit',function(e){
-  //       e.preventDefault();
-  //       let id=$(this).data('id');
-  //       // alert(id);
-  //       var url = "{{ url('order/admin/edit') }}/"+id; // order prefix er jonne admin.php
-  //       $.ajax({
-  //         url: url,
-  //           type: 'get',
-  //           success: function (data) {
-  //                 $("#modal_body").html(data);
-  //           }
-  //       });
 
-  // })
 
   
 

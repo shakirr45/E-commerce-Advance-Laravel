@@ -108,11 +108,11 @@ class OrderController extends Controller
 
             ->addColumn('action', function($row){
                 $actionbtn= '
-                <a href="#" class="btn btn-primary btn-sm"><i class="fas fa-eye"></i></a>
+                <a href="#" class="btn btn-primary btn-sm view" data-toggle="modal" data-target="#viewModal" data-id="'.$row->id.'"><i class="fas fa-eye"></i></a>
     
-                <a href=""  class="btn btn-info btn-sm edit_order" data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-c_name="'.$row->c_name.'"  data-c_email="'.$row->c_email.'" data-c_address="'.$row->c_address.'" data-c_phone="'.$row->c_phone.'" data-status="'.$row->status.'" ><i class="fas fa-edit"></i></a>
+                <a href="" class="btn btn-info btn-sm edit_order" data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'" data-c_name="'.$row->c_name.'"  data-c_email="'.$row->c_email.'" data-c_address="'.$row->c_address.'" data-c_phone="'.$row->c_phone.'" data-status="'.$row->status.'" ><i class="fas fa-edit"></i></a>
                 
-                <a href="'.route('brand.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
+                <a href="'.route('order.delete',[$row->id]).'" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>';
                 return $actionbtn;
             })
             ->rawColumns(['action','status'])
@@ -125,26 +125,7 @@ class OrderController extends Controller
         return view('admin.order.index');
     }
 
-    // // For order edit ====>
-    // public function EditOrder($id){
-    //     $order = DB::table('orders')->where('id', $id)->first();
-    //     return view('admin.order.edit', compact('order'));
-    // }
 
-    // // For update order status ======>
-    // public function OpdateOrderStatus(Request $request){
-    //     $data = array();
-    //     $data['c_name'] = $request->c_name;
-    //     $data['c_address'] = $request->c_address;
-    //     $data['c_phone'] = $request->c_phone;
-    //     $data['status'] = $request->status;
-
-    //     DB::table('orders')->where('id', $request->id)->update($data);
-    //     return response()->json('Successfully Change Status!');
-    //     // return redirect()->back()->with('success' , 'Successfully Change Status');
-
-
-    // }
 
    // For update order =====>
    public function updateOrder(Request $request) {
@@ -167,8 +148,41 @@ class OrderController extends Controller
      'status' => 'success',
     ]);
 
-}
+    }
+    
+     // For order view======>
+     public function ViewOrder($id){
+        $order = DB::table('orders')->where('id', $id)->first();
+        $order_details = DB::table('order_details')->where('order_id', $id)->get();
+        
+        return view('admin.order.order_details',compact('order','order_details'));
+     }
 
+
+    // For update order status from view======>  etar kaj modal hide hoccilona jonnne modal er html order_details page er karone form baneno lgbe jeta edit er vetor dkhle bojha jabe
+    // public function OpdateOrderStatus(Request $request){
+    //     $data = array();
+    //     $data['c_name'] = $request->c_name;
+    //     $data['c_email'] = $request->c_email;
+    //     $data['c_address'] = $request->c_address;
+    //     $data['c_phone'] = $request->c_phone;
+    //     $data['status'] = $request->status;
+        
+    //     DB::table('orders')->where('id', $request->id)->update($data);
+    //     return response()->json('Successfully Change Status!');
+    //     // return redirect()->back()->with('success' , 'Successfully Change Status');
+
+
+    // }
+
+
+    // For delete order =====>
+    public function destroy($id){
+        $order = DB::table('orders')->where('id', $id)->delete();
+        $order_details = DB::table('order_details')->where('order_id', $id)->delete();
+        return redirect()->back()->with('success' , 'Successfully to delete order');
+
+    }
 
 
 
