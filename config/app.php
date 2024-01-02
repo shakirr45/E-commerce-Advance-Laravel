@@ -171,6 +171,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // For socialite====>
+        Laravel\socialite\SocialiteServiceProvider::class,
+
+
     ])->toArray(),
 
     /*
@@ -188,6 +193,9 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        // For socialite====>
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+
     ])->toArray(),
 
 ];

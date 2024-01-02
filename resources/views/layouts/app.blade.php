@@ -109,6 +109,12 @@
 														<button type="submit" class="btn btn-sm btn-info">login</button>
 													</div>
 												</form>
+
+												<div class="form-group">
+												<a href="" class="btn btn-danger btn-block btn-sm text-white">Login With Google</a>
+												</div>
+
+
 											</div>
 										</ul>
 

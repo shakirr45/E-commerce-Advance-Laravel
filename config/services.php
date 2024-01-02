@@ -31,4 +31,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'clint_id' =>('CLIENT_ID'),
+        'clint_secret' =>('CLIENT_SECRET'),
+        'redirect' =>('APP_URL') . 'oauth/google/callback',
+    ],
+
 ];
