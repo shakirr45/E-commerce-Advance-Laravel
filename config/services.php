@@ -32,9 +32,11 @@ return [
     ],
 
     'google' => [
-        'clint_id' =>('CLIENT_ID'),
-        'clint_secret' =>('CLIENT_SECRET'),
-        'redirect' =>('APP_URL') . 'oauth/google/callback',
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => 'http://localhost/Advance-Ecommerce/auth/google/call-back',
     ],
+
+
 
 ];

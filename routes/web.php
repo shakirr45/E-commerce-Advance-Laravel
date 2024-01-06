@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GoogleAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -180,15 +180,19 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     })->name('cancel');
 
 
-    // Socialite / login with google etc ======>
-    Route::get('oauth/{driver}', 'Auth\LoginController@redirectToProvider')->name('social.oauth');
-    Route::get('oauth/{driver}/callback', 'Auth\LoginController@handelProviderCallback')->name('social.callback');  
-
-
-    
-    
+ 
 
 });
+
+    // Socialite / login with google etc ======>
+    Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+    Route::get('auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
+
+
+
+
+
+
 
 // For remove cart data ====>
 // Route::get('/cart/destroy', function (){

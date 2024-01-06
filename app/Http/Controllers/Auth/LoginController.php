@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+// Socialite ===================>
+
 //for get request ========>
 use Illuminate\Http\Request;
 
@@ -41,6 +43,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+
+
     public function login(Request $request){
         $validated = $request->validate([
             'email' => 'required|email',
@@ -64,4 +68,20 @@ class LoginController extends Controller
     public function adminlogin(){
         return view('auth.admin_login');
     }
+
+
+
+  
+
+
+
+
+    
+
+
+
+
+
+
+
 }

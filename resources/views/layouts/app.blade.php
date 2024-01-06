@@ -111,7 +111,7 @@
 												</form>
 
 												<div class="form-group">
-												<a href="" class="btn btn-danger btn-block btn-sm text-white">Login With Google</a>
+												<a href="{{ route('google-auth') }}" class="btn btn-danger btn-block btn-sm text-white">Login With Google</a>
 												</div>
 
 
