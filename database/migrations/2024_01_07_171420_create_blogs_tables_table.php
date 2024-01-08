@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('blogs_tables', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('blog_category_id');
-            $table->string('shipping_name')->nullable();
-            $table->string('shipping_phone')->nullable();
-            $table->string('shipping_address')->nullable();
-            $table->string('shipping_country')->nullable();
-            $table->string('shipping_city')->nullable();
-            $table->string('shipping_zipcode')->nullable();
-            $table->string('shipping_email')->nullable();
+            $table->string('title')->nullable();
+            $table->string('slug')->nullable();
+            $table->string('publish_date')->nullable();
+            $table->string('description')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('tag')->nullable();
+            $table->integer('status')->nullable();
 
             $table->timestamps();
-            $table->foreign('blog_category_id')->references('id')->on('blog_category_tables_table')->onDelete('cascade');
+            $table->foreign('blog_category_id')->references('id')->on('blog_category_tables')->onDelete('cascade');
 
         });
     }
