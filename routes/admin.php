@@ -218,6 +218,16 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' =>'is_ad
             Route::post('/update', 'BlogController@update')->name('blog.category.update');
         });
 
+
+        // Blog Route-----.
+        Route::group(['prefix' => 'blog'],function(){
+            Route::get('/', 'BlogController@blogindex')->name('admin.blog.index');
+            Route::post('/store', 'BlogController@blogstore')->name('blog.blog.store');
+            Route::get('/edit/{id}', 'BlogController@Blogedit');
+            Route::get('/delete/{id}', 'BlogController@blogdestroy')->name('blog.blog.delete');
+            // Route::post('/update', 'BlogController@update')->name('blog.category.update');
+        });
+
         
 
 

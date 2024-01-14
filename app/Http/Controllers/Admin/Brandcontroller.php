@@ -87,7 +87,6 @@ class Brandcontroller extends Controller
     }
 
     // For delete brand ====>
-
     public function destroy($id){
         $data = DB::table('brands')->where('id',$id)->first();
         $image= $data->brand_logo;

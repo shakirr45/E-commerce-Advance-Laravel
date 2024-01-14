@@ -204,7 +204,7 @@ $setting = DB::table('settings')->first();
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('admin.order.index') }}" class="nav-link">
+                <a href="{{ route('admin.blog.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Blog</p>
                 </a>
