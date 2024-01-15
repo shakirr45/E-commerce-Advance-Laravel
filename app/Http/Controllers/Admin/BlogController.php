@@ -157,13 +157,15 @@ class BlogController extends Controller
             $data = DB::table('blogs_tables')->where('id',$id)->first();
             
 
-            if($image= $data->thumbnail == NULL){
+            if($image= $data->thumbnail){
+
+                if(File::exists($image)){
+                    unlink($image);
+                    }
                 DB::table('blogs_tables')->where('id',$id)->delete();
 
-            }else{
-            if(File::exists($image)){
-            unlink($image);
-            }
+            }elseif($image= $data->thumbnail == NULL){
+
                 DB::table('blogs_tables')->where('id',$id)->delete();
 
             }

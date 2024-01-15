@@ -200,6 +200,19 @@ class IndexController extends Controller
         }
 
 
+        // For contact ===========>
+        public function contact(){
+            return view('frontend.contact');
+        }
+
+        // For blog ===========>
+        public function blog(){
+            return view('frontend.blog');
+        }
+
+
+        
+
         
 
 }

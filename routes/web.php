@@ -180,6 +180,14 @@ Route::group(['namespace' => 'App\Http\Controllers\Front'], function(){
     })->name('cancel');
 
 
+    // For contact ==========>
+    Route::get('/contact-us', 'IndexController@contact')->name('contact');
+
+    // For blog ==========>
+    Route::get('/our-blog', 'IndexController@blog')->name('blog');
+    
+
+
  
 
 });
